@@ -1,21 +1,40 @@
 <?php
 
 require_once '../lib/estClassCurl.php';
+require_once 'ClassModelUserGenerator.php';
 
 Class ClassModelAPIUserGenerator {
     private $url;
     private $curl;
-    private $modelPessoa;
+    private $modelUserGenerator;
     private $response;
 
 
-    public function getDadosPessoa() {
-        $this->setURl('https://randomuser.me/api/?format=JSON');
+    public function __construct() {
+        $this->setURL('https://randomuser.me/api/1.4/?format=JSON&exc=login,dob,registered,nat,id');
+        $this->modelUserGenerator = new ClassModelUserGenerator;
+    }
+
+
+    /**
+     * Este método realiza a requisição a API e retorna os dados da API para o modelUserGenerator.
+     * 
+     */
+    public function getDadosPessoaFromAPI() {
         $this->curl = estClassCurl::curlInit($this->url);
-        estClassCurl::curlReturnTransfer($this->curl);
-        $this->setResponse(estClassCurl::curlExec($this->curl));
+        $this->setResponse(estClassCurl::execCurlReturnTrasnfer($this->curl));
         estClassCurl::curlClose($this->curl);
-        echo $this->response;
+        $this->enviaDadosModelUserGenerator($this->response);
+    }
+
+
+    /**
+     * Este método realiza o envio dos dados da requisição para o modelUserGenerator
+     * 
+     * @param string $jDados
+     */
+    private function enviaDadosModelUserGenerator($jDados) {
+        $this->modelUserGenerator->trataDadosFromRequisicao($jDados);
     }
 
 
@@ -40,6 +59,6 @@ Class ClassModelAPIUserGenerator {
 }
 
 $model = new ClassModelAPIUserGenerator;
-$model->getDadosPessoa();
+$model->getDadosPessoaFromAPI();
 
 ?>

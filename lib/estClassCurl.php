@@ -3,8 +3,21 @@
 /**
  * Classe estática utilizada como um facilitador para requisições cURL
  * com funções prontas para consumos de API.
+ * 
  */
 class estClassCurl {
+
+    /**
+     * Função utilizada para executar o cURL com return transfer.
+     * Esta função já executa e retorna o resultado.
+     * 
+     * @param CurlHandle $curl
+     * @return string
+     */
+    public static function execCurlReturnTrasnfer($curl) {
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+        return curl_exec($curl);
+    }
 
 
     /**
