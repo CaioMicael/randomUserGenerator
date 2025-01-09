@@ -28,17 +28,24 @@ Class ClassModelUserGenerator extends estClassQuery {
      */
     public function trataDadosFromRequisicao($jDados) {
         $this->oDadosRequisicao = json_decode($jDados);
+
         echo '<pre>';
         print_r($this->oDadosRequisicao);
         echo '</pre>';
+
         $this->enviaDadosToModelPais();
         $this->enviaDadosToModelPessoa();
+        
         var_dump($this->aDadosPessoa);
         echo '<br>';
         var_dump($this->aDadosPessoaEndereco);
     }
 
 
+    /**
+     * Esta função envia os dados para o ModelPais inserir no banco.
+     * 
+     */
     private function enviaDadosToModelPais() {
         $this->modelPais->setAttributeModel($this->oDadosRequisicao->results[0]->location->country);
         $this->modelPais->inserePais();
