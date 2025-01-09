@@ -2,15 +2,19 @@
 
 require_once '../lib/estClassQuery.php';
 require_once 'ClassModelPessoa.php';
+require_once 'ClassModelPessoaEndereco.php';
 
 Class ClassModelUserGenerator extends estClassQuery {
     private object $oDadosRequisicao;
     private array $aDadosPessoa = array();
-    private $modelPessoa;
+    private array $aDadosPessoaEndereco = array();
+    private object $modelPessoa;
+    private object $modelPessoaEndereco;
 
 
     public function __construct() {
-        $this->modelPessoa = new ClassModelPessoa;
+        $this->modelPessoa         = new ClassModelPessoa;
+        $this->modelPessoaEndereco = new ClassModelPessoaEndereco;
     }
 
 
@@ -20,43 +24,39 @@ Class ClassModelUserGenerator extends estClassQuery {
      * @param string $jDados
      */
     public function trataDadosFromRequisicao($jDados) {
-        //$this->aDadosRequisicao = json_decode($jDados,true);
         $this->oDadosRequisicao = json_decode($jDados);
         echo '<pre>';
         print_r($this->oDadosRequisicao);
         echo '</pre>';
-        $this->trataDadosToModelPessoa();
+        $this->enviaDadosToModelPessoa();
         $this->trataDadosToModelPessoaEndereco();
         var_dump($this->aDadosPessoa);
+        echo '<br>';
+        var_dump($this->aDadosPessoaEndereco);
     }
 
 
     /**
-     * Esta função alimenta o array de DadosPessoa com os dados da pessoa.
+     * Esta função alimenta o array de dadosPessoaEndereco com os dados de endereço da pessoa.
      * 
      */
-    private function trataDadosToModelPessoa() {
-        array_push($this->aDadosPessoa, $this->oDadosRequisicao->info->seed);
-        array_push($this->aDadosPessoa, $this->oDadosRequisicao->results[0]->gender);
-        array_push($this->aDadosPessoa, $this->oDadosRequisicao->results[0]->name->title . ' ' . $this->oDadosRequisicao->results[0]->name->first . ' ' . $this->oDadosRequisicao->results[0]->name->last);
-        array_push($this->aDadosPessoa, $this->oDadosRequisicao->results[0]->email);
-        array_push($this->aDadosPessoa, $this->oDadosRequisicao->results[0]->phone);
-        array_push($this->aDadosPessoa, $this->oDadosRequisicao->results[0]->cell);
-    }
-
-
     private function trataDadosToModelPessoaEndereco() {
-        
+        array_push($this->aDadosPessoaEndereco, $this->oDadosRequisicao->results[0]->location->street->name);
     }
 
 
     /**
      * Esta função envia os dados para o ModelPessoa inserir no banco.
      * 
-     * @param array $aDadosPessoa
      */
-    private function enviaDadosToModelPessoa($aDadosPessoa) {
-
+    private function enviaDadosToModelPessoa() {
+        $this->modelPessoa->setAttributeModel($this->oDadosRequisicao->info->seed, 
+                                              $this->oDadosRequisicao->results[0]->gender, 
+                                              $this->oDadosRequisicao->results[0]->name->title . ' ' . $this->oDadosRequisicao->results[0]->name->first . ' ' . $this->oDadosRequisicao->results[0]->name->last, 
+                                              $this->oDadosRequisicao->results[0]->email, 
+                                              $this->oDadosRequisicao->results[0]->phone, 
+                                              $this->oDadosRequisicao->results[0]->cell);
+        $this->modelPessoa->inserePessoa();
     }
 
 
