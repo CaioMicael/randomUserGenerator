@@ -3,6 +3,7 @@
 require_once '../lib/estClassQuery.php';
 require_once 'ClassModelPessoa.php';
 require_once 'ClassModelPessoaEndereco.php';
+require_once 'ClassModelPais.php';
 
 Class ClassModelUserGenerator extends estClassQuery {
     private object $oDadosRequisicao;
@@ -10,11 +11,13 @@ Class ClassModelUserGenerator extends estClassQuery {
     private array $aDadosPessoaEndereco = array();
     private object $modelPessoa;
     private object $modelPessoaEndereco;
+    private object $modelPais;
 
 
     public function __construct() {
         $this->modelPessoa         = new ClassModelPessoa;
         $this->modelPessoaEndereco = new ClassModelPessoaEndereco;
+        $this->modelPais           = new ClassModelPais;
     }
 
 
@@ -28,20 +31,17 @@ Class ClassModelUserGenerator extends estClassQuery {
         echo '<pre>';
         print_r($this->oDadosRequisicao);
         echo '</pre>';
+        $this->enviaDadosToModelPais();
         $this->enviaDadosToModelPessoa();
-        $this->trataDadosToModelPessoaEndereco();
         var_dump($this->aDadosPessoa);
         echo '<br>';
         var_dump($this->aDadosPessoaEndereco);
     }
 
 
-    /**
-     * Esta função alimenta o array de dadosPessoaEndereco com os dados de endereço da pessoa.
-     * 
-     */
-    private function trataDadosToModelPessoaEndereco() {
-        array_push($this->aDadosPessoaEndereco, $this->oDadosRequisicao->results[0]->location->street->name);
+    private function enviaDadosToModelPais() {
+        $this->modelPais->setAttributeModel($this->oDadosRequisicao->results[0]->location->country);
+        $this->modelPais->inserePais();
     }
 
 

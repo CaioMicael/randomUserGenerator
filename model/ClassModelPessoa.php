@@ -3,12 +3,12 @@
 require_once '../lib/estClassQuery.php';
 
 class ClassModelPessoa extends estClassQuery {
-    private $seed;
-    private $genero;
-    private $nomePessoa;
-    private $emailPessoa;
-    private $telefonePessoa;
-    private $celularPessoa;
+    private string $seed;
+    private string $genero;
+    private string $nomePessoa;
+    private string $emailPessoa;
+    private string $telefonePessoa;
+    private string $celularPessoa;
 
 
     /**
@@ -36,11 +36,11 @@ class ClassModelPessoa extends estClassQuery {
      * 
      */
     public function inserePessoa() {
-        if ($this->isPessoaJaCadastrada($this->seed)) {
-            echo 'deu algo ruim!';
+        if (!$this->isPessoaJaCadastrada($this->seed)) {
+            echo 'deu boa!';
         }
         else {
-            echo 'deu boa!';
+            echo 'A Pessoa '. $this->nomePessoa . ' já está cadastrada.';
         }
     }
 
@@ -67,6 +67,23 @@ class ClassModelPessoa extends estClassQuery {
         }
 
     }
+
+
+    /**
+     * Este método busca a pessoa pelo seed e retorna os dados da pessoa.
+     * 
+     * @param string $seed
+     * @return array 
+     */
+    public function getPessoaBySeed($seed) {
+        $this->setSql(
+            "SELECT *
+               FROM webbased.tbpessoa
+              WHERE seed = '$seed';"
+        );
+        $result = $this->openFetchAll();
+        return $result;
+    } 
 
 
     public function getSeed() {
