@@ -47,7 +47,7 @@ class ClassModelPais extends estClassQuery {
             );"
         );
         $result = $this->openFetchAll();
-        if ($result == 'true') {
+        if ($result[0]['exists'] == 't') {
             return true;
         }
         else {

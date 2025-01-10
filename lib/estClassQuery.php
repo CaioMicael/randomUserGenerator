@@ -77,6 +77,45 @@ Class estClassQuery {
         return pg_fetch_assoc($this->lastQuery);
     }
 
+
+    /**
+     * Esta função verifica se o registro passado existe no banco de dados. Serve como um facilitador de código.
+     * 
+     * @param string $schema
+     * @param string $table
+     * @param string $column
+     * @param mixed $pk
+     * @param boolean $isString Se a pk for string, enviar como true este parâmetro.
+     *
+     * @return boolean
+     */
+    protected function isRegistroCadastrado($schema, $table, $column, $pk, $isString) {
+        if ($isString == true) {
+            $this->setSql(
+                "SELECT EXISTS (
+                                SELECT *
+                                  FROM $schema.$table
+                                 WHERE $column = '$pk');"
+            );
+        }
+        else if ($isString == false) {
+            $this->setSql(
+                "SELECT EXISTS (
+                                SELECT *
+                                  FROM $schema.$table
+                                 WHERE $column = $pk);"
+            );
+        }
+        $result = $this->openFetchAll();
+        if ($result[0]['exists'] == 't') {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+
+
     public function getSql() {
         return $this->sql;
     }

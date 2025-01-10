@@ -16,12 +16,14 @@ Class ClassModelUserGenerator extends estClassQuery {
     private object $modelPessoa;
     private object $modelPessoaEndereco;
     private object $modelPais;
+    private object $modelEstado;
 
 
     public function __construct() {
         $this->modelPessoa         = new ClassModelPessoa;
         $this->modelPessoaEndereco = new ClassModelPessoaEndereco;
         $this->modelPais           = new ClassModelPais;
+        $this->modelEstado         = new ClassModelEstado;
     }
 
 
@@ -53,6 +55,15 @@ Class ClassModelUserGenerator extends estClassQuery {
     private function enviaDadosToModelPais() {
         $this->modelPais->setAttributeModel($this->oDadosRequisicao->results[0]->location->country);
         $this->modelPais->inserePais();
+    }
+
+
+    /**
+     * Esta função envia os dados para o ModelEstado inserir no banco.
+     * 
+     */
+    private function enviaDadosToModelEstado() {
+        $this->modelEstado->setAttributeModel($this->oDadosRequisicao->results[0]->location->state, $this->modelPais->getNomePais());
     }
 
 
