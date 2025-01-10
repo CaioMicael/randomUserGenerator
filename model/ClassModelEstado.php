@@ -41,19 +41,7 @@ class ClassModelEstado extends estClassQuery {
      * @return boolean
      */
     public function isEstadoCadastrado() {
-        $this->setSql(
-            "SELECT EXISTS (
-                            SELECT *
-                              FROM webbased.tbestado
-                             WHERE estadonome = '$this->estadoNome');"
-        );
-        $result = $this->openFetchAll();
-        if ($result[0]['exists'] == 't') {
-            return true;
-        }
-        else {
-            return false;
-        }
+        return $this->isRegistroCadastrado('webbased','tbestado','estadonome',$this->getEstadoNome(),true);
     }
 
     
@@ -71,9 +59,5 @@ class ClassModelEstado extends estClassQuery {
 
 
 }
-
-$teste = new ClassModelEstado;
-$teste->setAttributeModel('estadoTeste','pais');
-echo $teste->isEstadoCadastrado();
 
 ?>

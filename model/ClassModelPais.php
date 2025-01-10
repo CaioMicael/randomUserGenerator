@@ -39,20 +39,7 @@ class ClassModelPais extends estClassQuery {
      * @return boolean
      */
     private function isCidadeCadastrada($nomePais) {
-        $this->setSql(
-            "SELECT EXISTS (
-                            SELECT 1
-                              FROM webbased.tbpais
-                             WHERE paisnome = '$nomePais'
-            );"
-        );
-        $result = $this->openFetchAll();
-        if ($result[0]['exists'] == 't') {
-            return true;
-        }
-        else {
-            return false;
-        }
+        return $this->isRegistroCadastrado('webbased','tbpais','paisnome',$nomePais,true);
     }
 
 
