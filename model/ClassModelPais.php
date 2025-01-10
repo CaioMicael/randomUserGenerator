@@ -12,11 +12,12 @@ class ClassModelPais extends estClassQuery {
 
     public function setAttributeModel($nomePais) {
         $this->setNomePais($nomePais);
+        $this->setCodigoPaisByNome($this->nomePais);
     }
 
 
     public function inserePais() {
-        if (!$this->isCidadeCadastrada($this->getNomePais())) {
+        if (!$this->isPaisCadastrado($this->getNomePais())) {
             $this->setSql(
                 "INSERT INTO webbased.tbpais 
                  VALUES (nextval('webbased.tbpais_paiscodigo_seq'),$1);"
@@ -33,13 +34,29 @@ class ClassModelPais extends estClassQuery {
 
 
     /**
-     * Esta função verifica se a cidade já está cadastrada no banco de dados.
+     * Esta função verifica se o país já está cadastrado no banco de dados.
      * 
      * @param string $nomePais
      * @return boolean
      */
-    private function isCidadeCadastrada($nomePais) {
+    private function isPaisCadastrado($nomePais) {
         return $this->isRegistroCadastrado('webbased','tbpais','paisnome',$nomePais,true);
+    }
+
+
+    public function setCodigoPaisByNome($nomePais) {
+        if (!$this->isPaisCadastrado($nomePais)) {
+            echo 'Pais não encontrado!';
+        }
+        else if ($this->isPaisCadastrado($nomePais)) {
+            $this->setSql(
+                "SELECT paiscodigo
+                   FROM webbased.tbpais
+                  WHERE paisnome = '$nomePais';"
+            );
+            $result = $this->openFetchAll();
+            $this->setCodigoPais($result[0]);
+        }
     }
 
 
