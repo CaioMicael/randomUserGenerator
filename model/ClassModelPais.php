@@ -1,5 +1,9 @@
 <?php
-require_once '../lib/estClassQuery.php';
+namespace model;
+
+use lib\estClassQuery;
+
+require_once '../autoload.php';
 
 class ClassModelPais extends estClassQuery {
     private int $codigoPais;

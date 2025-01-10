@@ -1,4 +1,7 @@
 <?php
+namespace lib;
+
+require_once '../autoload.php';
 
 class estClassSession {
 

@@ -1,6 +1,9 @@
 <?php
+namespace model;
 
-require_once '../lib/estClassQuery.php';
+use lib\estClassQuery;
+
+require_once '../autoload.php';
 
 class ClassModelPessoa extends estClassQuery {
     private string $seed;

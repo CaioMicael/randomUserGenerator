@@ -1,5 +1,9 @@
 <?php
 
+namespace lib;
+
+use CurlHandle;
+
 /**
  * Classe estática utilizada como um facilitador para requisições cURL
  * com funções prontas para consumos de API.

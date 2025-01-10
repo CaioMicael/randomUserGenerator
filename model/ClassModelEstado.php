@@ -1,4 +1,8 @@
 <?php
+namespace model;
+
+use lib\estClassQuery;
+use model\ClassModelPais;
 
 require_once 'autoload.php';
 

@@ -1,5 +1,9 @@
 <?php
 
+namespace lib;
+
+require_once '../autoload.php';
+
 /**
  * Classe utilizada para realizar a conexão
  * com o banco de dados.

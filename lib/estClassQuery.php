@@ -1,6 +1,11 @@
 <?php
 
-require_once "estClassConexaoBD.php";
+namespace lib;
+
+use lib\estClassConexaoBD;
+use Exception;
+
+require_once '../autoload.php';
 
 /**
  * Classe usada para realizar as querys no

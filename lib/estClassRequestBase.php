@@ -1,5 +1,9 @@
 <?php
 
+namespace lib;
+
+require_once '../autoload.php';
+
 /**
  * Classe usada para recuperar e adicionar informações
  * dentro da variável $_REQUEST. É apenas um facilitador

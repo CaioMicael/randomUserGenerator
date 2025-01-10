@@ -1,9 +1,13 @@
 <?php
 
-require_once '../lib/estClassQuery.php';
-require_once 'ClassModelPessoa.php';
-require_once 'ClassModelPessoaEndereco.php';
-require_once 'ClassModelPais.php';
+namespace model;
+
+use lib\estClassQuery;
+use model\ClassModelPessoa;
+use model\ClassModelPessoaEndereco;
+use model\ClassModelPais;
+
+require_once '../autoload.php';
 
 Class ClassModelUserGenerator extends estClassQuery {
     private object $oDadosRequisicao;

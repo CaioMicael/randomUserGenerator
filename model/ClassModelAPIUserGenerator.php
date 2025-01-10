@@ -1,7 +1,9 @@
 <?php
+namespace model;
+require_once '../autoload.php';
 
-require_once '../lib/estClassCurl.php';
-require_once 'ClassModelUserGenerator.php';
+use lib\estClassCurl;
+use model\ClassModelUserGenerator;
 
 Class ClassModelAPIUserGenerator {
     private $url;
