@@ -30,6 +30,27 @@ class ClassModelCidade extends estClassQuery {
     }
 
 
+    /**
+     * Esta função verifica se a cidade já está cadastrada no banco de dados.
+     * 
+     * @return boolean
+     */
+    private function isCidadeCadastrada() {
+        return $this->isRegistroCadastrado('webbased','tbcidade','cidadecodigo',$this->getCidadeNome(),true);
+    }
+
+
+    private function getQueryCidadeCodigo($column,$filter) {
+        $this->setSql(
+            "SELECT cidadecodigo
+               FROM webbased.tbcidade
+              WHERE $column = $1"
+        );
+        $this->openParams([$filter]);
+        $this->getNextRow();
+    }
+
+
     public function getCidadeCodigo() {
         return $this->cidadeCodigo;
     }

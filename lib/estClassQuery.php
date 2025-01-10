@@ -37,6 +37,26 @@ Class estClassQuery {
         }
     }
 
+
+    /**
+     * Este método realiza a abertura de conexão e execução do SQL por params ($1,$2...).
+     * Necessário setar o SQL e para pegar o resultado usar o getNextRow
+     * 
+     * @param array $aDados
+     */
+    protected function openParams($aDados) {
+        try {
+            $this->conexaoBD->conectaDB();
+            $this->lastQuery = pg_query_params($this->conexaoBD->getInternalConnection() , $this->sql,$aDados);
+            if ($this->lastQuery) {
+                $this->setQuantidadeLinhas(pg_num_rows($this->lastQuery));
+            }
+        } catch (Exception $e) {
+            echo $e;
+        }
+    }
+
+
     /**
      * Este método realiza uma consulta ao banco de dados e realiza pg_fetch_all. Necessário setar o SQL.
      * 
