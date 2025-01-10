@@ -6,16 +6,25 @@ use lib\estClassQuery;
 require_once '../autoload.php';
 
 class ClassModelPais extends estClassQuery {
-    private int $codigoPais;
+    private int    $codigoPais;
     private string $nomePais;
 
 
+    /**
+     * Esta função seta os atributos do model.
+     * 
+     * @param string $nomePais
+     */
     public function setAttributeModel($nomePais) {
         $this->setNomePais($nomePais);
-        $this->setCodigoPaisByNome($this->nomePais);
+        $this->setCodigoPaisByNome($this->getNomePais());
     }
 
 
+    /**
+     * Esta função insere o país no banco de dados.
+     * 
+     */
     public function inserePais() {
         if (!$this->isPaisCadastrado($this->getNomePais())) {
             $this->setSql(
@@ -28,7 +37,7 @@ class ClassModelPais extends estClassQuery {
 
         }
         else {
-            echo 'cidade já cadastrada';
+            echo 'O país ' . $this->getNomePais() . ' já está cadastrado.';
         }
     }
 
@@ -44,18 +53,22 @@ class ClassModelPais extends estClassQuery {
     }
 
 
+    /**
+     * Esta função é utilizada para setar o código do país, procurando o mesmo pelo nome no banco de dados.
+     * Se o país ainda não estiver no banco, ele simplesmente não seta o código no modelo pois ainda não tem um código.
+     * 
+     * @param string $nomePais
+     */
     public function setCodigoPaisByNome($nomePais) {
-        if (!$this->isPaisCadastrado($nomePais)) {
-            echo 'Pais não encontrado!';
-        }
-        else if ($this->isPaisCadastrado($nomePais)) {
+        if ($this->isPaisCadastrado($nomePais)) {
             $this->setSql(
                 "SELECT paiscodigo
                    FROM webbased.tbpais
                   WHERE paisnome = '$nomePais';"
             );
-            $result = $this->openFetchAll();
-            $this->setCodigoPais($result[0]);
+            $this->Open();
+            $result = $this->getNextRow();
+            $this->setCodigoPais($result['paiscodigo']);
         }
     }
 

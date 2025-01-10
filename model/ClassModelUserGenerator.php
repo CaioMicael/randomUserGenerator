@@ -6,17 +6,19 @@ use lib\estClassQuery;
 use model\ClassModelPessoa;
 use model\ClassModelPessoaEndereco;
 use model\ClassModelPais;
+use model\ClassModelCidade;
 
 require_once '../autoload.php';
 
 Class ClassModelUserGenerator extends estClassQuery {
     private object $oDadosRequisicao;
-    private array $aDadosPessoa = array();
-    private array $aDadosPessoaEndereco = array();
+    private array  $aDadosPessoa         = array();
+    private array  $aDadosPessoaEndereco = array();
     private object $modelPessoa;
     private object $modelPessoaEndereco;
     private object $modelPais;
     private object $modelEstado;
+    private object $modelCidade;
 
 
     public function __construct() {
@@ -24,6 +26,7 @@ Class ClassModelUserGenerator extends estClassQuery {
         $this->modelPessoaEndereco = new ClassModelPessoaEndereco;
         $this->modelPais           = new ClassModelPais;
         $this->modelEstado         = new ClassModelEstado;
+        $this->modelCidade         = new ClassModelCidade;
     }
 
 
@@ -40,6 +43,7 @@ Class ClassModelUserGenerator extends estClassQuery {
         echo '</pre>';
 
         $this->enviaDadosToModelPais();
+        $this->enviaDadosToModelEstado();
         $this->enviaDadosToModelPessoa();
         
         var_dump($this->aDadosPessoa);
@@ -55,6 +59,7 @@ Class ClassModelUserGenerator extends estClassQuery {
     private function enviaDadosToModelPais() {
         $this->modelPais->setAttributeModel($this->oDadosRequisicao->results[0]->location->country);
         $this->modelPais->inserePais();
+        $this->modelPais->setCodigoPaisByNome($this->modelPais->getNomePais());
     }
 
 
@@ -63,7 +68,16 @@ Class ClassModelUserGenerator extends estClassQuery {
      * 
      */
     private function enviaDadosToModelEstado() {
-        $this->modelEstado->setAttributeModel($this->oDadosRequisicao->results[0]->location->state, $this->modelPais->getNomePais());
+        $this->modelEstado->setAttributeModel($this->oDadosRequisicao->results[0]->location->state, $this->modelPais->getCodigoPais());
+        $this->modelEstado->insereEstado();
+        $this->modelEstado->setCodigoEstadoByNome($this->modelEstado->getEstadoNome());
+    }
+
+
+    private function enviaDadosToModelCidade() {
+        $this->modelCidade->setAttributeModelCidade();
+        $this->modelCidade->insereCidade();
+        $this->modelCidade->setCodigoCidadeByNome($this->modelCidade->getCidadeNome());
     }
 
 
