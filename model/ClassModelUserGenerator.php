@@ -44,6 +44,7 @@ Class ClassModelUserGenerator extends estClassQuery {
 
         $this->enviaDadosToModelPais();
         $this->enviaDadosToModelEstado();
+        $this->enviaDadosToModelCidade();
         $this->enviaDadosToModelPessoa();
         
         var_dump($this->aDadosPessoa);
@@ -71,13 +72,13 @@ Class ClassModelUserGenerator extends estClassQuery {
         $this->modelEstado->setAttributeModel($this->oDadosRequisicao->results[0]->location->state, $this->modelPais->getCodigoPais());
         $this->modelEstado->insereEstado();
         $this->modelEstado->setCodigoEstadoByNome($this->modelEstado->getEstadoNome());
+        echo $this->modelEstado->getEstadoCodigo();
     }
 
 
     private function enviaDadosToModelCidade() {
-        $this->modelCidade->setAttributeModelCidade();
+        $this->modelCidade->setAttributeModelCidade($this->oDadosRequisicao->results[0]->location->city, $this->modelPais, $this->modelEstado);
         $this->modelCidade->insereCidade();
-        $this->modelCidade->setCodigoCidadeByNome($this->modelCidade->getCidadeNome());
     }
 
 

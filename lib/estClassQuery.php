@@ -82,11 +82,15 @@ Class estClassQuery {
     protected function insertAll($aDados) {
         try {
             $this->conexaoBD->conectaDB();
-            pg_query_params($this->conexaoBD->getInternalConnection() , $this->sql,$aDados);
+            $this->lastQuery = pg_query_params($this->conexaoBD->getInternalConnection() , $this->sql,$aDados);
+            if ($this->lastQuery) {
+                $this->setQuantidadeLinhas(pg_num_rows($this->lastQuery));
+            }
         } catch (Exception $e) {
             echo $e;
         }
     }
+
 
     /**
      * Este método realiza o pg_fetch_assoc do SQL executado no método Open.
