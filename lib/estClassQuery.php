@@ -130,6 +130,37 @@ Class estClassQuery {
     }
 
 
+    protected function isRegistroCadastradoSemPK($schema, $table, $columnDado) {
+        $this->setSql($this->isRegistroCadastradoSemPKQuery($schema, $table, $columnDado));
+        $this->Open();
+        $result = $this->getNextRow();
+        if ($result['exists'] === 't') {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+
+
+    private function isRegistroCadastradoSemPKQuery($schema, $table, $columnDado) {
+        $query = "SELECT EXISTS (
+                                SELECT 1 
+                                  FROM $schema.$table
+                                 WHERE ";
+        foreach ($columnDado as $coluna => $valor) {
+            if (array_key_first($columnDado) == $coluna) {
+                $query = $query. " $coluna = $valor"; 
+            }
+            else {
+                $query = $query. " AND $coluna = $valor";  
+            }
+        }
+        $query = $query.");";
+        return $query;
+    }
+
+
     public function getSql() {
         return $this->sql;
     }

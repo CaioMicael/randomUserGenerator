@@ -6,18 +6,127 @@ use lib\estClassQuery;
 require_once '../autoload.php';
 
 class ClassModelPessoaEndereco extends estClassQuery {
-    private int    $pesenderecocodigo;
+    private int    $pesEnderecoCodigo;
     private string $rua;
-    private int    $numero;
+    private int    $numeroEndereco;
     private string $latitude;
     private string $longitude;
     private object $modelCidade;
     private object $modelPessoa;
 
 
-    public function setAttributeModel() {
-        
+    /**
+     * Este método define os atributos do model.
+     * 
+     * @param string $rua
+     * @param int    $numero
+     * @param string $latitude
+     * @param string $longitude
+     * @param object $modelCidade
+     * @param object $modelPessoa
+     */
+    public function setAttributeModel($rua, $numero, $latitude, $longitude, $modelCidade, $modelPessoa) {
+        $this->setRua($rua);
+        $this->setNumeroEndereco($numero);
+        $this->setLatitude($latitude);
+        $this->setLongitude($longitude);
+        $this->modelCidade = $modelCidade;
+        $this->modelPessoa = $modelPessoa;
     }
+
+
+    /**
+     * Este método insere o endereço da pessoa no banco de dados.
+     * 
+     */
+    public function inserePessoaEndereco() {
+        if (!$this->isEnderecoCadastrado()) {
+            $this->setSql($this->getQueryInsertPessoaEndereco());
+            $this->insertAll([$this->modelCidade->getCidadeCodigo(),
+                              $this->getRua(),
+                              $this->getNumeroEndereco(),
+                              $this->getLatitude(),
+                              $this->getLongitude(),
+                              $this->modelPessoa->getPescodigo()]);
+            $result = $this->getNextRow();
+            if (isset($result['pesenderecocodigo'])) {
+                $this->setPesEnderecoCodigo($result['pesenderecocodigo']);
+            }
+        }
+        else {
+            echo 'erro sql';
+        }
+
+    }
+
+
+    /**
+     * Este método retorna a query de inserção de endereço de pessoa no banco.
+     * 
+     * @return SQL
+     */
+    public function getQueryInsertPessoaEndereco() {
+        return "INSERT INTO webbased.tbpessoaendereco
+                VALUES (nextval('webbased.tbpessoaendereco_pesenderecocodigo_seq'),$1,$2,$3,$4,$5,$6) RETURNING pesenderecocodigo;";
+    }
+
+
+    /**
+     * Este método verifica se o endereço já está cadastrado pela latitude e longitude.
+     * 
+     * @return boolean
+     */
+    private function isEnderecoCadastrado() {
+        $aDados = array (
+            'pesenderecolatitude'  => $this->getLatitude(),
+            'pesenderecolongitude' => $this->getLongitude()
+        );
+        return $this->isRegistroCadastradoSemPK('webbased','tbpessoaendereco',$aDados);
+    }
+
+
+    public function getPesEnderecoCodigo() {
+        return $this->pesEnderecoCodigo;
+    }
+
+    public function getRua() {
+        return $this->rua;
+    }
+
+    public function getNumeroEndereco() {
+        return $this->numeroEndereco;
+    }
+
+    public function getLatitude() {
+        return $this->latitude;
+    }
+
+    public function getLongitude() {
+        return $this->longitude;
+    }
+
+    public function setPesEnderecoCodigo($enderecoCodigo) {
+        $this->pesEnderecoCodigo = $enderecoCodigo;
+    }
+
+    public function setRua($rua) {
+        $this->rua = $rua;
+    }
+
+    public function setNumeroEndereco($numeroEndereco) {
+        $this->numeroEndereco = $numeroEndereco;
+    }
+
+    public function setLatitude($latitude) {
+        $this->latitude = $latitude;
+    }
+
+    public function setLongitude($longitude) {
+        $this->longitude = $longitude;
+    }
+    
+
+
 
 }
 

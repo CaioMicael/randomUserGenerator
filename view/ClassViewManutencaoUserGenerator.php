@@ -44,5 +44,25 @@
           </div>
         </div>
       </nav>
+      <?php
+        $columnDado = array(
+          'pescodigo' => 1,
+          'testecoigo' => 2
+        );
+        $query = "SELECT EXISTS (
+          SELECT 1 
+            FROM aa
+           WHERE ";
+foreach ($columnDado as $coluna => $valor) {
+if (array_key_first($columnDado) == $coluna) {
+$query = $query. " $coluna = $valor"; 
+}
+else {
+$query = $query. " AND $coluna = $valor";  
+}
+}
+$query = $query.");";
+        echo $query;
+      ?>
 </body>
 </html>

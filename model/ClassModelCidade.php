@@ -43,8 +43,8 @@ class ClassModelCidade extends estClassQuery {
         if (!$this->isCidadeCadastrada()) {
             $this->setSql($this->getQueryInsereCidade());
             $this->insertAll([$this->getCidadeNome(),
-                              $this->getEstadoCodigo(),
-                              $this->getPaisCodigo()]);
+                              $this->modelEstado->getEstadoCodigo(),
+                              $this->modelPais->getCodigoPais()]);
             $result = $this->getNextRow();
             if (isset($result['cidadecodigo'])) {
                 $this->setCidadeCodigo($result['cidadecodigo']);
@@ -105,14 +105,6 @@ class ClassModelCidade extends estClassQuery {
 
     public function getCidadeNome() {
         return $this->cidadeNome;
-    }
-
-    public function getEstadoCodigo() {
-        return $this->modelEstado->getEstadoCodigo();
-    }
-
-    public function getPaisCodigo() {
-        return $this->modelPais->getCodigoPais();
     }
 
     public function setCidadeCodigo($cidadeCodigo) {

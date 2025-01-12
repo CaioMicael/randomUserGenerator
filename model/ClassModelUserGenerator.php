@@ -12,8 +12,6 @@ require_once '../autoload.php';
 
 Class ClassModelUserGenerator extends estClassQuery {
     private object $oDadosRequisicao;
-    private array  $aDadosPessoa         = array();
-    private array  $aDadosPessoaEndereco = array();
     private object $modelPessoa;
     private object $modelPessoaEndereco;
     private object $modelPais;
@@ -46,10 +44,7 @@ Class ClassModelUserGenerator extends estClassQuery {
         $this->enviaDadosToModelEstado();
         $this->enviaDadosToModelCidade();
         $this->enviaDadosToModelPessoa();
-        
-        var_dump($this->aDadosPessoa);
-        echo '<br>';
-        var_dump($this->aDadosPessoaEndereco);
+        $this->enviaDadosToModelPessoaEndereco();
     }
 
 
@@ -90,11 +85,22 @@ Class ClassModelUserGenerator extends estClassQuery {
     private function enviaDadosToModelPessoa() {
         $this->modelPessoa->setAttributeModel($this->oDadosRequisicao->info->seed, 
                                               $this->oDadosRequisicao->results[0]->gender, 
-                                              $this->oDadosRequisicao->results[0]->name->title . ' ' . $this->oDadosRequisicao->results[0]->name->first . ' ' . $this->oDadosRequisicao->results[0]->name->last, 
+                                              $this->oDadosRequisicao->results[0]->name->first . ' ' . $this->oDadosRequisicao->results[0]->name->last, 
                                               $this->oDadosRequisicao->results[0]->email, 
                                               $this->oDadosRequisicao->results[0]->phone, 
                                               $this->oDadosRequisicao->results[0]->cell);
         $this->modelPessoa->inserePessoa();
+    }
+
+
+    public function enviaDadosToModelPessoaEndereco() {
+        $this->modelPessoaEndereco->setAttributeModel($this->oDadosRequisicao->results[0]->location->street->name,
+                                                      $this->oDadosRequisicao->results[0]->location->street->number,
+                                                      $this->oDadosRequisicao->results[0]->location->coordinates->latitude,
+                                                      $this->oDadosRequisicao->results[0]->location->coordinates->longitude,
+                                                      $this->modelCidade,
+                                                      $this->modelPessoa);
+        $this->modelPessoaEndereco->inserePessoaEndereco();
     }
 
 
