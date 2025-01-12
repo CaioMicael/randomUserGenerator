@@ -43,7 +43,7 @@ class ClassModelCidade extends estClassQuery {
         if (!$this->isCidadeCadastrada()) {
             $this->setSql(
                 "INSERT INTO webbased.tbcidade
-                  VALUES (nextval(tbcidade_cidadecodigo_seq),$1,$2,$3) RETURNING cidadecodigo;"
+                  VALUES (nextval('webbased.tbcidade_cidadecodigo_seq'),$1,$2,$3) RETURNING cidadecodigo;"
             );
             $aDados = array();
             array_push($aDados,$this->getCidadeNome());
@@ -102,7 +102,7 @@ class ClassModelCidade extends estClassQuery {
     }
 
     public function getPaisCodigo() {
-        return $this->modelPais->getPaisCodigo();
+        return $this->modelPais->getCodigoPais();
     }
 
     public function setCidadeCodigo($cidadeCodigo) {
