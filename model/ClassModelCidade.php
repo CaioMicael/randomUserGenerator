@@ -41,20 +41,18 @@ class ClassModelCidade extends estClassQuery {
      */
     public function insereCidade() {
         if (!$this->isCidadeCadastrada()) {
-            $this->setSql(
-                "INSERT INTO webbased.tbcidade
-                  VALUES (nextval('webbased.tbcidade_cidadecodigo_seq'),$1,$2,$3) RETURNING cidadecodigo;"
-            );
-            $aDados = array();
-            array_push($aDados,$this->getCidadeNome());
-            array_push($aDados,$this->getEstadoCodigo());
-            array_push($aDados,$this->getPaisCodigo());
-            $this->insertAll($aDados);
+            $this->setSql($this->getQueryInsereCidade());
+            $this->insertAll([$this->getCidadeNome(),
+                              $this->getEstadoCodigo(),
+                              $this->getPaisCodigo()]);
             $result = $this->getNextRow();
-            $this->setCidadeCodigo($result['cidadecodigo']);
+            if (isset($result['cidadecodigo'])) {
+                $this->setCidadeCodigo($result['cidadecodigo']);
+            }
 
         }
         else if ($this->isCidadeCadastrada()) {
+            $this->setCidadeCodigo($this->getQueryCidadeCodigo('cidadenome',$this->getCidadeNome()));
             echo 'A cidade ' . $this->getCidadeNome() . ' já está cadastrada!';
         }
     }
@@ -85,7 +83,19 @@ class ClassModelCidade extends estClassQuery {
               WHERE $column = $1"
         );
         $this->openParams([$filter]);
-        return $this->getNextRow();
+        $result = $this->getNextRow();
+        return $result['cidadecodigo'];
+    }
+
+
+    /**
+     * Este método retorna o SQL de inserção de cidade com params
+     * 
+     * @return SQL
+     */
+    private function getQueryInsereCidade() {
+        return "INSERT INTO webbased.tbcidade
+                VALUES (nextval('webbased.tbcidade_cidadecodigo_seq'),$1,$2,$3) RETURNING cidadecodigo;";
     }
 
 

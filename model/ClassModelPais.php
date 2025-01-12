@@ -26,19 +26,15 @@ class ClassModelPais extends estClassQuery {
      */
     public function inserePais() {
         if (!$this->isPaisCadastrado($this->getNomePais())) {
-            $this->setSql(
-                "INSERT INTO webbased.tbpais 
-                 VALUES (nextval('webbased.tbpais_paiscodigo_seq'),$1) RETURNING paiscodigo;"
-            );
-            $aDados = array();
-            array_push($aDados, $this->getNomePais());
-            $this->insertAll($aDados);
+            $this->setSql($this->getQueryInserePais());
+            $this->insertAll([$this->getNomePais()]);
             $result = $this->getNextRow();
             if (isset($result['paiscodigo'])) {
                 $this->setCodigoPais($result['paiscodigo']);
             }
         }
         else {
+            $this->setCodigoPais($this->getQueryCodigoPais('paisnome',$this->getNomePais()));
             echo 'O país ' . $this->getNomePais() . ' já está cadastrado.';
         }
     }
@@ -73,6 +69,36 @@ class ClassModelPais extends estClassQuery {
             $result = $this->getNextRow();
             $this->setCodigoPais($result['paiscodigo']);
         }
+    }
+
+
+    /**
+     * Esta função retorna o código do País, podendo filtrar qualquer parâmetro.
+     * @param string $column
+     * @param mixed  $filter
+     * 
+     * @return int 
+     */
+    private function getQueryCodigoPais($column, $filter) {
+        $this->setSql(
+            "SELECT paiscodigo
+               FROM webbased.tbpais
+              WHERE $column = $1"
+        );
+        $this->openParams([$filter]);
+        $result = $this->getNextRow();
+        return $result['paiscodigo'];
+    }
+
+
+    /**
+     * Este método retorna SQL de inserção no banco do Estado, utiliza query params.
+     * 
+     * @return SQL
+     */
+    private function getQueryInserePais() {
+        return "INSERT INTO webbased.tbpais 
+                VALUES (nextval('webbased.tbpais_paiscodigo_seq'),$1) RETURNING paiscodigo;";
     }
 
 

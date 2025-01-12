@@ -34,20 +34,15 @@ class ClassModelEstado extends estClassQuery {
      */
     public function insereEstado() {
         if (!$this->isEstadoCadastrado()) {
-            $this->setSql(
-                "INSERT INTO webbased.tbestado 
-                 VALUES (nextval('webbased.tbestado_estadocodigo_seq'),$1,$2) RETURNING estadocodigo;"
-            );
-            $aDados = array();
-            array_push($aDados, $this->getCodigoPais());
-            array_push($aDados, $this->getEstadoNome());
-            $this->insertAll($aDados);
+            $this->setSql($this->getQueryInsereEstado());
+            $this->insertAll([$this->getCodigoPais(),$this->getEstadoNome()]);
             $result = $this->getNextRow();
             if (isset($result['estadocodigo'])) {
                 $this->setEstadoCodigo($result['estadocodigo']);
             }
         }
         else if ($this->isEstadoCadastrado()) {
+            $this->setEstadoCodigo($this->getQueryCodigoEstado('estadonome',$this->getEstadoNome()));
             echo 'O Estado ' . $this->getEstadoNome() . ' já está cadastrado!';
         }
     }
@@ -81,6 +76,36 @@ class ClassModelEstado extends estClassQuery {
             $result = $this->getNextRow();
             $this->setEstadoCodigo($result['estadocodigo']);
         }
+    }
+
+
+    /**
+     * Esta função retorna o código do Estado, podendo filtrar qualquer parâmetro.
+     * @param string $column
+     * @param mixed  $filter
+     * 
+     * @return int
+     */
+    public function getQueryCodigoEstado($column, $filter) {
+        $this->setSql(
+            "SELECT estadocodigo
+               FROM webbased.tbestado
+              WHERE $column = $1"
+        );
+        $this->openParams([$filter]);
+        $result = $this->getNextRow();
+        return $result['estadocodigo'];
+    }
+
+
+    /**
+     * Este método retorna SQL de inserção no banco do Estado, utiliza query params.
+     * 
+     * @return SQL
+     */
+    private function getQueryInsereEstado() {
+        return "INSERT INTO webbased.tbestado 
+                VALUES (nextval('webbased.tbestado_estadocodigo_seq'),$1,$2) RETURNING estadocodigo;";
     }
 
     
