@@ -113,15 +113,13 @@ Class estClassQuery {
      * @return boolean
      */
     protected function isRegistroCadastrado($schema, $table, $column, $pk) {
-        $aDados = array();
-        array_push($aDados,$pk);
         $this->setSql (
                 "SELECT EXISTS (
                                 SELECT 1
                                   FROM $schema.$table
                                  WHERE $column = $1);"
         );
-        $this->openParams($aDados);
+        $this->openParams([$pk]);
         $result = $this->getNextRow();
         if ($result['exists'] === 't') {
             return true;

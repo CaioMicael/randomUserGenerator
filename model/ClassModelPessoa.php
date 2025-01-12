@@ -6,6 +6,7 @@ use lib\estClassQuery;
 require_once '../autoload.php';
 
 class ClassModelPessoa extends estClassQuery {
+    private int    $pescodigo;
     private string $seed;
     private string $genero;
     private string $nomePessoa;
@@ -17,6 +18,7 @@ class ClassModelPessoa extends estClassQuery {
     /**
      * Este método seta os atributos do model.
      * 
+     * @param int    $pescodigo
      * @param string $seed
      * @param string $genero
      * @param string $nomePessoa
@@ -40,7 +42,19 @@ class ClassModelPessoa extends estClassQuery {
      */
     public function inserePessoa() {
         if (!$this->isPessoaJaCadastrada($this->seed)) {
-            echo 'deu boa!';
+            $this->setSql($this->getQueryInserePessoa());
+            $this->insertAll([
+                $this->getSeed(),
+                $this->getGenero(),
+                $this->getNomePessoa(),
+                $this->getEmailPessoa(),
+                $this->getTelefonePessoa(),
+                $this->getCelularPessoa()
+            ]);
+            $result = $this->getNextRow();
+            if (isset($result['pescodigo'])) {
+                $this->setPescodigo($result['pescodigo']);
+            }
         }
         else {
             echo 'A Pessoa '. $this->nomePessoa . ' já está cadastrada.';
@@ -55,20 +69,7 @@ class ClassModelPessoa extends estClassQuery {
      * @return boolean
      */
     public function isPessoaJaCadastrada($seed) {
-        $this->setSql(
-            "SELECT EXISTS (
-                            SELECT *
-                              FROM webbased.tbpessoa
-                             WHERE seed = '$seed');"
-        );
-        $result = $this->openFetchAll();
-        if ($result == 'true') {
-            return true;
-        }
-        else {
-            return false;
-        }
-
+        $this->isRegistroCadastrado('webbased','tbpessoa','seed',$seed);
     }
 
 
@@ -86,8 +87,18 @@ class ClassModelPessoa extends estClassQuery {
         );
         $result = $this->openFetchAll();
         return $result;
-    } 
+    }
+    
+    
+    private function getQueryInserePessoa() {
+        return "INSERT INTO webbased.tbpessoa
+                VALUES (nextval('webbased.tbpessoa_pescodigo_seq'),$1,$2,$3,$4,$5,$6) RETURNING pescodigo";
+    }
 
+
+    public function getPescodigo() {
+        return $this->pescodigo;
+    }
 
     public function getSeed() {
         return $this->seed;
@@ -97,7 +108,7 @@ class ClassModelPessoa extends estClassQuery {
         return $this->genero;
     }
 
-    public function getnomePessoa() {
+    public function getNomePessoa() {
         return $this->nomePessoa;
     }
 
@@ -111,6 +122,10 @@ class ClassModelPessoa extends estClassQuery {
 
     public function getCelularPessoa() {
         return $this->celularPessoa;
+    }
+
+    public function setPescodigo($pescodigo) {
+        $this->pescodigo = $pescodigo;
     }
 
     public function setSeed($seed) {
