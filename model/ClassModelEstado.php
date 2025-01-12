@@ -75,7 +75,7 @@ class ClassModelEstado extends estClassQuery {
             );
             $this->Open();
             $result = $this->getNextRow();
-            $this->setCodigoPais($result['estadocodigo']);
+            $this->setEstadoCodigo($result['estadocodigo']);
         }
     }
 
@@ -90,6 +90,10 @@ class ClassModelEstado extends estClassQuery {
 
     public function getCodigoPais() {
         return $this->codigoPais;
+    }
+
+    public function setEstadoCodigo($estadoCodigo) {
+        $this->estadoCodigo = $estadoCodigo;
     }
     
     public function setEstadoNome($estadoNome) {
