@@ -24,7 +24,6 @@ class ClassModelEstado extends estClassQuery {
      */
     public function setAttributeModel($estadoNome, $codigoPais) {
         $this->setEstadoNome($estadoNome);
-        $this->setCodigoEstadoByNome($estadoNome);
         $this->setCodigoPais($codigoPais);
     }
 
@@ -37,12 +36,16 @@ class ClassModelEstado extends estClassQuery {
         if (!$this->isEstadoCadastrado()) {
             $this->setSql(
                 "INSERT INTO webbased.tbestado 
-                 VALUES (nextval('webbased.tbestado_estadocodigo_seq'),$1,$2);"
+                 VALUES (nextval('webbased.tbestado_estadocodigo_seq'),$1,$2) RETURNING estadocodigo;"
             );
             $aDados = array();
             array_push($aDados, $this->getCodigoPais());
             array_push($aDados, $this->getEstadoNome());
             $this->insertAll($aDados);
+            $result = $this->getNextRow();
+            if (isset($result['estadocodigo'])) {
+                $this->setEstadoCodigo($result['estadocodigo']);
+            }
         }
         else if ($this->isEstadoCadastrado()) {
             echo 'O Estado ' . $this->getEstadoNome() . ' já está cadastrado!';
@@ -61,6 +64,7 @@ class ClassModelEstado extends estClassQuery {
 
 
     /**
+     * @deprecated
      * Esta função é utilizada para setar o código do Estado no modelo, procurando o mesmo pelo nome no banco de dados.
      * Se o Estado ainda não estiver no banco, ele simplesmente não seta o código no modelo pois ainda não tem um código.
      * 

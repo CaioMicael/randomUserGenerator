@@ -17,7 +17,6 @@ class ClassModelPais extends estClassQuery {
      */
     public function setAttributeModel($nomePais) {
         $this->setNomePais($nomePais);
-        $this->setCodigoPaisByNome($this->getNomePais());
     }
 
 
@@ -29,12 +28,15 @@ class ClassModelPais extends estClassQuery {
         if (!$this->isPaisCadastrado($this->getNomePais())) {
             $this->setSql(
                 "INSERT INTO webbased.tbpais 
-                 VALUES (nextval('webbased.tbpais_paiscodigo_seq'),$1);"
+                 VALUES (nextval('webbased.tbpais_paiscodigo_seq'),$1) RETURNING paiscodigo;"
             );
             $aDados = array();
             array_push($aDados, $this->getNomePais());
             $this->insertAll($aDados);
-
+            $result = $this->getNextRow();
+            if (isset($result['paiscodigo'])) {
+                $this->setCodigoPais($result['paiscodigo']);
+            }
         }
         else {
             echo 'O país ' . $this->getNomePais() . ' já está cadastrado.';
@@ -54,6 +56,7 @@ class ClassModelPais extends estClassQuery {
 
 
     /**
+     * @deprecated
      * Esta função é utilizada para setar o código do país, procurando o mesmo pelo nome no banco de dados.
      * Se o país ainda não estiver no banco, ele simplesmente não seta o código no modelo pois ainda não tem um código.
      * 
