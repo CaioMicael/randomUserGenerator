@@ -108,30 +108,22 @@ Class estClassQuery {
      * @param string $schema
      * @param string $table
      * @param string $column
-     * @param mixed $pk
-     * @param boolean $isString Se a pk for string, enviar como true este parâmetro.
+     * @param mixed  $pk
      *
      * @return boolean
      */
-    protected function isRegistroCadastrado($schema, $table, $column, $pk, $isString) {
-        if ($isString == true) {
-            $this->setSql(
+    protected function isRegistroCadastrado($schema, $table, $column, $pk) {
+        $aDados = array();
+        array_push($aDados,$pk);
+        $this->setSql (
                 "SELECT EXISTS (
-                                SELECT *
+                                SELECT 1
                                   FROM $schema.$table
-                                 WHERE $column = '$pk');"
-            );
-        }
-        else if ($isString == false) {
-            $this->setSql(
-                "SELECT EXISTS (
-                                SELECT *
-                                  FROM $schema.$table
-                                 WHERE $column = $pk);"
-            );
-        }
-        $result = $this->openFetchAll();
-        if ($result[0]['exists'] == 't') {
+                                 WHERE $column = $1);"
+        );
+        $this->openParams($aDados);
+        $result = $this->getNextRow();
+        if ($result['exists'] === 't') {
             return true;
         }
         else {

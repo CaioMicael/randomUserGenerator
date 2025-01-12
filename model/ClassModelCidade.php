@@ -66,7 +66,7 @@ class ClassModelCidade extends estClassQuery {
      * @return boolean
      */
     private function isCidadeCadastrada() {
-        return $this->isRegistroCadastrado('webbased','tbcidade','cidadenome',$this->getCidadeNome(),true);
+        return $this->isRegistroCadastrado('webbased','tbcidade','cidadenome',$this->getCidadeNome());
     }
 
 

@@ -59,7 +59,7 @@ class ClassModelEstado extends estClassQuery {
      * @return boolean
      */
     public function isEstadoCadastrado() {
-        return $this->isRegistroCadastrado('webbased','tbestado','estadonome',$this->getEstadoNome(),true);
+        return $this->isRegistroCadastrado('webbased','tbestado','estadonome',$this->getEstadoNome());
     }
 
 

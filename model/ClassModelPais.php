@@ -51,7 +51,7 @@ class ClassModelPais extends estClassQuery {
      * @return boolean
      */
     private function isPaisCadastrado($nomePais) {
-        return $this->isRegistroCadastrado('webbased','tbpais','paisnome',$nomePais,true);
+        return $this->isRegistroCadastrado('webbased','tbpais','paisnome',$nomePais);
     }
 
 
