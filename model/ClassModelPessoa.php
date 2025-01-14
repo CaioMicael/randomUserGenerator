@@ -5,6 +5,11 @@ use lib\estClassQuery;
 
 require_once '../autoload.php';
 
+/**
+ * Classe utilizada para tratar dados e consultar dados de pessoas.
+ * 
+ * @author Caio Micael Krieger
+ */
 class ClassModelPessoa extends estClassQuery {
     private int    $pescodigo;
     private string $seed;
@@ -90,9 +95,39 @@ class ClassModelPessoa extends estClassQuery {
     }
     
     
+    /**
+     * Este método retorna o SQL de insert de pessoa.
+     * 
+     * @return SQL
+     */
     private function getQueryInserePessoa() {
         return "INSERT INTO webbased.tbpessoa
                 VALUES (nextval('webbased.tbpessoa_pescodigo_seq'),$1,$2,$3,$4,$5,$6) RETURNING pescodigo";
+    }
+
+
+    /**
+     * Este método retorna um array associativo dos dados de pessoas.
+     * 
+     * @param int $iLimit
+     * @return array
+     */
+    public function getDadosConsultaPessoa($iLimit) {
+        $this->setSql($this->getQueryConsultaPessoa($iLimit));
+        return $this->openFetchAll();
+    }
+
+
+    /**
+     * Este método retorna o SQL pegando todos os dados de pessoa por um limit.
+     * 
+     * @param int $iLimit
+     * @return SQL
+     */
+    private function getQueryConsultaPessoa($iLimit) {
+        return "SELECT *
+                  FROM webbased.tbpessoa
+                 LIMIT $iLimit;";
     }
 
 
