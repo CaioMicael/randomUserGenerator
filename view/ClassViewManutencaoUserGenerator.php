@@ -1,3 +1,21 @@
+<?php
+    namespace view;
+
+    use lib\estClassFactory;
+
+    require_once '../autoload.php';
+
+    class ClassViewManutencaoUserGenerator {
+      
+      public function getConsultaPessoa() {
+        estClassFactory::loadView('ClassViewManutencaoPessoa.php');
+      }
+    }
+
+    $teste = new ClassViewManutencaoUserGenerator;
+    $teste->getConsultaPessoa();
+  ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,9 +28,7 @@
 </head>
 <body>
   <div>
-  <?php
 
-  ?>
   </div>
 </body>
 </html>
