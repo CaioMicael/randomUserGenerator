@@ -16,14 +16,10 @@ class ClassViewManutencaoPessoa extends estClassViewManutencao {
 
 
     public function criaTabelaConsultaDadosPessoa() {
-        return $this->createTable('Consulta Pessoa',$this->controllerPessoa->getDadosConsultaPessoaFromModel());
+        return $this->createTable('Consulta Pessoa',$this->controllerPessoa->getDadosConsultaPessoa());
     }
 }
 
 $teste = new ClassViewManutencaoPessoa;
-echo '<pre>';
-var_dump($teste->controllerPessoa->getDadosConsultaPessoaFromModel());
-echo '</pre>';
-
 echo $teste->criaTabelaConsultaDadosPessoa();
 ?>
