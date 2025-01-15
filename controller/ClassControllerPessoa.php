@@ -2,10 +2,11 @@
 namespace controller;
 
 use model\ClassModelPessoa;
+use lib\estClassController;
 
 require_once '../autoload.php';
 
-class ClassControllerPessoa {
+class ClassControllerPessoa extends estClassController {
     private object $modelPessoa;
 
     public function __construct() {
@@ -30,21 +31,8 @@ class ClassControllerPessoa {
      * @return array
      */
     private function trataDadosConsultaPessoa($aDados) {
-        $mapaChave     = $this->getMapaChaveColunasBD();
-        //var_dump($mapaChave);
-        //echo '<br>';
-        //var_dump($aDados);
-        $aDadosTratado = array();
-        foreach($aDados as $aDadosArray) {
-            $novoRegistro = [];
-
-            foreach($aDadosArray as $chave => $valor) {
-                $novaChave = isset($mapaChave[$chave]) ? $mapaChave[$chave] : $chave;
-                $novoRegistro[$novaChave] = $valor;
-            }
-            $aDadosTratado[] = $novoRegistro;
-        }
-        return $aDadosTratado;
+        $aMapaChave = $this->getMapaChaveColunasBD();
+        return $this->trataDadosConsultaChave($aMapaChave, $aDados);
     }
 
 
