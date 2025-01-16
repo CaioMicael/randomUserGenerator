@@ -13,7 +13,8 @@ class estClassController {
 
     /**
      * Este método é um facilitador, ele trata o retorno do Model 
-     * modificando as chaves do array para nomes que devem aparecer na view.
+     * modificando as chaves do array para nomes que devem aparecer na view 
+     * conforme mapeamento enviado.
      * 
      * @param array $aMapaChave
      * @param array $aDados

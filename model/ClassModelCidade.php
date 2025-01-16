@@ -99,6 +99,39 @@ class ClassModelCidade extends estClassQuery {
     }
 
 
+    /**
+     * Este método retorna um array associativo dos dados de Cidade.
+     * 
+     * @param int $iLimit
+     * @return array
+     */
+    public function getDadosConsultaCidade($iLimit) {
+        $this->setSql($this->getQueryDadosConsultaCidade($iLimit));
+        return $this->openFetchAll();
+    }
+
+
+    /**
+     * Este método retorna query com consulta de cidade.
+     * 
+     * @param int $iLimit
+     * @return SQL
+     */
+    private function getQueryDadosConsultaCidade($iLimit) {
+        return "  SELECT cidadecodigo,
+	                     cidadenome,
+	                     estadonome,
+	                     paisnome
+                    FROM webbased.tbcidade
+                    JOIN webbased.tbestado
+                      ON tbcidade.estadocodigo = tbestado.estadocodigo
+                    JOIN webbased.tbpais
+                      ON tbpais.paiscodigo = tbcidade.paiscodigo
+                ORDER BY cidadecodigo
+                   LIMIT $iLimit";
+    }
+
+
     public function getCidadeCodigo() {
         return $this->cidadeCodigo;
     }
