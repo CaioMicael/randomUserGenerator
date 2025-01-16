@@ -93,6 +93,9 @@ Class ClassModelUserGenerator extends estClassQuery {
     }
 
 
+    /**
+     * Esta função envia os dados para o ModelPessoaEndereco inserir no banco.
+     */
     public function enviaDadosToModelPessoaEndereco() {
         $this->modelPessoaEndereco->setAttributeModel($this->oDadosRequisicao->results[0]->location->street->name,
                                                       $this->oDadosRequisicao->results[0]->location->street->number,

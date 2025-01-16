@@ -60,7 +60,7 @@ Class estClassQuery {
     /**
      * Este método realiza uma consulta ao banco de dados e realiza pg_fetch_all. Necessário setar o SQL.
      * 
-     * 
+     * @return array
      */
     protected function openFetchAll() {
         $this->conexaoBD->conectaDB();
@@ -130,6 +130,15 @@ Class estClassQuery {
     }
 
 
+    /**
+     * Esta função verifica se o registro está cadastrado sem verificar pela PK, 
+     * podendo verificar por qualquer campo.
+     * 
+     * @param string $schema
+     * @param string $table
+     * @param array  $columnDado
+     * @return boolean
+     */
     protected function isRegistroCadastradoSemPK($schema, $table, $columnDado) {
         $this->setSql($this->isRegistroCadastradoSemPKQuery($schema, $table, $columnDado));
         $this->Open();
@@ -143,6 +152,14 @@ Class estClassQuery {
     }
 
 
+    /**
+     * Esta função retorna o SQL para a função isRegistroCadastradoSemPK.
+     * 
+     * @param string $schema
+     * @param string $table
+     * @param array  $columnDado
+     * @return boolean
+     */
     private function isRegistroCadastradoSemPKQuery($schema, $table, $columnDado) {
         $query = "SELECT EXISTS (
                                 SELECT 1 

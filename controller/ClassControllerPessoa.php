@@ -46,6 +46,11 @@ class ClassControllerPessoa extends estClassController {
     }
 
 
+    /**
+     * Esta função realiza o mapeamento entre as chaves do banco e as que devem aparecer na view.
+     * 
+     * @return array
+     */
     public function getMapaChaveColunasBD() {
         return [
             "pescodigo" => "Código Pessoa",

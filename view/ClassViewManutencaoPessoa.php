@@ -15,6 +15,11 @@ class ClassViewManutencaoPessoa extends estClassViewManutencao {
     }
 
 
+    /**
+     * Método responsável por carregar uma tabela com 15 registros de pessoas.
+     * 
+     * @return html
+     */
     public function criaTabelaConsultaDadosPessoa() {
         return $this->createTable('Consulta Pessoa',$this->controllerPessoa->getDadosConsultaPessoa());
     }

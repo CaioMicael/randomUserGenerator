@@ -1,6 +1,11 @@
 <?php
+namespace controller;
 
-class ClassControllerUserGenerator {
+use lib\estClassController;
+
+require_once '../autoload.php';
+
+class ClassControllerUserGenerator extends estClassController {
 
 }
 
