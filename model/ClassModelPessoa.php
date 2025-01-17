@@ -94,17 +94,6 @@ class ClassModelPessoa extends estClassQuery {
         return $result;
     }
     
-    
-    /**
-     * Este método retorna o SQL de insert de pessoa.
-     * 
-     * @return SQL
-     */
-    private function getQueryInserePessoa() {
-        return "INSERT INTO webbased.tbpessoa
-                VALUES (nextval('webbased.tbpessoa_pescodigo_seq'),$1,$2,$3,$4,$5,$6) RETURNING pescodigo";
-    }
-
 
     /**
      * Este método retorna um array associativo dos dados de pessoas.
@@ -115,6 +104,22 @@ class ClassModelPessoa extends estClassQuery {
     public function getDadosConsultaPessoa($iLimit) {
         $this->setSql($this->getQueryConsultaPessoa($iLimit));
         return $this->openFetchAll();
+    }
+
+
+    /*************************************************************************************************************************************************************/
+    /************************************                                        QUERYs                                        ***********************************/
+    /*************************************************************************************************************************************************************/
+
+    
+    /**
+     * Este método retorna o SQL de insert de pessoa.
+     * 
+     * @return SQL
+     */
+    private function getQueryInserePessoa() {
+        return "INSERT INTO webbased.tbpessoa
+                VALUES (nextval('webbased.tbpessoa_pescodigo_seq'),$1,$2,$3,$4,$5,$6) RETURNING pescodigo";
     }
 
 
@@ -131,6 +136,10 @@ class ClassModelPessoa extends estClassQuery {
     }
 
 
+    /**************************************************************************************************************************************************************/
+    /*************************************                           GETTERS E SETTERS DOS ATRIBUTOS                            ***********************************/
+    /**************************************************************************************************************************************************************/ 
+    
     public function getPescodigo() {
         return $this->pescodigo;
     }

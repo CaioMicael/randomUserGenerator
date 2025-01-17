@@ -61,17 +61,6 @@ class ClassModelPessoaEndereco extends estClassQuery {
 
 
     /**
-     * Este método retorna a query de inserção de endereço de pessoa no banco.
-     * 
-     * @return SQL
-     */
-    public function getQueryInsertPessoaEndereco() {
-        return "INSERT INTO webbased.tbpessoaendereco
-                VALUES (nextval('webbased.tbpessoaendereco_pesenderecocodigo_seq'),$1,$2,$3,$4,$5,$6) RETURNING pesenderecocodigo;";
-    }
-
-
-    /**
      * Este método verifica se o endereço já está cadastrado pela latitude e longitude.
      * 
      * @return boolean
@@ -84,6 +73,28 @@ class ClassModelPessoaEndereco extends estClassQuery {
         return $this->isRegistroCadastradoSemPK('webbased','tbpessoaendereco',$aDados);
     }
 
+
+    /*************************************************************************************************************************************************************/
+    /************************************                                        QUERYs                                        ***********************************/
+    /*************************************************************************************************************************************************************/
+
+
+    /**
+     * Este método retorna a query de inserção de endereço de pessoa no banco.
+     * 
+     * @return SQL
+     */
+    public function getQueryInsertPessoaEndereco() {
+        return "INSERT INTO webbased.tbpessoaendereco
+                VALUES (nextval('webbased.tbpessoaendereco_pesenderecocodigo_seq'),$1,$2,$3,$4,$5,$6) RETURNING pesenderecocodigo;";
+    }
+
+
+
+
+    /**************************************************************************************************************************************************************/
+    /*************************************                           GETTERS E SETTERS DOS ATRIBUTOS                            ***********************************/
+    /**************************************************************************************************************************************************************/ 
 
     public function getPesEnderecoCodigo() {
         return $this->pesEnderecoCodigo;
