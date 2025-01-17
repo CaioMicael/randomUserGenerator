@@ -15,11 +15,11 @@ class estClassFactory {
     /**
      * Este método chama a view solicitada e apresenta na view atual.
      * 
-     * @param class $view
+     * @param  string $view
      * @return include
      */
     public static function loadView($view) {
-        include $view;
+        class_exists($view, true);
     }
 
 

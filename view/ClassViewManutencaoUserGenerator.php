@@ -7,13 +7,21 @@
 
     class ClassViewManutencaoUserGenerator {
       
+      
       public function getConsultaPessoa() {
-        estClassFactory::loadView('ClassViewManutencaoPessoa.php');
+        estClassFactory::loadView('view\ClassViewManutencaoPessoa');
       }
+
+
+      public function getConsultaCidade() {
+        estClassFactory::loadView('view\ClassViewManutencaoCidade');
+      }
+
     }
 
     $teste = new ClassViewManutencaoUserGenerator;
     $teste->getConsultaPessoa();
+    $teste->getConsultaCidade();
   ?>
 
 <!DOCTYPE html>
