@@ -12,6 +12,7 @@ class ClassControllerPessoaEndereco extends estClassController {
     private object $controllerPais;
     private object $controllerEstado;
     private object $controllerCidade;
+    private object $controllerPessoa;
 
 
     public function __construct() {
@@ -19,6 +20,7 @@ class ClassControllerPessoaEndereco extends estClassController {
         $this->controllerPais   = new ClassControllerPais;
         $this->controllerCidade = new ClassControllerCidade;
         $this->controllerEstado = new ClassControllerEstado;
+        $this->controllerPessoa = new ClassControllerPessoa;
     }
 
 
@@ -43,7 +45,8 @@ class ClassControllerPessoaEndereco extends estClassController {
         $aMapaChave = array_merge($this->getMapaChaveColunasEndereco(),
                                   $this->controllerPais->getMapaChaveColunasPais(),
                                   $this->controllerEstado->getMapaChaveColunasEstado(),
-                                  $this->controllerCidade->getMapaChaveColunasCidade());
+                                  $this->controllerCidade->getMapaChaveColunasCidade(),
+                                  $this->controllerPessoa->getMapaChaveColunasBD());
         return $this->trataDadosConsultaChave($aMapaChave, $aDados);
     }
 
