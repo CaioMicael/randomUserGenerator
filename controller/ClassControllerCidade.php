@@ -60,7 +60,7 @@ class ClassControllerCidade extends estClassController {
      * 
      * @return array
      */
-    private function getMapaChaveColunasCidade() {
+    public function getMapaChaveColunasCidade() {
         return [
             "cidadecodigo" => "Código da Cidade",
             "cidadenome"   => "Nome da Cidade",

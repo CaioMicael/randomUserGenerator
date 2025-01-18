@@ -74,6 +74,18 @@ class ClassModelPessoaEndereco extends estClassQuery {
     }
 
 
+    /**
+     * Este método retorna os dados da consulta de pessoa endereço.
+     * 
+     * @param int $iLimit
+     * @return array
+     */
+    public function getDadosConsultaEndereco($iLimit) {
+        $this->setSql($this->getQueryConsultaEndereco($iLimit));
+        return $this->openFetchAll();
+    }
+
+
     /*************************************************************************************************************************************************************/
     /************************************                                        QUERYs                                        ***********************************/
     /*************************************************************************************************************************************************************/
