@@ -1,5 +1,6 @@
 <?php
 namespace lib;
+
 require_once '../autoload.php';
 
 class estClassViewManutencao {
@@ -24,6 +25,11 @@ class estClassViewManutencao {
                   <tr>
                     <th colspan=".count(array_keys($aDados[0]))." style='text-align: center';>$sTituloTabela</th>
                   </tr>
+                  <tr>
+                    <td>
+                      ". $this->getAcaoTela([estClassEnumAcoes::INCLUIR, estClassEnumAcoes::ALTERAR, estClassEnumAcoes::EXCLUIR]). "
+                    </td>
+                  </tr>
                 </thead>";
 
       $html .= "<tr>";
@@ -45,6 +51,32 @@ class estClassViewManutencao {
       $html .= "</table>";
     
       return $html;
+    }
+
+
+    /**
+     * Este método pega o Enum de ações repassadas e retorna as
+     * mesmas para inserção em algum componente.
+     * 
+     * @param  array $aAcoes
+     * @return HTML
+     */
+    protected function getAcaoTela($aAcoes) {
+      $result = '';
+      foreach ($aAcoes as $oAcoes) {
+        switch ($oAcoes->value) {
+          case 1:
+            $result = $result.'<button>Incluir</button>';
+            break;
+          case 2:
+            $result = $result.'<button>Alterar</button>';
+            break;
+          case 3:
+            $result = $result.'<button>Excluir</button>';
+            break;
+        }
+      }
+      return $result;
     }
 }
 
