@@ -3,6 +3,7 @@ namespace view;
 
 use controller\ClassControllerEstado;
 use lib\estClassViewManutencao;
+use lib\estClassEnumAcoes;
 
 require_once '../autoload.php';
 
@@ -22,7 +23,7 @@ class ClassViewManutencaoEstado extends estClassViewManutencao {
      * @return HTML
      */
     public function getConsultaEstadoView() {
-        return $this->createTable('Cadastro de Estado', $this->controllerEstado->getDadosConsultaEstadoController());
+        return $this->createTable('Cadastro de Estado', $this->controllerEstado->getDadosConsultaEstadoController(), [estClassEnumAcoes::INCLUIR, estClassEnumAcoes::ALTERAR, estClassEnumAcoes::EXCLUIR]);
     }
 
 }

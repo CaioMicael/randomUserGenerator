@@ -15,7 +15,7 @@ class estClassViewManutencao {
      * @param array  $aDados
      * @return html
      */
-    protected function createTable($sTituloTabela, $aDados) {
+    protected function createTable($sTituloTabela, $aDados, $aAcoes) {
         if (empty($aDados)) {
           return "<p><strong>Nenhum dado disponível para exibição.</strong></p>";
       }
@@ -23,11 +23,11 @@ class estClassViewManutencao {
 
       $html .= "<thead style='font-weight: bold; font-size: 1.2em; margin-bottom: 10px;'>
                   <tr>
-                    <th colspan=".count(array_keys($aDados[0]))." style='text-align: center';>$sTituloTabela</th>
+                    <th colspan=".$this->getQuantidadeColunas($aDados)." style='text-align: center';>$sTituloTabela</th>
                   </tr>
                   <tr>
-                    <td>
-                      ". $this->getAcaoTela([estClassEnumAcoes::INCLUIR, estClassEnumAcoes::ALTERAR, estClassEnumAcoes::EXCLUIR]). "
+                    <td colspan=".$this->getQuantidadeColunas($aDados).">
+                      ". $this->getAcaoTela($aAcoes). "
                     </td>
                   </tr>
                 </thead>";
@@ -78,23 +78,18 @@ class estClassViewManutencao {
       }
       return $result;
     }
-}
 
-/*
-      <table>
-        <thead>
-          <th>teste</th>
-        </thead>
-        <tbody>
-          <tr>
-            <td>teste</td>
-            <td>teste</td>
-          </tr>
-          <tr>
-            <td>teste</td>
-          </tr>
-        </tbody>
-      </table>
-*/      
+
+    /**
+     * Este método retorna a quantidade de chaves de um array associativo,
+     * podendo ser usado para contar quantidade de colunas.
+     * 
+     * @param array $aDados
+     * @return int
+     */
+    protected function getQuantidadeColunas($aDados) {
+      return count(array_keys($aDados[0]));
+    }
+}
 
 ?>

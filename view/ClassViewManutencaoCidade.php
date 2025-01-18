@@ -3,6 +3,7 @@ namespace view;
 
 use controller\ClassControllerCidade;
 use lib\estClassViewManutencao;
+use lib\estClassEnumAcoes;
 
 require_once '../autoload.php';
 
@@ -17,7 +18,7 @@ class ClassViewManutencaoCidade extends estClassViewManutencao {
 
 
     public function criaTabelaConsultaCidade() {
-        return $this->createTable('Cidades Cadastradas', $this->controllerCidade->getDadosConsultaCidadeController());
+        return $this->createTable('Cidades Cadastradas', $this->controllerCidade->getDadosConsultaCidadeController(), [estClassEnumAcoes::INCLUIR, estClassEnumAcoes::ALTERAR, estClassEnumAcoes::EXCLUIR]);
     }
 }
 

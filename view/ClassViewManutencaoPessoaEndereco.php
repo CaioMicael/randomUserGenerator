@@ -3,6 +3,7 @@ namespace view;
 
 use controller\ClassControllerPessoaEndereco;
 use lib\estClassViewManutencao;
+use lib\estClassEnumAcoes;
 
 require_once '../autoload.php';
 
@@ -17,7 +18,7 @@ class ClassViewManutencaoPessoaEndereco extends estClassViewManutencao {
 
 
     public function getConsultaPessoaEnderecoView() {
-        return $this->createTable('Consulta de Endereço de Pessoa', $this->controllerPessoaEndereco->getConsultaEnderecoController());
+        return $this->createTable('Consulta de Endereço de Pessoa', $this->controllerPessoaEndereco->getConsultaEnderecoController(), [estClassEnumAcoes::INCLUIR, estClassEnumAcoes::ALTERAR, estClassEnumAcoes::EXCLUIR]);
     }
 }
 $teste = new ClassViewManutencaoPessoaEndereco;
