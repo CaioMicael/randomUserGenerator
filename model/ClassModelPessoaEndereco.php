@@ -90,6 +90,34 @@ class ClassModelPessoaEndereco extends estClassQuery {
     }
 
 
+    /**
+     * Este método retorna o SQL da consulta de endereços.
+     * 
+     * @param int $iLimit
+     * @return SQL
+     */
+    private function getQueryConsultaEndereco($iLimit) {
+        return "   SELECT tbpessoa.pescodigo,
+	                      pesnome,
+	                      paisnome,
+	                      estadonome,
+	                      cidadenome,
+	                      pesenderecorua,
+	   	                  pesenderonumero,
+	   	                  pesenderecolatitude,
+	                      pesenderecolongitude
+                     FROM webbased.tbpessoaendereco 
+                LEFT JOIN webbased.tbpessoa
+                       ON tbpessoa.pescodigo = tbpessoaendereco.pescodigo
+                LEFT JOIN webbased.tbcidade 
+                       ON tbcidade.cidadecodigo = tbpessoaendereco.cidadecodigo
+                LEFT JOIN webbased.tbestado
+                       ON tbestado.estadocodigo = tbcidade.estadocodigo
+                LEFT JOIN webbased.tbpais 
+                       ON tbpais.paiscodigo = tbcidade.cidadecodigo
+                 ORDER BY tbpessoa.pescodigo
+                    LIMIT $iLimit";
+    }
 
 
     /**************************************************************************************************************************************************************/
