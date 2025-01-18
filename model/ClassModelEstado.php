@@ -79,11 +79,41 @@ class ClassModelEstado extends estClassQuery {
     }
 
 
+    /**
+     * Este método retorna um array associativo com os dados do Estado.
+     * 
+     * @param  int  $iLimit
+     * @return array
+     */
+    public function getDadosConsultaEstado($iLimit) {
+        $this->setSql($this->getQueryConsultaEstado($iLimit));
+        return $this->openFetchAll();
+    }
+
+
     /*************************************************************************************************************************************************************/
     /************************************                                        QUERYs                                        ***********************************/
     /*************************************************************************************************************************************************************/
 
     
+    /**
+     * Este método retorna o SQL de consulta de Estado.
+     * 
+     * @param  int $iLimit
+     * @return SQL
+     */
+    private function getQueryConsultaEstado($iLimit) {
+        return "SELECT estadocodigo,
+                       estadonome,
+                       paisnome
+                  FROM webbased.tbestado
+             LEFT JOIN webbased.tbpais
+                    ON tbpais.paiscodigo = tbestado.paiscodigo
+              ORDER BY estadocodigo
+                 LIMIT $iLimit";
+    }
+
+
     /**
      * Esta função retorna o código do Estado, podendo filtrar qualquer parâmetro.
      * @param string $column
