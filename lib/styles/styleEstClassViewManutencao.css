@@ -1,11 +1,69 @@
-table {
-    border: 1px solid #ddd;
-}
+ table {
+    width: 80%;
+    border-collapse: collapse;
+    margin: 25px 0;
+    font-size: 18px;
+    text-align: left;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    background-color: #ffffff;
+    border-radius: 8px;
+    overflow: hidden;
+  }
 
-tr {
-    border: 1px solid #ddd;
-}
+  thead {
+    background-color: #007bff;
+    color: #ffffff;
+  }
 
-td {
-    border: 1px solid #ddd;
-}
+  th, td {
+    padding: 12px 15px;
+  }
+
+  th {
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+  }
+
+  tr {
+    border-bottom: 1px solid #dddddd;
+  }
+
+  tr:nth-of-type(even) {
+    background-color: #f9f9f9;
+  }
+
+  tr:last-of-type {
+    border-bottom: 2px solid #007bff;
+  }
+
+  tr:hover {
+    background-color: #f1f1f1;
+    cursor: pointer;
+  }
+
+  button {
+    display: inline-block;
+    padding: 10px 20px;
+    margin: 1px;
+    font-size: 16px;
+    font-weight: bold;
+    text-transform: uppercase;
+    text-decoration: none;
+    color: #ffffff;
+    background-color: #007bff;
+    border: none;
+    border-radius: 5px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+  }
+
+  button:hover {
+    background-color: #0056b3;
+    transform: translateY(-2px);
+  }
+
+  button:active {
+    background-color: #004494;
+    transform: translateY(0);
+  }

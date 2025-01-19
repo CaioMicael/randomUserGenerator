@@ -13,20 +13,22 @@ class estClassViewManutencao {
      * @param string $sTituloTabela
      * @param array  $aColunas
      * @param array  $aDados
-     * @return html
+     * @return HTML
      */
     protected function createTable($sTituloTabela, $aDados, $aAcoes) {
         if (empty($aDados)) {
           return "<p><strong>Nenhum dado disponível para exibição.</strong></p>";
       }
-      $html = "<table border='1' cellspacing='0' cellpadding='5' style='border-collapse: collapse;'>";
+      $html = $this->getStyleEstrutural();
+
+      $html .= "<table border='1' cellspacing='0' cellpadding='5' style='border-collapse: collapse;'>";
 
       $html .= "<thead style='font-weight: bold; font-size: 1.2em; margin-bottom: 10px;'>
                   <tr>
-                    <th colspan=".$this->getQuantidadeColunas($aDados)." style='text-align: center';>$sTituloTabela</th>
+                    <th colspan=".$this->getQuantidadeColunas($aDados)+1 ." style='text-align: center';>$sTituloTabela</th>
                   </tr>
                   <tr>
-                    <td colspan=".$this->getQuantidadeColunas($aDados).">
+                    <td colspan=".$this->getQuantidadeColunas($aDados)+1 .">
                       ". $this->getAcaoTela($aAcoes). "
                     </td>
                   </tr>
@@ -34,7 +36,9 @@ class estClassViewManutencao {
 
       $html .= "<tr>";
 
-      foreach (array_keys($aDados[0]) as $chave) {
+      $html .= $this->createColunaTable('');
+
+      foreach (array_keys($aDados[0]) as $chave) {     
           $html .= "<th style='background-color: #f2f2f2; padding: 8px;'>" . htmlspecialchars($chave) . "</th>";
       }
 
@@ -42,6 +46,7 @@ class estClassViewManutencao {
       
       foreach ($aDados as $linha) {
           $html .= "<tr>";
+          $html .= $this->createColunaCheckbox();
           foreach ($linha as $valor) {
               $html .= "<td style='padding: 8px;'>" . htmlspecialchars($valor) . "</td>";
           }
@@ -89,6 +94,35 @@ class estClassViewManutencao {
      */
     protected function getQuantidadeColunas($aDados) {
       return count(array_keys($aDados[0]));
+    }
+
+
+    /**
+     * Este método realiza a criação de uma coluna
+     * de checkbox, para selecionar registros de uma tabela.
+     * 
+     * @return HTML
+     */
+    private function createColunaCheckbox() {
+      return "<td>
+                <input type = 'checkbox'>
+              </td>";
+    }
+
+
+    /**
+     * Este método realiza a criação de uma coluna em um table.
+     * 
+     * @param string $content
+     * @return HTML
+     */
+    private function createColunaTable($content) {
+      return "<th style='background-color: #f2f2f2; padding: 8px;'>$content</th>";
+    }
+
+
+    private function getStyleEstrutural() {
+      return "<link rel='stylesheet' href='../lib/styles/styleEstClassViewManutencao.css'>";
     }
 }
 
