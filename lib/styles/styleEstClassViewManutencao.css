@@ -67,3 +67,27 @@
     background-color: #004494;
     transform: translateY(0);
   }
+
+  .overlayEstMensagem {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Fundo semi-transparente */
+    z-index: 1000; /* Garante que fique acima do conteúdo principal */
+    display: none; /* Inicialmente escondido */
+}
+
+/* Conteúdo principal */
+.contentEstMensagem {
+    position: relative;
+    z-index: 1; /* Fica abaixo do overlay */
+    padding: 20px;
+    text-align: center;
+}
+
+/* Ativando o overlay */
+.overlayEstMensagem.active {
+    display: block;
+}
