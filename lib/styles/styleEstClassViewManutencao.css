@@ -58,7 +58,7 @@
     transition: background-color 0.3s ease, transform 0.2s ease;
   }
 
-  button.disabled {
+  button:disabled {
     display: inline-block;
     padding: 10px 20px;
     margin: 1px;
