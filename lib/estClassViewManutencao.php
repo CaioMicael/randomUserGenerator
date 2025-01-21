@@ -71,13 +71,13 @@ class estClassViewManutencao {
       foreach ($aAcoes as $oAcoes) {
         switch ($oAcoes->value) {
           case 1:
-            $result = $result.'<button>Incluir</button>';
+            $result = $result.'<button class="estButtonIncluir">Incluir</button>';
             break;
           case 2:
-            $result = $result.'<button>Alterar</button>';
+            $result = $result.'<button class="estButtonAlterar" disabled>Alterar</button>';
             break;
           case 3:
-            $result = $result.'<button>Excluir</button>';
+            $result = $result.'<button class="estButtonExcluir" disabled>Excluir</button>';
             break;
         }
       }
@@ -105,7 +105,7 @@ class estClassViewManutencao {
      */
     private function createColunaCheckbox() {
       return "<td>
-                <input type = 'checkbox'>
+                <input class='estCheckboxTable' type = 'checkbox'>
               </td>";
     }
 
