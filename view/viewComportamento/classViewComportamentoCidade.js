@@ -1,9 +1,16 @@
 import { estClassViewComportamento } from '../../lib/estClassViewComportamento.js';
 
 class classViewComportamentoCidade extends estClassViewComportamento {
+    constructor() {
+        super();
+        this.initMensagemListener();
+    }
 
-    constructor(nada) {
-        super('teste');
+    initMensagemListener() {
+        const overlay = document.querySelector('.overlayEstMensagem');
+        if (overlay) {
+            this.setFundoTelaDisabled();
+        }
     }
 
     setFundoTelaDisabled() {
@@ -12,8 +19,7 @@ class classViewComportamentoCidade extends estClassViewComportamento {
 
     setFundoTelaActive() {
         super.setFundoTelaActive();
-    }
-
-}
-var viewComportamentoCidadeInstance = new classViewComportamentoCidade('teste');
-viewComportamentoCidadeInstance.setFundoTelaDisabled();
+    
+    } 
+}  
+new classViewComportamentoCidade;

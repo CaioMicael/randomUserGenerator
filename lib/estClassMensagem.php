@@ -23,10 +23,12 @@ class estClassMensagem {
     public static function geraMensagemAlertaTela($sMensagem) {
         return 
             "<div class='overlayEstMensagem'>
-                <div class ='contentEstMensagem'>
-                    <h1>Alerta</h1>
-                    <p>$sMensagem->value</p>
-                    <button onclick='viewComportamentoCidadeInstance.setFundoTelaActive()'>OK</button>
+                <div class='container-contentEstMensagem'>
+                    <div class ='contentEstMensagem'>
+                        <h1>Alerta</h1>
+                        <p>$sMensagem->value</p>
+                        <button class='estButtonOK'>OK</button>
+                    </div>
                 </div>
              </div>
             ";

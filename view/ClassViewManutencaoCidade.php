@@ -23,9 +23,9 @@ class ClassViewManutencaoCidade extends estClassViewManutencao {
         return $this->createTable('Cidades Cadastradas', $this->controllerCidade->getDadosConsultaCidadeController(), [estClassEnumAcoes::INCLUIR, estClassEnumAcoes::ALTERAR, estClassEnumAcoes::EXCLUIR]);
     }
 }
-echo '<script defer type="module" src="viewComportamento/classViewComportamentoCidade.js"></script>';
 $teste = new ClassViewManutencaoCidade;
 echo $teste->criaTabelaConsultaCidade();
 echo estClassMensagem::geraMensagemAlertaTela(estClassEnumMensagens::webbased001);
+echo '<script type="module" src="viewComportamento/classViewComportamentoCidade.js"></script>';
 
 ?>
