@@ -4,6 +4,8 @@ namespace view;
 use controller\ClassControllerCidade;
 use lib\estClassViewManutencao;
 use lib\estClassEnumAcoes;
+use lib\estClassEnumMensagens;
+use lib\estClassMensagem;
 
 require_once '../autoload.php';
 
@@ -21,8 +23,9 @@ class ClassViewManutencaoCidade extends estClassViewManutencao {
         return $this->createTable('Cidades Cadastradas', $this->controllerCidade->getDadosConsultaCidadeController(), [estClassEnumAcoes::INCLUIR, estClassEnumAcoes::ALTERAR, estClassEnumAcoes::EXCLUIR]);
     }
 }
-
+echo '<script defer type="module" src="viewComportamento/classViewComportamentoCidade.js"></script>';
 $teste = new ClassViewManutencaoCidade;
 echo $teste->criaTabelaConsultaCidade();
+echo estClassMensagem::geraMensagemAlertaTela(estClassEnumMensagens::webbased001);
 
 ?>

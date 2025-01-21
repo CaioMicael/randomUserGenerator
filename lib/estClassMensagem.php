@@ -12,19 +12,23 @@ require_once '../autoload.php';
 class estClassMensagem {
     private string $sMensagem;
 
-    
-    public static function geraMensagemTela($sMensagem) {
+
+    /**
+     * Função utilizada para gerar uma mensagem de
+     * alerta na tela do usuário.
+     * 
+     * @param object $sMensagem
+     * @return HTML
+     */
+    public static function geraMensagemAlertaTela($sMensagem) {
         return 
             "<div class='overlayEstMensagem'>
                 <div class ='contentEstMensagem'>
                     <h1>Alerta</h1>
-                    <p>$sMensagem</p>
-                    <button onclick='toggleOverlayDisabled()'>OK</button>
+                    <p>$sMensagem->value</p>
+                    <button onclick='viewComportamentoCidadeInstance.setFundoTelaActive()'>OK</button>
                 </div>
              </div>
-             <script>
-             toggleOverlay();
-             </script>
             ";
     }
 
