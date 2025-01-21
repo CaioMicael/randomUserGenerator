@@ -23,5 +23,5 @@ class ClassViewManutencaoPessoaEndereco extends estClassViewManutencao {
 }
 $teste = new ClassViewManutencaoPessoaEndereco;
 echo $teste->getConsultaPessoaEnderecoView();
-
+echo '<script type="module" src="viewComportamento/classViewComportamentoPessoaEndereco.js"></script>';
 ?>

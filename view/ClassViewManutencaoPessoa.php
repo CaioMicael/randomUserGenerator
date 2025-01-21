@@ -28,4 +28,5 @@ class ClassViewManutencaoPessoa extends estClassViewManutencao {
 
 $teste = new ClassViewManutencaoPessoa;
 echo $teste->criaTabelaConsultaDadosPessoa();
+echo '<script type="module" src="viewComportamento/classViewComportamentoPessoa.js"></script>';
 ?>
