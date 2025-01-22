@@ -14,14 +14,33 @@ class ClassViewManutencaoPessoaEndereco extends estClassViewManutencao {
 
     public function __construct() {
         $this->controllerPessoaEndereco = new ClassControllerPessoaEndereco;
+        $this->setTituloRotina('Consulta de Endereço de Pessoa');
     }
 
 
-    public function getConsultaPessoaEnderecoView() {
-        return $this->createTable('Consulta de Endereço de Pessoa', $this->controllerPessoaEndereco->getConsultaEnderecoController(), [estClassEnumAcoes::INCLUIR, estClassEnumAcoes::ALTERAR, estClassEnumAcoes::EXCLUIR]);
+    /**
+     * Este método cria uma table HTML com as ações
+     * e os registros do controller.
+     * 
+     * @param array $aAcoes
+     */
+    public function setTableConsultaPessoaEnderecoView($aAcoes) {
+        $this->setTabelaRegistros($this->createTable($this->controllerPessoaEndereco->getConsultaEnderecoController(), $aAcoes));
+    }
+
+
+    /**
+     * Este método retorna a consulta de Endereço completa, com as ações repassadas.
+     * 
+     * @param  array $aAcoes
+     * @return HTML
+     */
+    public function getConsultaPessoaEnderecoView($aAcoes) {
+        $this->setTableConsultaPessoaEnderecoView($aAcoes);
+        return $this->sTabelaRegistrosConsulta;
     }
 }
 $teste = new ClassViewManutencaoPessoaEndereco;
-echo $teste->getConsultaPessoaEnderecoView();
+echo $teste->getConsultaPessoaEnderecoView([estClassEnumAcoes::INCLUIR, estClassEnumAcoes::ALTERAR, estClassEnumAcoes::EXCLUIR]);
 echo '<script type="module" src="viewComportamento/classViewComportamentoPessoaEndereco.js"></script>';
 ?>

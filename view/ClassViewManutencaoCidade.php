@@ -16,15 +16,34 @@ class ClassViewManutencaoCidade extends estClassViewManutencao {
 
     public function __construct() {
         $this->controllerCidade = new ClassControllerCidade;
+        $this->setTituloRotina('Consulta de Cidade');
+    }
+
+    /**
+     * Este método cria uma table HTML com as ações
+     * e os registros do controller.
+     * 
+     * @param array $aAcoes
+     */
+    public function setTableConsultaCidadeView($aAcoes) {
+        $this->setTabelaRegistros($this->createTable($this->controllerCidade->getDadosConsultaCidadeController(), $aAcoes));
     }
 
 
-    public function criaTabelaConsultaCidade() {
-        return $this->createTable('Cidades Cadastradas', $this->controllerCidade->getDadosConsultaCidadeController(), [estClassEnumAcoes::INCLUIR, estClassEnumAcoes::ALTERAR, estClassEnumAcoes::EXCLUIR]);
+    /**
+     * Este método retorna a consulta de Cidade completa, com as ações repassadas.
+     * 
+     * @param  array $aAcoes
+     * @return HTML
+     */
+    public function getConsultaCidadeView($aAcoes) {
+        $this->setTableConsultaCidadeView($aAcoes);
+        return $this->sTabelaRegistrosConsulta;
     }
+
 }
 $teste = new ClassViewManutencaoCidade;
-echo $teste->criaTabelaConsultaCidade();
+echo $teste->getConsultaCidadeView([estClassEnumAcoes::INCLUIR, estClassEnumAcoes::ALTERAR, estClassEnumAcoes::EXCLUIR]);
 echo estClassMensagem::geraMensagemAlertaTela(estClassEnumMensagens::webbased001);
 echo '<script type="module" src="viewComportamento/classViewComportamentoCidade.js"></script>';
 

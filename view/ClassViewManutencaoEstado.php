@@ -14,22 +14,36 @@ class ClassViewManutencaoEstado extends estClassViewManutencao {
 
     public function __construct() {
         $this->controllerEstado = new ClassControllerEstado;
+        $this->setTituloRotina('Consulta de Estado');
     }
 
 
     /**
-     * Este método cria a view de consulta de Estado.
+     * Este método cria uma table HTML com as ações
+     * e os registros do controller.
      * 
+     * @param array $aAcoes
+     */
+    private function setTableConsultaEstadoView($aAcoes) {
+        $this->setTabelaRegistros($this->createTable($this->controllerEstado->getDadosConsultaEstadoController(), $aAcoes));
+    }
+
+
+    /**
+     * Este método retorna a consulta de Estado completa, com as ações repassadas.
+     * 
+     * @param  array $aAcoes
      * @return HTML
      */
-    public function getConsultaEstadoView() {
-        return $this->createTable('Cadastro de Estado', $this->controllerEstado->getDadosConsultaEstadoController(), [estClassEnumAcoes::INCLUIR, estClassEnumAcoes::ALTERAR, estClassEnumAcoes::EXCLUIR]);
+    public function getConsultaEstadoView($aAcoes) {
+        $this->setTableConsultaEstadoView($aAcoes);
+        return $this->sTabelaRegistrosConsulta;
     }
 
 }
 
 $teste = new ClassViewManutencaoEstado;
-echo $teste->getConsultaEstadoView();
+echo $teste->getConsultaEstadoView([estClassEnumAcoes::INCLUIR, estClassEnumAcoes::ALTERAR, estClassEnumAcoes::EXCLUIR]);
 echo '<script type="module" src="viewComportamento/classViewComportamentoEstado.js"></script>';
 
 ?>

@@ -4,6 +4,9 @@ namespace lib;
 require_once '../autoload.php';
 
 class estClassViewManutencao {
+    protected string $sTituloRotina;
+    protected array  $aAcoes;
+    protected string $sTabelaRegistrosConsulta;
     private $html;
 
 
@@ -15,7 +18,7 @@ class estClassViewManutencao {
      * @param array  $aDados
      * @return HTML
      */
-    protected function createTable($sTituloTabela, $aDados, $aAcoes) {
+    protected function createTable($aDados, $aAcoes) {
         if (empty($aDados)) {
           return "<p><strong>Nenhum dado disponível para exibição.</strong></p>";
       }
@@ -23,16 +26,7 @@ class estClassViewManutencao {
 
       $html .= "<table border='1' cellspacing='0' cellpadding='5' style='border-collapse: collapse;'>";
 
-      $html .= "<thead style='font-weight: bold; font-size: 1.2em; margin-bottom: 10px;'>
-                  <tr>
-                    <th colspan=".$this->getQuantidadeColunas($aDados)+1 ." style='text-align: center';>$sTituloTabela</th>
-                  </tr>
-                  <tr>
-                    <td colspan=".$this->getQuantidadeColunas($aDados)+1 .">
-                      ". $this->getAcaoTela($aAcoes). "
-                    </td>
-                  </tr>
-                </thead>";
+      $html .= $this->getTableHead($aDados, $aAcoes);
 
       $html .= "<tr>";
 
@@ -111,6 +105,27 @@ class estClassViewManutencao {
 
 
     /**
+     * Esta função retorna o header da tabela, já colocando as ações passadas.
+     * 
+     * @param array $aDados
+     * @param array $aAcoes
+     * @return HTML
+     */
+    private function getTableHead($aDados, $aAcoes) {
+      return "<thead style='font-weight: bold; font-size: 1.2em; margin-bottom: 10px;'>
+                  <tr>
+                    <th colspan=".$this->getQuantidadeColunas($aDados)+1 ." style='text-align: center';>$this->sTituloRotina</th>
+                  </tr>
+                  <tr>
+                    <td colspan=".$this->getQuantidadeColunas($aDados)+1 .">
+                      ". $this->getAcaoTela($aAcoes). "
+                    </td>
+                  </tr>
+                </thead>";
+    }
+
+
+    /**
      * Este método realiza a criação de uma coluna em um table.
      * 
      * @param string $content
@@ -123,6 +138,36 @@ class estClassViewManutencao {
 
     private function getStyleEstrutural() {
       return "<link rel='stylesheet' href='../lib/styles/styleEstClassViewManutencao.css'>";
+    }
+
+
+    /**************************************************************************************************************************************************************/
+    /*************************************                           GETTERS E SETTERS DOS ATRIBUTOS                            ***********************************/
+    /**************************************************************************************************************************************************************/ 
+
+
+    protected function getTituloRotina() {
+      return $this->sTituloRotina;
+    }
+
+    protected function getAcoes() {
+      return $this->aAcoes;
+    }
+
+    protected function getTabelaRegistros() {
+      return $this->sTabelaRegistrosConsulta;
+    }
+
+    protected function setTituloRotina($titulo) {
+      $this->sTituloRotina = $titulo;
+    }
+
+    protected function setAcoes($aAcoes) {
+      $this->aAcoes = $aAcoes;
+    }
+
+    protected function setTabelaRegistros($tabela) {
+      $this->sTabelaRegistrosConsulta = $tabela;
     }
 }
 

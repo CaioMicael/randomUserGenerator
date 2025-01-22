@@ -13,20 +13,34 @@ class ClassViewManutencaoPessoa extends estClassViewManutencao {
 
     public function __construct() {
         $this->controllerPessoa = new ClassControllerPessoa;
+        $this->setTituloRotina('Consulta de Pessoa');
     }
 
 
     /**
-     * Método responsável por carregar uma tabela com 15 registros de pessoas.
+     * Este método cria uma table HTML com as ações
+     * e os registros do controller.
      * 
-     * @return html
+     * @param array $aAcoes
      */
-    public function criaTabelaConsultaDadosPessoa() {
-        return $this->createTable('Consulta Pessoa',$this->controllerPessoa->getDadosConsultaPessoa(), [estClassEnumAcoes::INCLUIR, estClassEnumAcoes::ALTERAR, estClassEnumAcoes::EXCLUIR]);
+    public function setTableConsultaPessoaView($aAcoes) {
+        $this->setTabelaRegistros($this->createTable($this->controllerPessoa->getDadosConsultaPessoa(), $aAcoes));
+    }
+
+
+    /**
+     * Este método retorna a consulta de Pessoa completa, com as ações repassadas.
+     * 
+     * @param  array $aAcoes
+     * @return HTML
+     */
+    public function getConsultaPessoaView($aAcoes) {
+        $this->setTableConsultaPessoaView($aAcoes);
+        return $this->sTabelaRegistrosConsulta;
     }
 }
 
 $teste = new ClassViewManutencaoPessoa;
-echo $teste->criaTabelaConsultaDadosPessoa();
+echo $teste->getConsultaPessoaView([estClassEnumAcoes::INCLUIR, estClassEnumAcoes::ALTERAR, estClassEnumAcoes::EXCLUIR]);
 echo '<script type="module" src="viewComportamento/classViewComportamentoPessoa.js"></script>';
 ?>
