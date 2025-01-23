@@ -15,6 +15,7 @@ class ClassViewManutencaoEstado extends estClassViewManutencao {
     public function __construct() {
         $this->controllerEstado = new ClassControllerEstado;
         $this->setTituloRotina('Consulta de Estado');
+        $this->setTituloTelaInclusao('Incluir Estado');
     }
 
 

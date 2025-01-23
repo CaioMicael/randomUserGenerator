@@ -7,6 +7,7 @@ class estClassViewManutencao {
     protected string $sTituloRotina;
     protected array  $aAcoes;
     protected string $sTabelaRegistrosConsulta;
+    protected string $sTituloTelaInclusao;
     private $html;
 
 
@@ -141,6 +142,33 @@ class estClassViewManutencao {
     }
 
 
+    private function getTelaInclusao() {
+      return 
+            "<div class='overlayEstMensagem'>
+                <div class='container-contentEstMensagem'>
+                    <div class ='contentEstMensagem'>
+                        <h1>Alerta</h1>
+                        <p></p>
+                        <button class='estButtonOK'>OK</button>
+                    </div>
+                </div>
+             </div>
+            ";
+    }
+
+
+    private function getCampoLabelInclusao($aLabel) {
+      return "<label for='inum'>Número: </label>
+              <input type= id= required>";
+    }
+
+
+    private function getCampoLabelInclusaoString() {
+      return "<label for='inum'>: </label>
+              <input type='text' required>";
+    }
+
+
     /**************************************************************************************************************************************************************/
     /*************************************                           GETTERS E SETTERS DOS ATRIBUTOS                            ***********************************/
     /**************************************************************************************************************************************************************/ 
@@ -158,6 +186,10 @@ class estClassViewManutencao {
       return $this->sTabelaRegistrosConsulta;
     }
 
+    protected function getTituloTelaInclusao() {
+      return $this->sTituloTelaInclusao;
+    }
+
     protected function setTituloRotina($titulo) {
       $this->sTituloRotina = $titulo;
     }
@@ -168,6 +200,10 @@ class estClassViewManutencao {
 
     protected function setTabelaRegistros($tabela) {
       $this->sTabelaRegistrosConsulta = $tabela;
+    }
+
+    protected function setTituloTelaInclusao($titulo) {
+      $this->sTituloTelaInclusao = $titulo;
     }
 }
 
