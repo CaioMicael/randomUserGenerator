@@ -144,11 +144,11 @@ class estClassViewManutencao {
 
     private function getTelaInclusao() {
       return 
-            "<div class='overlayEstMensagem'>
-                <div class='container-contentEstMensagem'>
+            "<div class='overlay'>
+                <div class='container-contentEstInclusao'>
                     <div class ='contentEstMensagem'>
                         <h1>Alerta</h1>
-                        <p></p>
+                        <p>Incluir registro</p>
                         <button class='estButtonOK'>OK</button>
                     </div>
                 </div>

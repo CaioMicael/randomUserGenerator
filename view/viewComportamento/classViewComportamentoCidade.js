@@ -7,19 +7,18 @@ class classViewComportamentoCidade extends estClassViewComportamento {
     }
 
     initMensagemListener() {
-        const overlay = document.querySelector('.overlayEstMensagem');
+        const overlay = document.querySelector('.overlay');
         if (overlay) {
-            this.setFundoTelaDisabled();
+            this.setFundoTelaDisabledAny(overlay);
         }
     }
 
-    setFundoTelaDisabled() {
-        super.setFundoTelaDisabled();
+    setFundoTelaDisabledAny(element) {
+        super.setFundoTelaDisabledAny(element);
     }
-
-    setFundoTelaActive() {
-        super.setFundoTelaActive();
     
-    } 
+    setFundoTelaActiveAny(element) {
+        super.setFundoTelaActiveAny(element);
+    }
 }  
 new classViewComportamentoCidade;

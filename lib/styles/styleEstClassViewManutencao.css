@@ -80,7 +80,7 @@
     transform: translateY(0);
   }
 
-  .overlayEstMensagem {
+  .overlay {
     position: fixed;
     top: 0;
     left: 0;
@@ -92,7 +92,7 @@
 }
 
 /* Conteúdo principal */
-.contentEstMensagem {
+.overlayConteudo {
     position: relative;
     z-index: 1; /* Fica abaixo do overlay */
     padding: 10px;
@@ -100,11 +100,23 @@
 }
 
 /* Ativando o overlay */
-.overlayEstMensagem.active {
+.overlay.active {
     display: block;
 }
 
-.container-contentEstMensagem {
+.container-content {
+  position: absolute;
+  top: 50%; 
+  margin-top: -25px; 
+  left: 50%; 
+  margin-left: -100px; 
+  text-align: center;
+
+  background-color: #f1f1f1;
+  border: 1px solid black;
+}
+
+.container-content-inclusao {
   position: absolute;
   top: 50%; 
   margin-top: -25px; 

@@ -22,9 +22,9 @@ class estClassMensagem {
      */
     public static function geraMensagemAlertaTela($sMensagem) {
         return 
-            "<div class='overlayEstMensagem'>
-                <div class='container-contentEstMensagem'>
-                    <div class ='contentEstMensagem'>
+            "<div class='overlay'>
+                <div class='container-content'>
+                    <div class ='overlayConteudo'>
                         <h1>Alerta</h1>
                         <p>$sMensagem->value</p>
                         <button class='estButtonOK'>OK</button>
