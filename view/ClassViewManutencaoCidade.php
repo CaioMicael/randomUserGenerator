@@ -30,6 +30,11 @@ class ClassViewManutencaoCidade extends estClassViewManutencao {
     }
 
 
+    public function getTelaInclusaoCidade() {
+        return $this->getTelaInclusao();
+    }
+
+
     /**
      * Este método retorna a consulta de Cidade completa, com as ações repassadas.
      * 
@@ -42,9 +47,14 @@ class ClassViewManutencaoCidade extends estClassViewManutencao {
     }
 
 }
-$teste = new ClassViewManutencaoCidade;
-echo $teste->getConsultaCidadeView([estClassEnumAcoes::INCLUIR, estClassEnumAcoes::ALTERAR, estClassEnumAcoes::EXCLUIR]);
-echo estClassMensagem::geraMensagemAlertaTela(estClassEnumMensagens::webbased001);
-echo '<script type="module" src="viewComportamento/classViewComportamentoCidade.js"></script>';
-
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    $teste = new ClassViewManutencaoCidade;
+    return $teste->getTelaInclusaoCidade();
+}
+else {
+    $teste = new ClassViewManutencaoCidade;
+    echo $teste->getConsultaCidadeView([estClassEnumAcoes::INCLUIR, estClassEnumAcoes::ALTERAR, estClassEnumAcoes::EXCLUIR]);
+    echo estClassMensagem::geraMensagemAlertaTela(estClassEnumMensagens::webbased001);
+    echo '<script type="module" src="viewComportamento/classViewComportamentoCidade.js"></script>';
+}
 ?>

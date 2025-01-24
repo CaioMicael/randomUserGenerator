@@ -11,7 +11,21 @@ class classViewComportamentoCidade extends estClassViewComportamento {
         if (overlay) {
             this.setFundoTelaDisabledAny(overlay);
         }
+
+
+        const buttoIncluir = document.querySelector('.estButtonIncluir');
+        if (buttoIncluir) {
+            buttoIncluir.addEventListener('click', () => {
+                this.getTelaInclusaoCidade("../view/ClassViewManutencaoCidade.php")
+            })
+        }
     }
+
+
+    getTelaInclusaoCidade(caminho) {
+        return this.getTelaInclusao(caminho);
+    }
+
 
     setFundoTelaDisabledAny(element) {
         super.setFundoTelaDisabledAny(element);

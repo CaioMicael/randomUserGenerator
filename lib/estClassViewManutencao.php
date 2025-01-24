@@ -142,14 +142,15 @@ class estClassViewManutencao {
     }
 
 
-    private function getTelaInclusao() {
+    protected function getTelaInclusao() {
       return 
             "<div class='overlay'>
-                <div class='container-contentEstInclusao'>
-                    <div class ='contentEstMensagem'>
+                <div class='container-content-inclusao'>
+                    <div class ='overlayConteudo'>
                         <h1>Alerta</h1>
                         <p>Incluir registro</p>
-                        <button class='estButtonOK'>OK</button>
+                        <button class='estButtonIncluir'>Incluir</button>
+                        <button class='estButtonFechar'>Fechar</button>
                     </div>
                 </div>
              </div>
