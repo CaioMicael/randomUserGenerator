@@ -55,7 +55,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET' && isset($_GET['telaInclusaoCidade'])) {
 else {
     $teste = new ClassViewManutencaoCidade;
     echo $teste->getConsultaCidadeView([estClassEnumAcoes::INCLUIR, estClassEnumAcoes::ALTERAR, estClassEnumAcoes::EXCLUIR]);
-    //echo estClassMensagem::geraMensagemAlertaTela(estClassEnumMensagens::webbased001);
+    echo estClassMensagem::geraMensagemAlertaTela(estClassEnumMensagens::webbased001);
     echo '<script type="module" src="viewComportamento/classViewComportamentoCidade.js"></script>';
 }
 ?>

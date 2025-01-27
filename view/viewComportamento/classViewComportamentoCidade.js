@@ -23,6 +23,11 @@ class classViewComportamentoCidade extends estClassViewComportamento {
                     const divResponse = document.createElement("div");
                     divResponse.innerHTML = telaInclusao; 
                     document.body.appendChild(divResponse);
+
+                    const overlay = document.querySelector('.overlay');
+                    this.setFundoTelaDisabledAny(overlay);
+
+                    this.buttonFecharListener();
                 } catch (error) {
                     console.error("Erro ao carregar tela de inclusão: ", error);
                 }
