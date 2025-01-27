@@ -15,38 +15,11 @@ class classViewComportamentoCidade extends estClassViewComportamento {
 
         const buttoIncluir = document.querySelector('.estButtonIncluir');
         if (buttoIncluir) {
+            const caminho = "../view/ClassViewManutencaoCidade.php?telaInclusaoCidade";
             buttoIncluir.addEventListener('click', async () => {
-                try {
-                    const caminho = "../view/ClassViewManutencaoCidade.php?telaInclusaoCidade";
-                    const telaInclusao = await this.getTelaInclusao(caminho);
-    
-                    const divResponse = document.createElement("div");
-                    divResponse.innerHTML = telaInclusao; 
-                    document.body.appendChild(divResponse);
-
-                    const overlay = document.querySelector('.overlay');
-                    this.setFundoTelaDisabledAny(overlay);
-
-                    this.buttonFecharListener();
-                } catch (error) {
-                    console.error("Erro ao carregar tela de inclusão: ", error);
-                }
+                this.doAjaxTelaInclusao(caminho);
             });
         }
-    }
-
-
-    getTelaInclusaoCidade(caminho) {
-        return this.getTelaInclusao(caminho);
-    }
-
-
-    setFundoTelaDisabledAny(element) {
-        super.setFundoTelaDisabledAny(element);
-    }
-    
-    setFundoTelaActiveAny(element) {
-        super.setFundoTelaActiveAny(element);
     }
 }  
 new classViewComportamentoCidade;
