@@ -142,12 +142,18 @@ class estClassViewManutencao {
     }
 
 
-    protected function getTelaInclusao($title) {
+    /**
+     * Este método retorna uma tela de inclusão com os campos repassados
+     * conforme mapeamento.
+     * 
+     * @return HTML
+     */
+    protected function getTelaInclusao() {
       return 
             "<div class='overlay'>
                 <div class='container-content-inclusao'>
                     <div class ='overlayConteudo'>
-                        <h1>$title</h1>
+                        <h1>$this->sTituloTelaInclusao</h1>
                         <p>Incluir registro</p>
                         <button class='estButtonIncluir'>Incluir</button>
                         <button class='estButtonFechar'>Fechar</button>
