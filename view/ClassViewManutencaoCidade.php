@@ -18,6 +18,7 @@ class ClassViewManutencaoCidade extends estClassViewManutencao {
     public function __construct() {
         $this->controllerCidade = new ClassControllerCidade;
         $this->setTituloRotina('Consulta de Cidade');
+        $this->setTituloTelaInclusao('Incluir Cidade');
     }
 
     /**
@@ -32,7 +33,7 @@ class ClassViewManutencaoCidade extends estClassViewManutencao {
 
 
     public function getTelaInclusaoCidade() {
-        return $this->getTelaInclusao();
+        return $this->getTelaInclusao($this->sTituloTelaInclusao);
     }
 
 
