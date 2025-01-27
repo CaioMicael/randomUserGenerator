@@ -148,25 +148,28 @@ class estClassViewManutencao {
      * 
      * @return HTML
      */
-    protected function getTelaInclusao() {
-      return 
-            "<div class='overlay'>
+    protected function getTelaInclusao($aMapaCampos) {
+       $html = "<div class='overlay'>
                 <div class='container-content-inclusao'>
                     <div class ='overlayConteudo'>
                         <h1>$this->sTituloTelaInclusao</h1>
-                        <p>Incluir registro</p>
-                        <button class='estButtonIncluir'>Incluir</button>
+                        <p>Incluir registro</p>";
+                        foreach ($aMapaCampos as $chave=>$valor) {
+                            $html .= $this->getCampoLabelInclusao($valor);
+                        }
+                        $html .= "<button class='estButtonIncluir'>Incluir</button>
                         <button class='estButtonFechar'>Fechar</button>
                     </div>
                 </div>
              </div>
             ";
+      return $html;
     }
 
 
-    private function getCampoLabelInclusao($aLabel) {
-      return "<label for='inum'>Número: </label>
-              <input type= id= required>";
+    private function getCampoLabelInclusao($sNomeLabel) {
+      return "<label for='inum'>$sNomeLabel</label>
+              <input type='text' id= required>";
     }
 
 
