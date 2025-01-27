@@ -6,6 +6,7 @@ use lib\estClassViewManutencao;
 use lib\estClassEnumAcoes;
 use lib\estClassEnumMensagens;
 use lib\estClassMensagem;
+use lib\estClassRequestBase;
 
 require_once '../autoload.php';
 
@@ -47,14 +48,14 @@ class ClassViewManutencaoCidade extends estClassViewManutencao {
     }
 
 }
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+if ($_SERVER['REQUEST_METHOD'] == 'GET' && isset($_GET['telaInclusaoCidade'])) {
     $teste = new ClassViewManutencaoCidade;
-    return $teste->getTelaInclusaoCidade();
+    echo $teste->getTelaInclusaoCidade();
 }
 else {
     $teste = new ClassViewManutencaoCidade;
     echo $teste->getConsultaCidadeView([estClassEnumAcoes::INCLUIR, estClassEnumAcoes::ALTERAR, estClassEnumAcoes::EXCLUIR]);
-    echo estClassMensagem::geraMensagemAlertaTela(estClassEnumMensagens::webbased001);
+    //echo estClassMensagem::geraMensagemAlertaTela(estClassEnumMensagens::webbased001);
     echo '<script type="module" src="viewComportamento/classViewComportamentoCidade.js"></script>';
 }
 ?>

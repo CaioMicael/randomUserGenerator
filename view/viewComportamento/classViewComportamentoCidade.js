@@ -15,9 +15,18 @@ class classViewComportamentoCidade extends estClassViewComportamento {
 
         const buttoIncluir = document.querySelector('.estButtonIncluir');
         if (buttoIncluir) {
-            buttoIncluir.addEventListener('click', () => {
-                this.getTelaInclusaoCidade("../view/ClassViewManutencaoCidade.php")
-            })
+            buttoIncluir.addEventListener('click', async () => {
+                try {
+                    const caminho = "../view/ClassViewManutencaoCidade.php?telaInclusaoCidade";
+                    const telaInclusao = await this.getTelaInclusao(caminho);
+    
+                    const divResponse = document.createElement("div");
+                    divResponse.innerHTML = telaInclusao; 
+                    document.body.appendChild(divResponse);
+                } catch (error) {
+                    console.error("Erro ao carregar tela de inclusão: ", error);
+                }
+            });
         }
     }
 
