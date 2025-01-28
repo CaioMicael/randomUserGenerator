@@ -152,21 +152,46 @@ class estClassViewManutencao {
        $html = "<div class='overlay'>
                 <div class='container-content-inclusao'>
                     <div class ='overlayConteudo'>
-                        <div class ='overlay-header'>
-                          <h1>$this->sTituloTelaInclusao</h1>
-                        </div>";
+                        <div class ='overlay-header'>";
+                        $html .= $this->getHeaderJanela($this->getTituloTelaInclusao());
+                        $html .= "</div>";
                         foreach ($aMapaCampos as $chave=>$valor) {
                             $html .= $this->getCampoLabelInclusao($valor);
                         }
-                        $html .= "<div class = 'overlay-buttons'>
-                                    <button class='estButtonIncluir'>Incluir</button>
-                                    <button class='estButtonFechar'>Fechar</button>
-                                  </div>
-                    </div>
+                        $html .= $this->getFooterBotoesJanelaInclusao();
+                    $html .= "</div>
                 </div>
              </div>
             ";
       return $html;
+    }
+
+
+    /**
+     * Este método retorna o footer de uma janela de inclusão
+     * com botões de fechar e incluir.
+     * 
+     * @return HTML
+     */
+    private function getFooterBotoesJanelaInclusao() {
+      return "<footer class = 'overlay-buttons'>
+                <button class='estButtonIncluir'>Incluir</button>
+                <button class='estButtonFechar'>Fechar</button>
+              </footer>";
+    }
+
+
+    /**
+     * Esta função retorna um header HTML com o titulo repassado no parâmetro.
+     * 
+     * @param string $sTituloJanela
+     * @return HTML
+     */
+    private function getHeaderJanela($sTituloJanela) {
+      return 
+        "<header>
+          <h2>$sTituloJanela</h2>
+        </header>";
     }
 
 
