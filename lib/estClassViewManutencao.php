@@ -174,10 +174,12 @@ class estClassViewManutencao {
      * @return HTML
      */
     private function getFooterBotoesJanelaInclusao() {
-      return "<footer class = 'overlay-buttons'>
-                <button class='estButtonIncluir'>Incluir</button>
-                <button class='estButtonFechar'>Fechar</button>
-              </footer>";
+      return "<div class = 'overlay-footer'>
+                <footer class = 'overlay-buttons'>
+                  <button class='estButtonIncluir'>Incluir</button>
+                  <button class='estButtonFechar'>Fechar</button>
+                </footer>
+              </div>";
     }
 
 

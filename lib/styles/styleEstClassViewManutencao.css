@@ -1,5 +1,6 @@
 :root {
   --primary-color: #007bff;
+  --background-color: #b4b7bb;
 }
 
 table {
@@ -42,7 +43,7 @@ tr:last-of-type {
 
 button {
   display: inline-block;
-  padding: 10px 20px;
+  padding: 5px 10px;
   margin: 1px;
   font-size: 16px;
   font-weight: bold;
@@ -59,7 +60,7 @@ button {
 
 button:disabled {
   display: inline-block;
-  padding: 10px 20px;
+  padding: 5px 10px;
   margin: 1px;
   font-size: 16px;
   font-weight: bold;
@@ -85,8 +86,6 @@ button:active {
 }
 
 .overlay {
-    display: flex;
-    flex-direction: column;
     position: fixed;
     top: 0;
     left: 0;
@@ -115,11 +114,6 @@ button:active {
 }
 
 .container-content {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
   position: absolute;
   top: 30%; 
   margin-top: -25px; 
@@ -135,14 +129,13 @@ button:active {
 
 .container-content-inclusao {
   display: flex;
-  flex-direction: row;
   align-items: center;
   justify-content: center;
   flex-direction: column;
   position: absolute;
   top: 30%; 
   margin-top: -25px; 
-  left: 50%; 
+  left: 40%; 
   margin-left: -100px; 
   text-align: center;
 
@@ -154,18 +147,33 @@ button:active {
 .overlay-buttons {
   display: flex;
   flex-direction: row;
-  padding-top: 10px;
 }
 
 .overlay-header {
   display: flex;
   justify-content: flex-start;
   align-items: flex-start;
-  width: 100%;
-  height: auto;
+  width: 500px;
+  height: 50px;
+  
   
   background-color: var(--primary-color);
+  color: #ffffff;
   border: 1px solid black;
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
+}
+
+.overlay-footer {
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  width: 500px;
+  height: 30px;
+  margin-top: 10px;
+
+  color: #ffffff;
+  border: 1px solid black;
+  border-bottom-right-radius: 10px;
+  border-bottom-left-radius:  10px;
 }
