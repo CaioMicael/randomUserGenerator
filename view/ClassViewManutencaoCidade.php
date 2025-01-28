@@ -39,7 +39,7 @@ class ClassViewManutencaoCidade extends estClassViewManutencao {
      * @return HTML
      */
     public function getTelaInclusaoCidade() {
-        return $this->getTelaInclusao($this->controllerCidade->getMapaChaveColunasCidade());
+        return $this->getTelaInclusao($this->controllerCidade->getTipagemCamposCidadeToHtml());
     }
 
 

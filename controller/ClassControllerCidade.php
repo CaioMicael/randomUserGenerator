@@ -69,6 +69,38 @@ class ClassControllerCidade extends estClassController {
         ];
     }
 
+
+    /**
+     * Este método contém um array com o mapeamento das colunas
+     * que devem aparecer na view com suas devidas tipagens.
+     * 
+     * @return array
+     */
+    public function getTipagemColunasCidade() {
+        return [
+            "Código da Cidade" => "int",
+            "Nome da Cidade"   => "string",
+            "Código do Estado" => "int",
+            "Código do País"   => "int"
+        ];
+    }
+
+
+    /**
+     * Este método retorna um array com as tipagens
+     * do nome da coluna e o type HTML
+     * 
+     * @return array
+     */
+    public function getTipagemCamposCidadeToHtml() {
+        return [
+            "Código da Cidade" => ["name" => "cidade.codigo","type"   => "number", "disabled" => "disabled"],
+            "Nome da Cidade"   => ["name" => "cidade.nome"  ,"type"   => "text"  , "disabled" => ""],
+            "Código do Estado" => ["name" => "estado.codigo","type"   => "number", "disabled" => ""],
+            "Código do País"   => ["name" => "pais.codigo"  ,"type"   => "number", "disabled" => ""]            
+        ];
+    }
+
 }
 
 

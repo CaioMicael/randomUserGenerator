@@ -148,21 +148,30 @@ class estClassViewManutencao {
      * @param array $aMapaCampos
      * @return HTML
      */
-    protected function getTelaInclusao($aMapaCampos) {
+    protected function getTelaInclusao($aTipagemLabel) {
        $html = "<div class='overlay'>
                 <div class='container-content-inclusao'>
                     <div class ='overlayConteudo'>
                         <div class ='overlay-header'>";
                         $html .= $this->getHeaderJanela($this->getTituloTelaInclusao());
                         $html .= "</div>";
-                        foreach ($aMapaCampos as $chave=>$valor) {
-                            $html .= $this->getCampoLabelInclusao($valor);
-                        }
+                        $html .= $this->addLabelInclusao($aTipagemLabel);
                         $html .= $this->getFooterBotoesJanelaInclusao();
                     $html .= "</div>
                 </div>
              </div>
             ";
+      return $html;
+    }
+
+
+    private function addLabelInclusao($aTipagemLabel) {
+      $html = '';
+      foreach ($aTipagemLabel as $sNomeLabel=>$aTipagem) {
+        $html .= $this->getCampoLabelInclusao($sNomeLabel,$aTipagem['type'], 
+                                              $aTipagem['name'],
+                                              $aTipagem['disabled']);
+      }
       return $html;
     }
 
@@ -197,15 +206,19 @@ class estClassViewManutencao {
     }
 
 
-    private function getCampoLabelInclusao($sNomeLabel) {
-      return "<label for='inum'>$sNomeLabel</label>
-              <input type='text' id= required>";
-    }
-
-
-    private function getCampoLabelInclusaoString() {
-      return "<label for='inum'>: </label>
-              <input type='text' required>";
+    /**
+     * Este método realiza a criação de uma label
+     * com um input, conforme parâmetros repassados.
+     * 
+     * @param string $sNomeLabel
+     * @param string $sTipagem
+     * @param string $sNameInput
+     * @param string $sDisabled
+     * @return HTML
+     */
+    private function getCampoLabelInclusao($sNomeLabel, $sTipagem, $sNameInput, $sDisabled) {
+      return "<label for=''>$sNomeLabel</label>
+              <input type='$sTipagem' name='$sNameInput' $sDisabled>";
     }
 
 
