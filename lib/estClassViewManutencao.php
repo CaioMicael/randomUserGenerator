@@ -145,20 +145,23 @@ class estClassViewManutencao {
     /**
      * Este método retorna uma tela de inclusão com os campos repassados
      * conforme mapeamento.
-     * 
+     * @param array $aMapaCampos
      * @return HTML
      */
     protected function getTelaInclusao($aMapaCampos) {
        $html = "<div class='overlay'>
                 <div class='container-content-inclusao'>
                     <div class ='overlayConteudo'>
-                        <h1>$this->sTituloTelaInclusao</h1>
-                        <p>Incluir registro</p>";
+                        <div class ='overlay-header'>
+                          <h1>$this->sTituloTelaInclusao</h1>
+                        </div>";
                         foreach ($aMapaCampos as $chave=>$valor) {
                             $html .= $this->getCampoLabelInclusao($valor);
                         }
-                        $html .= "<button class='estButtonIncluir'>Incluir</button>
-                        <button class='estButtonFechar'>Fechar</button>
+                        $html .= "<div class = 'overlay-buttons'>
+                                    <button class='estButtonIncluir'>Incluir</button>
+                                    <button class='estButtonFechar'>Fechar</button>
+                                  </div>
                     </div>
                 </div>
              </div>
