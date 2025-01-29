@@ -15,9 +15,11 @@ class classViewComportamentoCidade extends estClassViewComportamento {
 
         const buttoIncluir = document.querySelector('.estButtonIncluir');
         if (buttoIncluir) {
-            const caminho = "../view/ClassViewManutencaoCidade.php?telaInclusaoCidade";
+            const caminho = "../lib/estClassFormulario.php?Controller=Cidade&Acao=1";
+            const dados   = 'Cidade';
+
             buttoIncluir.addEventListener('click', async () => {
-                this.doAjaxTelaInclusao(caminho);
+                this.doAjaxTelaInclusao(caminho,dados);
             });
         }
     }
