@@ -2,7 +2,6 @@
 namespace lib;
 require_once '../autoload.php';
 
-use lib\estClassRequestBase;
 use Exception;
 use ReflectionMethod;
 
