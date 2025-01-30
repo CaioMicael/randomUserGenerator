@@ -41,23 +41,15 @@ class estClassFormulario {
     /**
      * Este método retorna o nome do método que deve ser chamado 
      * pela função callController. Vai pegar o código da ação
-     * e achar qual nome da função de acordo com a ação repassada.
+     * e montar o nome da função de acordo com a ação repassada.
      * 
      * @param int $iAcao
      * @return string
      */
     private function getMetodoByAcao($iAcao, $sNameController) {
-        switch ($iAcao) {
-            case 1:
-              return 'getTelaInclusao'.$sNameController.'FromView';
-              break;
-            case 2:
-              return 'getTelaAlteracao'.$sNameController;
-              break;
-            case 3:
-              return 'getTelaExclusao'.$sNameController;
-              break;
-          }
+        $oAcaoTratada = estClassEnumAcoes::tryFrom($iAcao);
+        $sAcaoTratada = mb_convert_case($oAcaoTratada->name, MB_CASE_TITLE, "UTF-8");
+        return 'getTela'.$sAcaoTratada.$sNameController.'FromView';
     }
 
 

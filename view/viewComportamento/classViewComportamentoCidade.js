@@ -2,7 +2,7 @@ import { estClassViewComportamento } from '../../lib/estClassViewComportamento.j
 
 class classViewComportamentoCidade extends estClassViewComportamento {
     constructor() {
-        super();
+        super("../lib/estClassFormulario.php?Controller=Cidade&Acao=4", "Cidade");
         this.initMensagemListener();
     }
 
@@ -10,17 +10,6 @@ class classViewComportamentoCidade extends estClassViewComportamento {
         const overlay = document.querySelector('.overlay');
         if (overlay) {
             this.setFundoTelaDisabledAny(overlay);
-        }
-
-
-        const buttoIncluir = document.querySelector('.estButtonIncluir');
-        if (buttoIncluir) {
-            const caminho = "../lib/estClassFormulario.php?Controller=Cidade&Acao=1";
-            const dados   = 'Cidade';
-
-            buttoIncluir.addEventListener('click', async () => {
-                this.doAjaxTelaInclusao(caminho,dados);
-            });
         }
     }
 }  

@@ -37,7 +37,7 @@ class ClassViewManutencaoCidade extends estClassViewManutencao {
      * 
      * @return HTML
      */
-    public function getTelaInclusaoCidade() {
+    public function getTelaIncluirCidade() {
         return $this->getTelaInclusao($this->controllerCidade->getTipagemCamposCidadeToHtml());
     }
 
@@ -54,9 +54,6 @@ class ClassViewManutencaoCidade extends estClassViewManutencao {
     }
 
 }
-$teste = new ClassViewManutencaoCidade;
-echo $teste->getConsultaCidadeView([estClassEnumAcoes::INCLUIR, estClassEnumAcoes::ALTERAR, estClassEnumAcoes::EXCLUIR]);
-//echo estClassMensagem::geraMensagemAlertaTela(estClassEnumMensagens::webbased001);
 echo '<script type="module" src="viewComportamento/classViewComportamentoCidade.js"></script>';
 
 ?>

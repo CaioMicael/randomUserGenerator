@@ -11,9 +11,10 @@ require_once '../autoload.php';
  * 
  */
 enum estClassEnumAcoes: int {
-    case INCLUIR = 1;
-    case ALTERAR = 2;
-    case EXCLUIR = 3;
+    case INCLUIR   = 1;
+    case ALTERAR   = 2;
+    case EXCLUIR   = 3;
+    case CONSULTAR = 4;
 }
 
 ?>

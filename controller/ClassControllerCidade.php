@@ -2,6 +2,7 @@
 namespace controller;
 
 use lib\estClassController;
+use lib\estClassEnumAcoes;
 use model\ClassModelCidade;
 use controller\ClassControllerEstado;
 use controller\ClassControllerPais;
@@ -109,9 +110,20 @@ class ClassControllerCidade extends estClassController {
      * 
      * @return HTML
      */
-    public function getTelaInclusaoCidadeFromView() {
+    public function getTelaIncluirCidadeFromView() {
         $this->viewCidade = new ClassViewManutencaoCidade;
-        return $this->viewCidade->getTelaInclusaoCidade();
+        return $this->viewCidade->getTelaIncluirCidade();
+    }
+
+
+    /**
+     * Este método chama a tela de consulta de Cidade da view.
+     * 
+     * @return HTML
+     */
+    public function getTelaConsultarCidadeFromView() {
+        $this->viewCidade = new ClassViewManutencaoCidade;
+        return $this->viewCidade->getConsultaCidadeView([estClassEnumAcoes::INCLUIR, estClassEnumAcoes::ALTERAR, estClassEnumAcoes::EXCLUIR]);
     }
 
 }
