@@ -5,11 +5,13 @@ use lib\estClassController;
 use model\ClassModelCidade;
 use controller\ClassControllerEstado;
 use controller\ClassControllerPais;
+use view\ClassViewManutencaoCidade;
 
 require_once '../autoload.php';
 
 
 class ClassControllerCidade extends estClassController {
+    private object $viewCidade;
     private object $modelCidade;
     private object $controllerEstado;
     private object $controllerPais;
@@ -99,6 +101,17 @@ class ClassControllerCidade extends estClassController {
             "Código do Estado" => ["name" => "estado.codigo","type"   => "number", "disabled" => ""],
             "Código do País"   => ["name" => "pais.codigo"  ,"type"   => "number", "disabled" => ""]            
         ];
+    }
+
+
+    /**
+     * Este método chama a tela de inclusão de cidade da view.
+     * 
+     * @return HTML
+     */
+    public function getTelaInclusaoCidadeFromView() {
+        $this->viewCidade = new ClassViewManutencaoCidade;
+        return $this->viewCidade->getTelaInclusaoCidade();
     }
 
 }

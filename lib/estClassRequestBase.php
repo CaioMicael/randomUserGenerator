@@ -2,6 +2,8 @@
 
 namespace lib;
 
+use Exception;
+
 require_once '../autoload.php';
 
 /**
@@ -45,7 +47,7 @@ class estClassRequestBase {
             return $_POST[$key];
         }
         else {
-            return '';
+            throw new Exception('Dados da requisição não encontrados!');
         }
     }
     

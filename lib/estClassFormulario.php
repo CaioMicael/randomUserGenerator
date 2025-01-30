@@ -3,6 +3,7 @@ namespace lib;
 require_once '../autoload.php';
 
 use lib\estClassRequestBase;
+use Exception;
 use ReflectionMethod;
 
 class estClassFormulario {
@@ -18,14 +19,13 @@ class estClassFormulario {
      */
     public function callController($sNameController, $iAcao) {
         $sMetodo         = $this->getMetodoByAcao($iAcao, $sNameController);
-        $sNameController = 'ClassController'.$sNameController;
-        if (class_exists($sNameController, false)) {
+        $sNameController = 'controller\ClassController'.$sNameController;
+        if (class_exists($sNameController, true)) {
             $reflectionMethod = new ReflectionMethod($sNameController, $sMetodo);
-            return 'ok';
-            //return $reflectionMethod->invoke(new $sNameController());
+            return $reflectionMethod->invoke(new $sNameController());
         }
         else {
-            return 'nao ok';
+            throw new Exception('A Classe '.$sNameController. ' não foi encontrada!');
         }
     }
 
@@ -41,7 +41,7 @@ class estClassFormulario {
     private function getMetodoByAcao($iAcao, $sNameController) {
         switch ($iAcao) {
             case 1:
-              return 'getTelaInclusao'.$sNameController;
+              return 'getTelaInclusao'.$sNameController.'FromView';
               break;
             case 2:
               return 'getTelaAlteracao'.$sNameController;
@@ -62,12 +62,8 @@ class estClassFormulario {
 $estClassFormulario = new estClassFormulario;
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $aQueryString = $estClassFormulario->trataQueryStringToArray($_SERVER['QUERY_STRING']);
-    if (estClassRequestBase::post($aQueryString['Controller']) && estClassRequestBase::post($aQueryString['Acao'])) {
-        echo 'ok';
+    if ($aQueryString['Controller'] && $aQueryString['Acao']) {
         echo $estClassFormulario->callController($aQueryString['Controller'], $aQueryString['Acao']);
-    }
-    else {
-        echo 'deu ruim menó';
     }
 }
 
