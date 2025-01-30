@@ -6,8 +6,16 @@ use lib\estClassRequestBase;
 use Exception;
 use ReflectionMethod;
 
+
+/**
+ * Esta classe é um facilitador de requisições de formulário/Ajax.
+ * Responsável por chamar o controller responsável e também o método responsável
+ * pela ação solicitada no ajax/formulário, assim evitando manipulação direta
+ * nos controllers.
+ * 
+ * @author Caio Micael Krieger
+ */
 class estClassFormulario {
-    
 
 
     /**
@@ -53,6 +61,13 @@ class estClassFormulario {
     }
 
 
+    /**
+     * Este método trata a query string passando a mesma
+     * para um array.
+     * 
+     * @param string $sQueryString
+     * @return array
+     */
     public function trataQueryStringToArray($sQueryString) {
         parse_str($sQueryString, $aQueryString); 
         return $aQueryString;
