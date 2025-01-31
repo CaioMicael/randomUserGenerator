@@ -9,7 +9,7 @@ require_once '../autoload.php';
  */
 enum estClassEnumMensagens: string {
     case webbased001 = "Selecione pelo menos um registro!";
-
+    case webbased002 = "Não há registros para serem apresentados!";
 }
 
 ?>

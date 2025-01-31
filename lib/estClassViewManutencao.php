@@ -20,18 +20,20 @@ class estClassViewManutencao {
      * @return HTML
      */
     protected function createTable($aDados, $aAcoes) {
-        if (empty($aDados)) {
-          return "<p><strong>Nenhum dado disponível para exibição.</strong></p>";
-      }
       $html = $this->getStyleEstrutural();
 
       $html .= "<table border='1' cellspacing='0' cellpadding='5' style='border-collapse: collapse;'>";
+      
+      if (empty($aDados)) {
+        return estClassMensagem::geraMensagemAlertaTela(estClassEnumMensagens::webbased002);
+      }
 
       $html .= $this->getTableHead($aDados, $aAcoes);
 
       $html .= "<tr>";
 
       $html .= $this->createColunaTable('');
+
 
       foreach (array_keys($aDados[0]) as $chave) {     
           $html .= "<th style='background-color: #f2f2f2; padding: 8px;'>" . htmlspecialchars($chave) . "</th>";
