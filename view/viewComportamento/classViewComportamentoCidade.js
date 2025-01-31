@@ -2,7 +2,7 @@ import { estClassViewComportamento } from '../../lib/estClassViewComportamento.j
 
 class classViewComportamentoCidade extends estClassViewComportamento {
     constructor() {
-        super("../lib/estClassFormulario.php?Controller=Cidade&Acao=4", "Cidade");
+        super("../lib/estClassFormulario.php?destino=Cidade&Acao=4", "Cidade");
         this.initMensagemListener();
     }
 

@@ -13,6 +13,7 @@ use ReflectionMethod;
  * nos controllers.
  * 
  * @author Caio Micael Krieger
+ * @since 28/01/2025
  */
 class estClassFormulario {
 
@@ -22,6 +23,7 @@ class estClassFormulario {
      * e chama o controller conforme parâmetro "destino".
      * 
      * @param string $sNameController
+     * @param int    $iAcao
      * @return include
      */
     public function callController($sNameController, $iAcao) {
@@ -42,7 +44,8 @@ class estClassFormulario {
      * pela função callController. Vai pegar o código da ação
      * e montar o nome da função de acordo com a ação repassada.
      * 
-     * @param int $iAcao
+     * @param int    $iAcao
+     * @param string $sNameController
      * @return string
      */
     private function getMetodoByAcao($iAcao, $sNameController) {
@@ -68,8 +71,11 @@ class estClassFormulario {
 $estClassFormulario = new estClassFormulario;
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $aQueryString = $estClassFormulario->trataQueryStringToArray($_SERVER['QUERY_STRING']);
-    if ($aQueryString['Controller'] && $aQueryString['Acao']) {
-        echo $estClassFormulario->callController($aQueryString['Controller'], $aQueryString['Acao']);
+    if (isset($aQueryString['destino']) && isset($aQueryString['Acao'])) {
+        echo $estClassFormulario->callController($aQueryString['destino'], $aQueryString['Acao']);
+    }
+    else {
+        throw new Exception("Ocorreu uma exceção interna no sistema.");
     }
 }
 
