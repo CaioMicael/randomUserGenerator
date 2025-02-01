@@ -23,6 +23,26 @@ class estClassComponentesEstruturais {
     }
 
 
+    /**
+     * Este método retorna o botão Fechar padrão estrutural.
+     * 
+     * @return HTML
+     */
+    public static function getBotaoFechar() {
+        return "<button class='estButtonFechar'>Fechar</button>";
+    }
+
+
+    /**
+     * Este método retorna o botão de incluir padrão estrutural.
+     * 
+     * @return HTML
+     */
+    public static function getBotaoIncluir() {
+        return "<button class='estButtonIncluir'>Incluir</button>";
+    }
+
+
 }
 
 ?>
