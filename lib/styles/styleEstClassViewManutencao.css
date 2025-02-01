@@ -165,7 +165,7 @@ button:active {
 
 .overlay-header {
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   width: 500px;
   height: 50px;
   
@@ -197,5 +197,9 @@ button:active {
 
 
 .estButtonFecharX {
+  background-color: red;
+}
+
+.estButtonFecharX:hover {
   background-color: red;
 }
