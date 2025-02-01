@@ -165,7 +165,6 @@ button:active {
 
 .overlay-header {
   display: flex;
-  justify-content: flex-start;
   align-items: flex-start;
   width: 500px;
   height: 50px;
@@ -176,6 +175,10 @@ button:active {
   border: 1px solid black;
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
+}
+
+.overlay-header-aside {
+  margin-left: auto;
 }
 
 .overlay-footer {
@@ -190,4 +193,9 @@ button:active {
   border: 1px solid black;
   border-bottom-right-radius: 10px;
   border-bottom-left-radius:  10px;
+}
+
+
+.estButtonFecharX {
+  background-color: red;
 }

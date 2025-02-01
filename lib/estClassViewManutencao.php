@@ -156,6 +156,7 @@ class estClassViewManutencao {
                     <div class ='overlayConteudo'>
                         <div class ='overlay-header'>";
                         $html .= $this->getHeaderJanela($this->getTituloTelaInclusao());
+                        $html .="<aside class ='overlay-header-aside'>".estClassComponentesEstruturais::getBotaoFecharX()."</aside>";
                         $html .= "</div>";
                         $html .= $this->addLabelInclusao($aTipagemLabel);
                         $html .= $this->getFooterBotoesJanelaInclusao();
