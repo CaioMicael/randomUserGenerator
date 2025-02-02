@@ -91,6 +91,18 @@ class ClassModelEstado extends estClassQuery {
     }
 
 
+    /**
+     * Este método retorna booleano se o Estado está cadastrado
+     * conforme código repassado.
+     * 
+     * @param int $iCodigo
+     * @return boolean
+     */
+    public function isEstadoCadastradoByCodigo($iCodigo) {
+        return $this->isRegistroCadastrado('webbased','tbestado','estadocodigo',$iCodigo);
+    }
+
+
     /*************************************************************************************************************************************************************/
     /************************************                                        QUERYs                                        ***********************************/
     /*************************************************************************************************************************************************************/

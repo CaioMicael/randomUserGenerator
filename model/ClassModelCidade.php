@@ -1,6 +1,8 @@
 <?php
 namespace model;
 
+use Exception;
+use lib\estClassEnumMensagens;
 use lib\estClassQuery;
 
 require_once '../autoload.php';
@@ -36,25 +38,48 @@ class ClassModelCidade extends estClassQuery {
 
 
     /**
-     * Esta função insere a cidade no banco de dados.
+     * Esta função insere a cidade no banco de dados conforme dados da API.
      * 
      */
-    public function insereCidade() {
+    public function insereCidade($sCidadeNome, $iEstadoCodigo, $iPaisCodigo) {
         if (!$this->isCidadeCadastrada()) {
             $this->setSql($this->getQueryInsereCidade());
-            $this->insertAll([$this->getCidadeNome(),
-                              $this->modelEstado->getEstadoCodigo(),
-                              $this->modelPais->getCodigoPais()]);
+            $this->insertAll([$sCidadeNome,
+                              $iEstadoCodigo,
+                              $iPaisCodigo]);
             $result = $this->getNextRow();
             if (isset($result['cidadecodigo'])) {
                 $this->setCidadeCodigo($result['cidadecodigo']);
             }
-
         }
         else if ($this->isCidadeCadastrada()) {
             $this->setCidadeCodigo($this->getQueryCidadeCodigo('cidadenome',$this->getCidadeNome()));
             echo 'A cidade ' . $this->getCidadeNome() . ' já está cadastrada!';
         }
+    }
+
+
+    /**
+     * Esta função insere cidade no banco de dados
+     * conforme parâmetros repassados e retorna para o front end
+     * a inserção da cidade.
+     * 
+     * @param string $sCidadeNome
+     * @param int    $iEstadoCodigo
+     * @param int    $iPaisCodigo
+     */
+    public function processaDadosIncluir($sCidadeNome, $iEstadoCodigo, $iPaisCodigo) {
+        if (!$this->modelEstado->isEstadoCadastradoByCodigo($iEstadoCodigo)) {
+            throw new Exception(estClassEnumMensagens::webbased004->value);
+            return;
+        }
+        if (!$this->modelPais->isPaisCadastradoByCodigo($iPaisCodigo)) {
+            throw new Exception(estClassEnumMensagens::webbased005->value);
+            return;   
+        }
+
+        $this->setCidadeNome($sCidadeNome);
+        $this->insereCidade($sCidadeNome, $iEstadoCodigo, $iPaisCodigo);
     }
 
 

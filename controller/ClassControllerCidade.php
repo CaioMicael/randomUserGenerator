@@ -105,12 +105,17 @@ class ClassControllerCidade extends estClassController {
     }
 
 
+/***************************************************************************************************************************/
+/*************************************             MÉTODOS DE FORMULÁRIO                 ***********************************/
+/***************************************************************************************************************************/ 
+
+
     /**
      * Este método chama a tela de inclusão de cidade da view.
      * 
      * @return HTML
      */
-    public function getTelaIncluirCidadeFromView() {
+    public function getTelaIncluirCidade() {
         $this->viewCidade = new ClassViewManutencaoCidade;
         return $this->viewCidade->getTelaIncluirCidade();
     }
@@ -121,9 +126,26 @@ class ClassControllerCidade extends estClassController {
      * 
      * @return HTML
      */
-    public function getTelaConsultarCidadeFromView() {
+    public function getTelaConsultarCidade() {
         $this->viewCidade = new ClassViewManutencaoCidade;
-        return $this->viewCidade->getConsultaCidadeView([estClassEnumAcoes::INCLUIR, estClassEnumAcoes::ALTERAR, estClassEnumAcoes::EXCLUIR]);
+        return $this->viewCidade->getConsultaCidadeView(
+            [estClassEnumAcoes::INCLUIR, 
+            estClassEnumAcoes::ALTERAR, 
+            estClassEnumAcoes::EXCLUIR]);
+    }
+
+
+    /**
+     * Recebe os dados de inclusão, trata e envia ao model.
+     * 
+     * @param array $aDados
+     */
+    public function processaDadosIncluirCidade($aDados) {
+        $sCidadeNome   = strip_tags($aDados['dados']['cidade.nome']);
+        $iEstadoCodigo = filter_var($aDados['dados']['estado.codigo'], FILTER_SANITIZE_NUMBER_INT);
+        $iPaisCodigo   = filter_var($aDados['dados']['pais.codigo'], FILTER_SANITIZE_NUMBER_INT);
+
+        $this->modelCidade->processaDadosIncluir($sCidadeNome, $iEstadoCodigo, $iPaisCodigo);
     }
 
 }

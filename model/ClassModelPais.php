@@ -72,6 +72,18 @@ class ClassModelPais extends estClassQuery {
     }
 
 
+    /**
+     * Este método retorna booleano se o Pais existe no BD
+     * de acordo com o código repassado.
+     * 
+     * @param int $iCodigoPais
+     * @return boolean
+     */
+    public function isPaisCadastradoByCodigo($iCodigoPais) {
+        return $this->isRegistroCadastrado('webbased','tbpais','paiscodigo',$iCodigoPais);
+    }
+
+
     /*************************************************************************************************************************************************************/
     /************************************                                        QUERYs                                        ***********************************/
     /*************************************************************************************************************************************************************/

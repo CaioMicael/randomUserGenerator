@@ -4,6 +4,7 @@ require_once '../autoload.php';
 
 use Exception;
 use ReflectionMethod;
+use lib\estClassEnumMensagens;
 
 
 /**
@@ -24,15 +25,28 @@ class estClassFormulario {
      * 
      * @param string $sNameController
      * @param int    $iAcao
+     * @param int    $iProcessaDados
+     * @param array  $aDados
      * @return include
      */
-    public function callController($sNameController, $iAcao) {
-        $sMetodo         = $this->getMetodoByAcao($iAcao, $sNameController);
+    public function callController($sNameController, $iAcao, $iProcessaDados, $aDados) {
+        if ($iProcessaDados == '1') {
+            $sPrefixoMetodo = 'processaDados';
+        }
+        else if ($iProcessaDados == '0') {
+            $sPrefixoMetodo = 'getTela';
+        }
+        else {
+            throw new Exception(estClassEnumMensagens::webbased003->mensagem);
+            return;
+        }
+
+        $sMetodo         = $this->getMetodoByAcao($sPrefixoMetodo, $iAcao, $sNameController);
         $sNameController = 'controller\ClassController'.$sNameController;
         if (class_exists($sNameController, true)) {
             $reflectionMethod = new ReflectionMethod($sNameController, $sMetodo);
-            return $reflectionMethod->invoke(new $sNameController());
-        }
+            return $reflectionMethod->invokeArgs(new $sNameController(), array($aDados));
+        } 
         else {
             throw new Exception('A Classe '.$sNameController. ' não foi encontrada!');
         }
@@ -48,10 +62,10 @@ class estClassFormulario {
      * @param string $sNameController
      * @return string
      */
-    private function getMetodoByAcao($iAcao, $sNameController) {
+    private function getMetodoByAcao($sPrefixoMetodo, $iAcao, $sNameController) {
         $oAcaoTratada = estClassEnumAcoes::tryFrom($iAcao);
         $sAcaoTratada = mb_convert_case($oAcaoTratada->name, MB_CASE_TITLE, "UTF-8");
-        return 'getTela'.$sAcaoTratada.$sNameController.'FromView';
+        return $sPrefixoMetodo.$sAcaoTratada.$sNameController;
     }
 
 
@@ -71,20 +85,17 @@ class estClassFormulario {
 $estClassFormulario = new estClassFormulario;
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $aQueryString = $estClassFormulario->trataQueryStringToArray($_SERVER['QUERY_STRING']);
-    $body  = file_get_contents("php://input");
-    $aDados = json_decode($body, true);
-    var_dump($aDados);
+    $aDados = json_decode(file_get_contents("php://input"), true);
 
     if (isset($aQueryString['processaDados']) && isset($aQueryString['destino']) && isset($aQueryString['Acao'])) {
-        if ($aQueryString['processaDados'] == '1') {
-            echo 'ok!';
-        }
-    }
-    else if (isset($aQueryString['destino']) && isset($aQueryString['Acao'])) {
-        echo $estClassFormulario->callController($aQueryString['destino'], $aQueryString['Acao']);
+        echo $estClassFormulario->callController(
+            $aQueryString['destino'], 
+            $aQueryString['Acao'], 
+            $aQueryString['processaDados'],
+            $aDados);
     }
     else {
-        throw new Exception("Ocorreu uma exceção interna no sistema.");
+        throw new Exception(estClassEnumMensagens::webbased003->value);
     }
 }
 
