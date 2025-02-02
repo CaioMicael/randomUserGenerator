@@ -43,6 +43,22 @@ class estClassComponentesEstruturais {
     }
 
 
+    /**
+     * Este método realiza a criação de uma label
+     * com um input, conforme parâmetros repassados.
+     * 
+     * @param string $sNomeLabel
+     * @param string $sTipagem
+     * @param string $sNameInput
+     * @param string $sDisabled
+     * @return HTML
+     */
+    public static function getCampoLabelInclusao($sNomeLabel, $sTipagem, $sNameInput, $sDisabled) {
+        return "<label for=''>$sNomeLabel</label>
+                <input type='$sTipagem' name='$sNameInput' $sDisabled>";
+      }
+
+
 }
 
 ?>

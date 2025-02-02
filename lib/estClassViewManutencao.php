@@ -8,7 +8,6 @@ class estClassViewManutencao {
     protected array  $aAcoes;
     protected string $sTabelaRegistrosConsulta;
     protected string $sTituloTelaInclusao;
-    private $html;
 
 
     /**
@@ -168,12 +167,20 @@ class estClassViewManutencao {
     }
 
 
+    /**
+     * Este método adiciona campos labels conforme array repassado.
+     * O array deve conter campos "type", "name" e "disabled".
+     * 
+     * @param array $aTipagemLabel
+     * @return HTML
+     */
     private function addLabelInclusao($aTipagemLabel) {
       $html = '';
       foreach ($aTipagemLabel as $sNomeLabel=>$aTipagem) {
-        $html .= $this->getCampoLabelInclusao($sNomeLabel,$aTipagem['type'], 
-                                              $aTipagem['name'],
-                                              $aTipagem['disabled']);
+        $html .= estClassComponentesEstruturais::getCampoLabelInclusao(
+          $sNomeLabel,$aTipagem['type'], 
+                      $aTipagem['name'],
+                      $aTipagem['disabled']);
       }
       return $html;
     }
@@ -207,22 +214,6 @@ class estClassViewManutencao {
         "<header>
           <h2>$sTituloJanela</h2>
         </header>";
-    }
-
-
-    /**
-     * Este método realiza a criação de uma label
-     * com um input, conforme parâmetros repassados.
-     * 
-     * @param string $sNomeLabel
-     * @param string $sTipagem
-     * @param string $sNameInput
-     * @param string $sDisabled
-     * @return HTML
-     */
-    private function getCampoLabelInclusao($sNomeLabel, $sTipagem, $sNameInput, $sDisabled) {
-      return "<label for=''>$sNomeLabel</label>
-              <input type='$sTipagem' name='$sNameInput' $sDisabled>";
     }
 
 
