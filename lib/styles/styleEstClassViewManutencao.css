@@ -110,7 +110,25 @@ button:active {
     display: none; 
 }
 
-/* Conteúdo principal */
+.overlay-alerta {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); 
+  z-index: 1000; 
+  display: none; 
+}
+
+.overlay.active {
+    display: block;
+}
+
+.overlay-alerta.active {
+  display: block;
+}
+
 .overlayConteudo {
     display: flex;
     flex-direction: column;
@@ -122,10 +140,6 @@ button:active {
 
 }
 
-/* Ativando o overlay */
-.overlay.active {
-    display: block;
-}
 
 .container-content {
   position: absolute;

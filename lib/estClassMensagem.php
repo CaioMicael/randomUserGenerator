@@ -35,6 +35,35 @@ class estClassMensagem {
     }
 
 
+    /**
+     * Este método gera uma mensagem em tela
+     * de acordo com a exception repassada no parâmetro
+     * 
+     * @param string $sException
+     * @return HTML
+     */
+    public static function geraMensagemException($sException) {
+        var_dump($aException['mensagem'] = explode("\n",$sException));
+        return 
+        "<div class='overlay-alerta active'>
+            <div class='container-content'>
+                <div class ='overlayConteudo'>
+                    <h1>Alerta</h1>
+                    <p>$sException</p>
+                    <button class='estButtonOK'>OK</button>
+                </div>
+            </div>
+         </div>
+        ";
+    }
+
+
+    private function trataException($sException) {
+        $aException['mensagem'] = explode("\n",$sException);
+        return $aException;
+    }
+
+
     /**************************************************************************************************************************************************************/
     /*************************************                           GETTERS E SETTERS DOS ATRIBUTOS                            ***********************************/
     /**************************************************************************************************************************************************************/ 

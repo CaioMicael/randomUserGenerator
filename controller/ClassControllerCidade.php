@@ -6,6 +6,8 @@ use lib\estClassEnumAcoes;
 use model\ClassModelCidade;
 use controller\ClassControllerEstado;
 use controller\ClassControllerPais;
+use Exception;
+use lib\estClassMensagem;
 use view\ClassViewManutencaoCidade;
 
 require_once '../autoload.php';
@@ -145,7 +147,12 @@ class ClassControllerCidade extends estClassController {
         $iEstadoCodigo = filter_var($aDados['dados']['estado.codigo'], FILTER_SANITIZE_NUMBER_INT);
         $iPaisCodigo   = filter_var($aDados['dados']['pais.codigo'], FILTER_SANITIZE_NUMBER_INT);
 
-        $this->modelCidade->processaDadosIncluir($sCidadeNome, $iEstadoCodigo, $iPaisCodigo);
+        try {
+            $this->modelCidade->processaDadosIncluir($sCidadeNome, $iEstadoCodigo, $iPaisCodigo);
+        }
+        catch(Exception $e) {
+           return estClassMensagem::geraMensagemException($e); 
+        }  
     }
 
 }
