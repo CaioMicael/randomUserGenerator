@@ -71,7 +71,16 @@ class estClassFormulario {
 $estClassFormulario = new estClassFormulario;
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $aQueryString = $estClassFormulario->trataQueryStringToArray($_SERVER['QUERY_STRING']);
-    if (isset($aQueryString['destino']) && isset($aQueryString['Acao'])) {
+    $body  = file_get_contents("php://input");
+    $aDados = json_decode($body, true);
+    var_dump($aDados);
+
+    if (isset($aQueryString['processaDados']) && isset($aQueryString['destino']) && isset($aQueryString['Acao'])) {
+        if ($aQueryString['processaDados'] == '1') {
+            echo 'ok!';
+        }
+    }
+    else if (isset($aQueryString['destino']) && isset($aQueryString['Acao'])) {
         echo $estClassFormulario->callController($aQueryString['destino'], $aQueryString['Acao']);
     }
     else {

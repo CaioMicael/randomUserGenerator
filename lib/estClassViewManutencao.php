@@ -195,7 +195,7 @@ class estClassViewManutencao {
     private function getFooterBotoesJanelaInclusao() {
       $html = "<div class = 'overlay-footer'>
                 <footer class = 'overlay-buttons'>";
-         $html .= estClassComponentesEstruturais::getBotaoIncluir();
+         $html .= estClassComponentesEstruturais::getBotaoIncluirRegistro();
          $html .= estClassComponentesEstruturais::getBotaoFechar();
         $html .="</footer>
               </div>";

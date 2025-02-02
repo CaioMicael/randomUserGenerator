@@ -44,6 +44,17 @@ class estClassComponentesEstruturais {
 
 
     /**
+     * Este método retorna o botão de incluir registro no padrão estrutural.
+     * Este botão deve ser usado nas telas de inclusão de registro.
+     * 
+     * @return HTML
+     */
+    public static function getBotaoIncluirRegistro() {
+        return "<button class='estButtonIncluirRegistro'>Incluir</button>";
+    }
+
+
+    /**
      * Este método realiza a criação de uma label
      * com um input, conforme parâmetros repassados.
      * 
@@ -55,7 +66,7 @@ class estClassComponentesEstruturais {
      */
     public static function getCampoLabelInclusao($sNomeLabel, $sTipagem, $sNameInput, $sDisabled) {
         return "<label for=''>$sNomeLabel</label>
-                <input type='$sTipagem' name='$sNameInput' $sDisabled>";
+                <input type='$sTipagem' name='$sNameInput' $sDisabled class= 'input-tela-inclusao'>";
       }
 
 
