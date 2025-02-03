@@ -11,6 +11,7 @@ require_once '../autoload.php';
  */
 class estClassMensagem {
     private string $sMensagem;
+    private string $sTrace;
 
 
     /**
@@ -43,7 +44,8 @@ class estClassMensagem {
      * @return HTML
      */
     public static function geraMensagemException($sException) {
-        var_dump($aException['mensagem'] = explode("\n",$sException));
+        $oInstancia = new self();
+        $oInstancia->trataExceptionSetaAtributos($sException);
         return 
         "<div class='overlay-alerta active'>
             <div class='container-content'>
@@ -58,9 +60,16 @@ class estClassMensagem {
     }
 
 
-    private function trataException($sException) {
-        $aException['mensagem'] = explode("\n",$sException);
-        return $aException;
+    /**
+     * Este método seta os atributos da classe estClassMensagem
+     * pegando a mensagem da exception e o trace.
+     * 
+     * @param string $sException - Texto exception gerado pelo PHP.
+     */
+    private function trataExceptionSetaAtributos($sException) {
+        $aException['mensagem'] = explode(" in ",$sException);
+        self::setMensagem(str_replace('Exception: ', $aException[0], ''));
+        self::setTrace($aException[1]);
     }
 
 
@@ -72,8 +81,16 @@ class estClassMensagem {
         return $this->sMensagem;
     }
 
+    public function getTrace() {
+        return $this->sTrace;
+    }
+
     public function setMensagem($sMensagem) {
         $this->sMensagem = $sMensagem;
+    }
+
+    public function setTrace($sTrace) {
+        $this->sTrace = $sTrace;
     }
 }
 
