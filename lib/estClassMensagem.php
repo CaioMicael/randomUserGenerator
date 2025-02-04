@@ -53,15 +53,11 @@ class estClassMensagem {
                         <div class ='overlayConteudo'>
                             <h1>Alerta</h1>
                             <p>".$aException['mensagem']."</p>
-                        </div>
-                        <div class='overlay-footer-erro>";
-                $html .= "<footer>";                
-                $html .=    estClassComponentesEstruturais::getBotaoOK();
-                $html .=    estClassComponentesEstruturais::getBotaoTrace();
-                $html .="</footer>
-                        </div>
+                        </div>";
+                $html .= estClassComponentesEstruturais::getFooterMensagemException($aException);   
+                $html .="</div>
                     </div>
-            </div>";
+                </div>";
         return $html;
     }
 

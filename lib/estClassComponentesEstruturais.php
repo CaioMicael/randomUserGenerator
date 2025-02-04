@@ -77,9 +77,23 @@ class estClassComponentesEstruturais {
     public static function getCampoLabelInclusao($sNomeLabel, $sTipagem, $sNameInput, $sDisabled) {
         return "<label for=''>$sNomeLabel</label>
                 <input type='$sTipagem' name='$sNameInput' $sDisabled class= 'input-tela-inclusao'>";
-      }
+    }
 
-
+    
+    /**
+     * Este método retorna o footer da tela de mensagem exception
+     * 
+     * @param array $aException - Array associativo com keys 'mensagem' e 'trace'
+     * @return HTML
+     */
+    public static function getFooterMensagemException($aException) {
+        $html  = "<footer>\n";                
+        $html .=    estClassComponentesEstruturais::getBotaoOK()."\n";
+        $html .=    estClassComponentesEstruturais::getBotaoTrace();
+        $html .= "</footer>";
+        $html .= "<span class='span-button-trace' style='display: none;'".$aException['trace']. "</span>";
+        return $html;
+    }
 }
 
 ?>
