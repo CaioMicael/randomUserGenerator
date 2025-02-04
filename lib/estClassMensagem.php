@@ -3,6 +3,8 @@ namespace lib;
 
 require_once '../autoload.php';
 
+use lib\estClassManipulateExceptions;
+
 
 /**
  * Classe com funções estáticas usada como um facilitador para gerar mensagens ao usuário
@@ -45,18 +47,22 @@ class estClassMensagem {
      */
     public static function geraMensagemException($sException) {
         $oInstancia = new self();
-        $oInstancia->trataExceptionSetaAtributos($sException);
-        return 
-        "<div class='overlay-alerta active'>
-            <div class='container-content'>
-                <div class ='overlayConteudo'>
-                    <h1>Alerta</h1>
-                    <p>$sException</p>
-                    <button class='estButtonOK'>OK</button>
+        $aException = $oInstancia->trataExceptionSetaAtributos($sException);
+        $html ="<div class='overlay-alerta active'>
+                    <div class='container-content'>
+                        <div class ='overlayConteudo'>
+                            <h1>Alerta</h1>
+                            <p>".$aException['mensagem']."</p>
+                        <div class='overlay-footer-erro>";
+            $html .= "<footer>";                
+            $html .=    estClassComponentesEstruturais::getBotaoOK();
+            $html .=    estClassComponentesEstruturais::getBotaoTrace();
+            $html .="</footer>
                 </div>
             </div>
          </div>
         ";
+        return $html;
     }
 
 
@@ -67,9 +73,11 @@ class estClassMensagem {
      * @param string $sException - Texto exception gerado pelo PHP.
      */
     private function trataExceptionSetaAtributos($sException) {
-        $aException['mensagem'] = explode(" in ",$sException);
-        self::setMensagem(str_replace('Exception: ', $aException[0], ''));
-        self::setTrace($aException[1]);
+        $aExceptionExplode = explode(" in ",$sException);
+        var_dump($aExceptionExplode);
+        $aException['mensagem'] = str_replace('Exception: ', '', $aExceptionExplode[0]);
+        $aException['trace']    = $aExceptionExplode[1];
+        return $aException;
     }
 
 

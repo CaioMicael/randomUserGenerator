@@ -54,6 +54,16 @@ class estClassComponentesEstruturais {
     }
 
 
+    public static function getBotaoOK() {
+        return "<button class='estButtonOK'>OK</button>";
+    }
+
+
+    public static function getBotaoTrace() {
+        return "<button class='estButtonTrace'>Trace</button>";
+    }
+
+
     /**
      * Este método realiza a criação de uma label
      * com um input, conforme parâmetros repassados.
