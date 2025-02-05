@@ -99,6 +99,67 @@ button:active {
   transform: translateY(0);
 }
 
+
+.overlayConteudo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  z-index: 1; 
+  text-align: center;
+  
+}
+
+
+.container-content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  position: fixed; 
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%); /* Move o elemento para o centro exato */
+  padding: 5px;
+  width: 600px;
+  
+  background-color: #f1f1f1;
+  border: 1px solid black;
+  border-radius: 10px;
+}
+
+.container-content-inclusao {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  position: fixed; 
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%); /* Move o elemento para o centro exato */
+  text-align: center;
+  
+  background-color: #f1f1f1;
+  border: 1px solid black;
+  border-radius: 10px;
+}
+
+
+
+.estButtonFecharX {
+  background-color: red;
+}
+
+.estButtonFecharX:hover {
+  background-color: red;
+}
+
+
+/**********************************************************************************************************************/
+/*************************************             OVERLAYs                 *******************************************/
+/**********************************************************************************************************************/ 
+
 .overlay {
     position: fixed;
     top: 0;
@@ -127,49 +188,6 @@ button:active {
 
 .overlay-alerta.active {
   display: block;
-}
-
-.overlayConteudo {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    position: relative;
-    z-index: 1; 
-    text-align: center;
-
-}
-
-
-.container-content {
-  position: absolute;
-  top: 30%; 
-  margin-top: -25px; 
-  left: 50%; 
-  margin-left: -100px; 
-  text-align: center;
-  padding: 5px;
-
-  background-color: #f1f1f1;
-  border: 1px solid black;
-  border-radius: 10px;
-}
-
-.container-content-inclusao {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  position: absolute;
-  top: 30%; 
-  margin-top: -25px; 
-  left: 40%; 
-  margin-left: -100px; 
-  text-align: center;
-
-  background-color: #f1f1f1;
-  border: 1px solid black;
-  border-radius: 10px;
 }
 
 .overlay-buttons {
@@ -210,10 +228,15 @@ button:active {
 }
 
 
-.estButtonFecharX {
-  background-color: red;
-}
+/**********************************************************************************************************************/
+/*************************************             SPANs                 **********************************************/
+/**********************************************************************************************************************/ 
 
-.estButtonFecharX:hover {
-  background-color: red;
+.span-button-trace {
+  padding: 5px;
+  background-color: #dddddd;
+
+  border: 1px solid black;
+  border-bottom-right-radius: 10px;
+  border-bottom-left-radius:  10px;
 }
