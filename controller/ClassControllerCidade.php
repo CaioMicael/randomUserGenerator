@@ -151,7 +151,7 @@ class ClassControllerCidade extends estClassController {
             $this->modelCidade->processaDadosIncluir($sCidadeNome, $iEstadoCodigo, $iPaisCodigo);
         }
         catch(Exception $e) {
-           return estClassMensagem::geraMensagemException($e); 
+           return json_encode($this->retornaExceptionFrontEnd($e));
         }  
     }
 

@@ -70,7 +70,6 @@ class estClassMensagem {
      */
     private function trataExceptionSetaAtributos($sException) {
         $aExceptionExplode = explode(" in ",$sException);
-        var_dump($aExceptionExplode);
         $aException['mensagem'] = str_replace('Exception: ', '', $aExceptionExplode[0]);
         $aException['trace']    = $aExceptionExplode[1];
         return $aException;

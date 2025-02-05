@@ -1,6 +1,8 @@
 <?php
 namespace lib;
 
+use lib\enum\estClassEnumTipoRetorno;
+
 require_once '../autoload.php';
 
 
@@ -10,6 +12,8 @@ require_once '../autoload.php';
  * @author Caio Micael Krieger
  */
 class estClassController {
+
+    protected array $aRespostaFetch;
 
     /**
      * Este método é um facilitador, ele trata o retorno do Model 
@@ -32,6 +36,55 @@ class estClassController {
             $aDadosTratado[] = $novoRegistro;
         }
         return $aDadosTratado;
+    }
+
+
+    /**
+     * Este método alimenta o array que contém os dados a serem retornados
+     * para o front end e retorna o array.
+     * 
+     * @param string $sException
+     * @return array
+     */
+    protected function retornaExceptionFrontEnd($sException) {
+        $this->setRespostaFetchTipoRetorno(estClassEnumTipoRetorno::EXCEPTION->value);
+        $this->setRespostaFetchConteudoRetorno(estClassMensagem::geraMensagemException($sException));
+        return $this->getRespostaFetch();
+    }
+
+
+    /**
+     * Esta função serve para incluir no array aRespostaFetch
+     * o tipo de retorno conforme EnumTipoRetorno, específico
+     * para retornar um tipo para o front end.
+     * 
+     * @param string $sTipoRetorno
+     */
+    private function setRespostaFetchTipoRetorno($sTipoRetorno) {
+        if (!isset($this->aRespostaFetch['tipo'])) {
+            $this->aRespostaFetch['tipo'] = array();
+        }
+        array_push($this->aRespostaFetch['tipo'], $sTipoRetorno);
+    }
+
+
+    /**
+     * Esta função serve para incluir no array aRespostaFetch
+     * o conteúdo de retorno (geralmente uma mensagem), específico
+     * para retornar um conteúdo para o front end.
+     * 
+     * @param string $sConteudo
+     */
+    private function setRespostaFetchConteudoRetorno($sConteudo) {
+        if (!isset($this->aRespostaFetch['conteudo'])) {
+            $this->aRespostaFetch['conteudo'] = array();
+        }
+        array_push($this->aRespostaFetch['conteudo'], $sConteudo);
+    }
+
+
+    protected function getRespostaFetch() {
+        return $this->aRespostaFetch;
     }
 }
 
