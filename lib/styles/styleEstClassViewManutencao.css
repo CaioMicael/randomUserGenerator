@@ -199,7 +199,7 @@ button:active {
 .overlay-header {
   display: flex;
   align-items: center;
-  width: 500px;
+  width: 600px;
   height: 50px;
   
   
@@ -218,7 +218,7 @@ button:active {
   display: flex;
   justify-content: flex-start;
   align-items: flex-start;
-  width: 500px;
+  width: 600px;
   height: 30px;
   margin-top: 10px;
 
