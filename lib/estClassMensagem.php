@@ -48,11 +48,11 @@ class estClassMensagem {
     public static function geraMensagemException($sException) {
         $oInstancia = new self();
         $aException = $oInstancia->trataExceptionSetaAtributos($sException);
-        $html ="<div class='overlay-alerta active'>
-                    <div class='container-content'>
-                        <div class ='overlayConteudo'>
-                            <h1>Alerta</h1>
-                            <p>".$aException['mensagem']."</p>
+        $html  ="<div class='overlay-alerta active'>";
+        $html .=    "<div class='container-content'>";
+        $html .=        "<div class ='overlayConteudo'>";
+        $html .=            estClassComponentesEstruturais::getTituloMensagemErro();
+        $html .=            "<p>".$aException['mensagem']."</p>
                         </div>";
                 $html .= estClassComponentesEstruturais::getFooterMensagemException($aException);   
                 $html .="</div>

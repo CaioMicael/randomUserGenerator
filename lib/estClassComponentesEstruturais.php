@@ -79,6 +79,11 @@ class estClassComponentesEstruturais {
                 <input type='$sTipagem' name='$sNameInput' $sDisabled class= 'input-tela-inclusao'>";
     }
 
+
+    public static function getTituloMensagemErro() {
+        return "<div class='overlay-content-header'><h1>Erro</h1></div>";
+    }
+
     
     /**
      * Este método retorna o footer da tela de mensagem exception
