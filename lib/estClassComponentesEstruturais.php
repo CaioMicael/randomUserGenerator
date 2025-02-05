@@ -87,11 +87,13 @@ class estClassComponentesEstruturais {
      * @return HTML
      */
     public static function getFooterMensagemException($aException) {
-        $html  = "<footer>\n";                
+        $html  = "<footer class ='overlay-buttons'>";                
         $html .=    estClassComponentesEstruturais::getBotaoOK()."\n";
         $html .=    estClassComponentesEstruturais::getBotaoTrace();
         $html .= "</footer>";
-        $html .= "<span class='span-button-trace' style='display: none;'".$aException['trace']. "</span>";
+        $html .= "<div class='div-span-trace'>";
+            $html .= "<span class='span-button-trace' style='display: none;'>".$aException['trace']. "</span>";
+        $html .= "</div>";
         return $html;
     }
 }
