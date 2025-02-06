@@ -43,13 +43,19 @@ class ClassModelCidade extends estClassQuery {
      */
     public function insereCidade($sCidadeNome, $iEstadoCodigo, $iPaisCodigo) {
         if (!$this->isCidadeCadastrada()) {
-            $this->setSql($this->getQueryInsereCidade());
-            $this->insertAll([$sCidadeNome,
-                              $iEstadoCodigo,
-                              $iPaisCodigo]);
-            $result = $this->getNextRow();
-            if (isset($result['cidadecodigo'])) {
-                $this->setCidadeCodigo($result['cidadecodigo']);
+            if ($this->modelEstado->isEstadoPaisValido($iEstadoCodigo, $iPaisCodigo)) {
+                $this->setSql($this->getQueryInsereCidade());
+                $this->insertAll([$sCidadeNome,
+                                  $iEstadoCodigo,
+                                  $iPaisCodigo]);
+                $result = $this->getNextRow();
+                if (isset($result['cidadecodigo'])) {
+                    $this->setCidadeCodigo($result['cidadecodigo']);
+                }
+            }
+            else {
+                throw new Exception(estClassEnumMensagensWebbased::webbased012->value);
+                return;
             }
         }
         else if ($this->isCidadeCadastrada()) {

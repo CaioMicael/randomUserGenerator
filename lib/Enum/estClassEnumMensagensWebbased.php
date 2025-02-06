@@ -22,6 +22,7 @@ enum estClassEnumMensagensWebbased: string {
     case webbased009 = "Estado já cadastrado!";
     case webbased010 = "Pessoa já cadastrada!";
     case webbased011 = "Endereço de pessoa já cadastrado!";
+    case webbased012 = "O Estado informado não pertence ao País informado!";
 }
 
 ?>

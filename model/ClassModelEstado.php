@@ -62,6 +62,23 @@ class ClassModelEstado extends estClassQuery {
 
 
     /**
+     * Esta função valida se o Estado está relacionado ao país repassado, assim 
+     * evitando erro de FK.
+     * 
+     * @param int $iCodigoEstado - Código do Estado
+     * @param int $iCodigoPais - Código do país
+     * @return boolean
+     */
+    public function isEstadoPaisValido($iCodigoEstado, $iCodigoPais) {
+        $aDados = [
+            'estadocodigo' => $iCodigoEstado,
+            'paiscodigo'   => $iCodigoPais
+        ];
+        return $this->isRegistroCadastradoSemPK('webbased','tbestado',$aDados);
+    }
+
+
+    /**
      * @deprecated
      * Esta função é utilizada para setar o código do Estado no modelo, procurando o mesmo pelo nome no banco de dados.
      * Se o Estado ainda não estiver no banco, ele simplesmente não seta o código no modelo pois ainda não tem um código.
