@@ -84,6 +84,11 @@ class estClassComponentesEstruturais {
         return "<div class='overlay-content-header'><h1>Erro</h1></div>";
     }
 
+
+    public static function getTituloMensagemSucesso() {
+        return "<div class='overlay-content-header'><h1>Sucesso!</h1></div>";
+    }
+
     
     /**
      * Este método retorna o footer da tela de mensagem exception
@@ -99,6 +104,19 @@ class estClassComponentesEstruturais {
         $html .= "<div class='div-span-trace'>";
             $html .= "<span class='span-button-trace' style='display: none;'>".$aException['trace']. "</span>";
         $html .= "</div>";
+        return $html;
+    }
+
+
+    /**
+     * Este método retorna o footer da tela de mensagem sucesso.
+     * 
+     * @return HTML
+     */
+    public static function getFooterMensagemSucesso() {
+        $html  = "<footer class ='overlay-buttons'>";                
+        $html .=    estClassComponentesEstruturais::getBotaoOK();
+        $html .= "</footer>"; 
         return $html;
     }
 }

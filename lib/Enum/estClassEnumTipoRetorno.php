@@ -13,6 +13,7 @@ require_once '../autoload.php';
 enum estClassEnumTipoRetorno: string {
     case EXCEPTION = "exception";
     case ALERTA    = "alerta";
+    case SUCESSO   = "sucesso";
 }
 
 ?>

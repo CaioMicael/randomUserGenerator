@@ -41,6 +41,20 @@ class estClassController {
 
     /**
      * Este método alimenta o array que contém os dados a serem retornados
+     * para o front end e retorna o array com o tipo "Sucesso".
+     * 
+     * @param string $sMensagem
+     * @return array
+     */
+    protected function retornaIncluidoSucessoFrontEnd($sMensagem) {
+        $this->setRespostaFetchTipoRetorno(estClassEnumTipoRetorno::SUCESSO->value);
+        $this->setRespostaFetchConteudoRetorno(estClassMensagem::geraMensagemSucesso($sMensagem));
+        return $this->getRespostaFetch();
+    }
+
+
+    /**
+     * Este método alimenta o array que contém os dados a serem retornados
      * para o front end e retorna o array.
      * 
      * @param string $sException

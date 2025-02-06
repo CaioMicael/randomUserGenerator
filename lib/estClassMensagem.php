@@ -48,7 +48,7 @@ class estClassMensagem {
     public static function geraMensagemException($sException) {
         $oInstancia = new self();
         $aException = $oInstancia->trataExceptionSetaAtributos($sException);
-        $html  ="<div class='overlay-alerta active'>";
+        $html  ="<div class='overlay active'>";
         $html .=    "<div class='container-content'>";
         $html .=        "<div class ='overlayConteudo'>";
         $html .=            estClassComponentesEstruturais::getTituloMensagemErro();
@@ -59,6 +59,27 @@ class estClassMensagem {
                     </div>
                 </div>";
         return $html;
+    }
+
+
+    /**
+     * Esta função gera uma mensagem do tipo SUCESSO 
+     * para o front end.
+     * 
+     * @param string $sMensagem
+     * @return HTML
+     */
+    public static function geraMensagemSucesso($sMensagem) {
+        $html  ="<div class='overlay active'>";
+        $html .=    "<div class='container-content'>";
+        $html .=        "<div class ='overlayConteudo'>";
+        $html .=            estClassComponentesEstruturais::getTituloMensagemSucesso();
+        $html .=            "<p>".$sMensagem."</p>
+                        </div>";  
+                $html .= estClassComponentesEstruturais::getFooterMensagemSucesso();   
+                $html .="</div>
+                </div>"; 
+        return $html;                             
     }
 
 
