@@ -54,7 +54,8 @@ class ClassModelCidade extends estClassQuery {
         }
         else if ($this->isCidadeCadastrada()) {
             $this->setCidadeCodigo($this->getQueryCidadeCodigo('cidadenome',$this->getCidadeNome()));
-            echo 'A cidade ' . $this->getCidadeNome() . ' já está cadastrada!';
+            throw new Exception(estClassEnumMensagensWebbased::webbased008->value);
+            return;
         }
     }
 

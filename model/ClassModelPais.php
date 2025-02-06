@@ -2,6 +2,8 @@
 namespace model;
 
 use lib\estClassQuery;
+use lib\enum\estClassEnumMensagensWebbased;
+use Exception;
 
 require_once '../autoload.php';
 
@@ -35,7 +37,8 @@ class ClassModelPais extends estClassQuery {
         }
         else {
             $this->setCodigoPais($this->getQueryCodigoPais('paisnome',$this->getNomePais()));
-            echo 'O país ' . $this->getNomePais() . ' já está cadastrado.';
+            throw new Exception(estClassEnumMensagensWebbased::webbased007->value);
+            return;
         }
     }
 

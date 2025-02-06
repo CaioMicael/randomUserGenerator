@@ -2,6 +2,8 @@
 namespace model;
 
 use lib\estClassQuery;
+use lib\enum\estClassEnumMensagensWebbased;
+use Exception;
 
 require_once '../autoload.php';
 
@@ -62,7 +64,8 @@ class ClassModelPessoa extends estClassQuery {
             }
         }
         else {
-            echo 'A Pessoa '. $this->nomePessoa . ' já está cadastrada.';
+            throw new Exception(estClassEnumMensagensWebbased::webbased010->value);
+            return;
         }
     }
 

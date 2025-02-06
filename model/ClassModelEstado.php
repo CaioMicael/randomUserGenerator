@@ -2,6 +2,8 @@
 namespace model;
 
 use lib\estClassQuery;
+use lib\enum\estClassEnumMensagensWebbased;
+use Exception;
 
 require_once '../autoload.php';
 
@@ -43,7 +45,8 @@ class ClassModelEstado extends estClassQuery {
         }
         else if ($this->isEstadoCadastrado()) {
             $this->setEstadoCodigo($this->getQueryCodigoEstado('estadonome',$this->getEstadoNome()));
-            echo 'O Estado ' . $this->getEstadoNome() . ' já está cadastrado!';
+            throw new Exception(estClassEnumMensagensWebbased::webbased009->value);
+            return;
         }
     }
 

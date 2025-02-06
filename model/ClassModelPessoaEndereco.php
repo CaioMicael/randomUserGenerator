@@ -2,6 +2,8 @@
 namespace model;
 
 use lib\estClassQuery;
+use lib\enum\estClassEnumMensagensWebbased;
+use Exception;
 
 require_once '../autoload.php';
 
@@ -54,7 +56,8 @@ class ClassModelPessoaEndereco extends estClassQuery {
             }
         }
         else {
-            echo 'erro sql';
+            throw new Exception(estClassEnumMensagensWebbased::webbased011->value);
+            return;
         }
 
     }
