@@ -1,5 +1,5 @@
 <?php
-namespace lib;
+namespace lib\enum;
 
 require_once '../autoload.php';
 

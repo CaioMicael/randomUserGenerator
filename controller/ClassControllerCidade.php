@@ -2,12 +2,12 @@
 namespace controller;
 
 use lib\estClassController;
-use lib\estClassEnumAcoes;
+use lib\enum\estClassEnumAcoes;
 use model\ClassModelCidade;
 use controller\ClassControllerEstado;
 use controller\ClassControllerPais;
 use Exception;
-use lib\estClassEnumMensagens;
+use lib\enum\estClassEnumMensagensWebbased;
 use lib\estClassMensagem;
 use view\ClassViewManutencaoCidade;
 
@@ -150,7 +150,7 @@ class ClassControllerCidade extends estClassController {
 
         try {
             $this->modelCidade->processaDadosIncluir($sCidadeNome, $iEstadoCodigo, $iPaisCodigo);
-            return json_encode($this->retornaIncluidoSucessoFrontEnd(estClassEnumMensagens::webbased006->value));
+            return json_encode($this->retornaIncluidoSucessoFrontEnd(estClassEnumMensagensWebbased::webbased006->value));
         }
         catch(Exception $e) {
            return json_encode($this->retornaExceptionFrontEnd($e));

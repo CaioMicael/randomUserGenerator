@@ -3,8 +3,8 @@ namespace view;
 
 use controller\ClassControllerCidade;
 use lib\estClassViewManutencao;
-use lib\estClassEnumAcoes;
-use lib\estClassEnumMensagens;
+use lib\enum\estClassEnumAcoes;
+use lib\enum\estClassEnumMensagensWebbased;
 use lib\estClassMensagem;
 
 require_once '../autoload.php';

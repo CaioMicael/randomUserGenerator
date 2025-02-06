@@ -1,13 +1,16 @@
 <?php
-namespace lib;
+namespace lib\enum;
 
 require_once '../autoload.php';
 
 /**
- * Enum dos códigos das mensagens.
+ * Enum dos códigos das mensagens do package webbased.
  * 
+ * @package webbased
+ * @author Caio Micael Krieger
+ * @since 06/02/2025
  */
-enum estClassEnumMensagens: string {
+enum estClassEnumMensagensWebbased: string {
     case webbased001 = "Selecione pelo menos um registro!";
     case webbased002 = "Não há registros para serem apresentados!";
     case webbased003 = "Ocorreu uma exceção interna no sistema!";

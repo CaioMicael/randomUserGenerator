@@ -2,7 +2,7 @@
 namespace model;
 
 use Exception;
-use lib\estClassEnumMensagens;
+use lib\enum\estClassEnumMensagensWebbased;
 use lib\estClassQuery;
 
 require_once '../autoload.php';
@@ -70,11 +70,11 @@ class ClassModelCidade extends estClassQuery {
      */
     public function processaDadosIncluir($sCidadeNome, $iEstadoCodigo, $iPaisCodigo) {
         if (!$this->modelEstado->isEstadoCadastradoByCodigo($iEstadoCodigo)) {
-            throw new Exception(estClassEnumMensagens::webbased004->value);
+            throw new Exception(estClassEnumMensagensWebbased::webbased004->value);
             return;
         }
         if (!$this->modelPais->isPaisCadastradoByCodigo($iPaisCodigo)) {
-            throw new Exception(estClassEnumMensagens::webbased005->value);
+            throw new Exception(estClassEnumMensagensWebbased::webbased005->value);
             return;   
         }
 

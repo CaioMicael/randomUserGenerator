@@ -3,7 +3,7 @@ namespace view;
 
 use controller\ClassControllerPessoaEndereco;
 use lib\estClassViewManutencao;
-use lib\estClassEnumAcoes;
+use lib\enum\estClassEnumAcoes;
 
 require_once '../autoload.php';
 

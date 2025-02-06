@@ -4,8 +4,8 @@ require_once '../autoload.php';
 
 use Exception;
 use ReflectionMethod;
-use lib\estClassEnumMensagens;
-
+use lib\enum\estClassEnumMensagensWebbased;
+use lib\enum\estClassEnumAcoes;
 
 /**
  * Esta classe é um facilitador de requisições de formulário/Ajax.
@@ -37,7 +37,7 @@ class estClassFormulario {
             $sPrefixoMetodo = 'getTela';
         }
         else {
-            throw new Exception(estClassEnumMensagens::webbased003->mensagem);
+            throw new Exception(estClassEnumMensagensWebbased::webbased003->mensagem);
             return;
         }
 
@@ -95,7 +95,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $aDados);
     }
     else {
-        throw new Exception(estClassEnumMensagens::webbased003->value);
+        throw new Exception(estClassEnumMensagensWebbased::webbased003->value);
     }
 }
 

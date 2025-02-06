@@ -1,6 +1,8 @@
 <?php
 namespace lib;
 
+use lib\enum\estClassEnumMensagensWebbased;
+
 require_once '../autoload.php';
 
 class estClassViewManutencao {
@@ -24,7 +26,7 @@ class estClassViewManutencao {
       $html .= "<table border='1' cellspacing='0' cellpadding='5' style='border-collapse: collapse;'>";
       
       if (empty($aDados)) {
-        return estClassMensagem::geraMensagemAlertaTela(estClassEnumMensagens::webbased002);
+        return estClassMensagem::geraMensagemAlertaTela(estClassEnumMensagensWebbased::webbased002);
       }
 
       $html .= $this->getTableHead($aDados, $aAcoes);
