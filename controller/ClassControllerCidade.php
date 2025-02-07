@@ -98,7 +98,7 @@ class ClassControllerCidade extends estClassController {
      * 
      * @return array
      */
-    public function getTipagemCamposCidadeToHtml() {
+    public function getTipagemCamposToHtml() {
         return [
             "Código da Cidade" => ["name" => "cidade.codigo","type"   => "number", "disabled" => "disabled"],
             "Nome da Cidade"   => ["name" => "cidade.nome"  ,"type"   => "text"  , "disabled" => ""],

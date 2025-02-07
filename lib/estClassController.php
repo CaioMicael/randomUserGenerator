@@ -97,6 +97,15 @@ class estClassController {
     }
 
 
+    /**
+     * Método abstrato que contém um array que retorna a tipagem
+     * HTML das colunas. 
+     */
+    public function getTipagemCamposToHtml() {
+        return array();
+    }
+
+
     protected function getRespostaFetch() {
         return $this->aRespostaFetch;
     }
