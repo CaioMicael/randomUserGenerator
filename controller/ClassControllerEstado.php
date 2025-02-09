@@ -1,8 +1,10 @@
 <?php
 namespace controller;
 
+use lib\enum\estClassEnumAcoes;
 use lib\estClassController;
 use model\ClassModelEstado;
+use view\ClassViewManutencaoEstado;
 
 require_once '../autoload.php';
 
@@ -10,6 +12,7 @@ require_once '../autoload.php';
 class ClassControllerEstado extends estClassController {
     private object $modelEstado;
     private object $controllerPais;
+    private object $viewEstado;
 
 
     public function __construct() {
@@ -49,6 +52,20 @@ class ClassControllerEstado extends estClassController {
      */
     public function getDadosConsultaEstadoController() {
         return $this->trataDadosConsultaEstado($this->getDadosConsultaEstadoFromModel());
+    }
+
+
+    /**
+     * Este método retorna a view de Estado com o botão
+     * de selecionar registro.
+     * 
+     * @return HTML
+     */
+    public function processaDadosSelecionarEstado() {
+        $this->viewEstado = new ClassViewManutencaoEstado();
+        return $this->viewEstado->getConsultaEstadoView(
+            [estClassEnumAcoes::SELECIONAR]
+        );
     }
 
 

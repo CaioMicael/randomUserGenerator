@@ -77,6 +77,9 @@ class estClassViewManutencao {
           case 3:
             $result = $result.'<button class="estButtonExcluir" disabled>Excluir</button>';
             break;
+          case 5:
+            $result = $result.'<button class="estButtonSelecionar" disabled>Selecionar</button>';
+            break;
         }
       }
       return $result;

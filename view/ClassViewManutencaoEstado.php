@@ -42,9 +42,6 @@ class ClassViewManutencaoEstado extends estClassViewManutencao {
     }
 
 }
-
-$teste = new ClassViewManutencaoEstado;
-echo $teste->getConsultaEstadoView([estClassEnumAcoes::INCLUIR, estClassEnumAcoes::ALTERAR, estClassEnumAcoes::EXCLUIR]);
 echo '<script type="module" src="viewComportamento/classViewComportamentoEstado.js"></script>';
 
 ?>
