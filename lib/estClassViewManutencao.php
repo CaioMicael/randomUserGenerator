@@ -42,17 +42,48 @@ class estClassViewManutencao {
 
       $html .= "</tr>";
       
-      foreach ($aDados as $linha) {
-          $html .= "<tr>";
-          $html .= $this->createColunaCheckbox();
-          foreach ($linha as $valor) {
-              $html .= "<td style='padding: 8px;'>" . htmlspecialchars($valor) . "</td>";
-          }
-          $html .= "</tr>";
+      if ($aAcoes[0]->value == 5) {
+        $html .= $this->geraLinhaDadosTable($aDados, true);
+      }
+      else {
+        $html .= $this->geraLinhaDadosTable($aDados, false);
       }
     
       $html .= "</table>";
     
+      return $html;
+    }
+
+
+    /**
+     * Este método cria as linhas com os dados para a tabela.
+     * 
+     * @param array $aDados
+     * @param boolean $bTelaSelecionar - indica se é uma tela de selecionar registros.
+     * @return HTML
+     */
+    private function geraLinhaDadosTable($aDados, $bTelaSelecionar) {
+      $html = '';
+      if ($bTelaSelecionar) {
+        foreach ($aDados as $linha) {
+          $html .= "<tr>";
+          $html .= $this->createColunaCheckboxTelaSelecionar();
+          foreach ($linha as $valor) {
+              $html .= "<td style='padding: 8px;'>" . htmlspecialchars($valor) . "</td>";
+          }
+          $html .= "</tr>";
+        }
+        return $html;
+      }
+
+      foreach ($aDados as $linha) {
+        $html .= "<tr>";
+        $html .= $this->createColunaCheckbox();
+        foreach ($linha as $valor) {
+            $html .= "<td style='padding: 8px;'>" . htmlspecialchars($valor) . "</td>";
+        }
+        $html .= "</tr>";
+      }
       return $html;
     }
 
@@ -112,6 +143,19 @@ class estClassViewManutencao {
 
 
     /**
+     * Este método realiza a criação de uma coluna
+     * de checkbox para telas de seleção de registro.
+     * 
+     * @return HTML
+     */
+    private function createColunaCheckboxTelaSelecionar() {
+      return "<td>
+                <input class='estCheckboxTableSelecionar' type = 'checkbox'>
+              </td>";
+    }
+
+
+    /**
      * Esta função retorna o header da tabela, já colocando as ações passadas.
      * 
      * @param array $aDados
@@ -119,9 +163,13 @@ class estClassViewManutencao {
      * @return HTML
      */
     private function getTableHead($aDados, $aAcoes) {
-      return "<thead style='font-weight: bold; font-size: 1.2em; margin-bottom: 10px;'>
+      $html = "<thead style='font-weight: bold; font-size: 1.2em; margin-bottom: 10px;'>
                   <tr>
-                    <th colspan=".$this->getQuantidadeColunas($aDados)+1 ." style='text-align: center';>$this->sTituloRotina</th>
+                    <th colspan=".$this->getQuantidadeColunas($aDados)+1 ." style='text-align: center';>$this->sTituloRotina";
+      if ($aAcoes[0]->value === 5) {
+        $html .= estClassComponentesEstruturais::getBotaoFecharX();              
+      }
+      $html .=      "</th>
                   </tr>
                   <tr>
                     <td colspan=".$this->getQuantidadeColunas($aDados)+1 .">
@@ -129,6 +177,7 @@ class estClassViewManutencao {
                     </td>
                   </tr>
                 </thead>";
+      return $html;
     }
 
 
