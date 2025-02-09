@@ -182,7 +182,8 @@ class estClassViewManutencao {
         $html .= estClassComponentesEstruturais::getCampoLabelInclusao(
           $sNomeLabel,$aTipagem['type'], 
                       $aTipagem['name'],
-                      $aTipagem['disabled']);
+                      $aTipagem['disabled'],
+                      $aTipagem["lupa"]);
       }
       return $html;
     }

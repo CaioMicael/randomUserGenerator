@@ -72,11 +72,27 @@ class estClassComponentesEstruturais {
      * @param string $sTipagem
      * @param string $sNameInput
      * @param string $sDisabled
+     * @param mixed  $lupa - Indica se o input deve ter uma lupa que abre outra view.
      * @return HTML
      */
-    public static function getCampoLabelInclusao($sNomeLabel, $sTipagem, $sNameInput, $sDisabled) {
-        return "<label for=''>$sNomeLabel</label>
-                <input type='$sTipagem' name='$sNameInput' $sDisabled class= 'input-tela-inclusao'>";
+    public static function getCampoLabelInclusao($sNomeLabel, $sTipagem, $sNameInput, $sDisabled, $xLupa) {
+        $html = "<label for=''>$sNomeLabel</label>
+                    <input type='$sTipagem' name='$sNameInput' $sDisabled class= 'input-tela-inclusao'>";
+        if ($xLupa) {
+            $html .= self::getInputLupa($xLupa);
+        }
+        return $html;
+    }
+
+
+    /**
+     * Este método retorna um input lupa para abrir outra view, conforme destino.
+     * 
+     * @param string $sDestino
+     * @return HTML
+     */
+    private static function getInputLupa($sDestino) {
+        return "<input type='button' name='$sDestino' class= 'input-lupa'>";
     }
 
 

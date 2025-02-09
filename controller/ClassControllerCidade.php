@@ -100,10 +100,10 @@ class ClassControllerCidade extends estClassController {
      */
     public function getTipagemCamposToHtml() {
         return [
-            "Código da Cidade" => ["name" => "cidade.codigo","type"   => "number", "disabled" => "disabled"],
-            "Nome da Cidade"   => ["name" => "cidade.nome"  ,"type"   => "text"  , "disabled" => ""],
-            "Código do Estado" => ["name" => "estado.codigo","type"   => "number", "disabled" => ""],
-            "Código do País"   => ["name" => "pais.codigo"  ,"type"   => "number", "disabled" => ""]            
+            "Código da Cidade" => ["name" => "cidade.codigo","type"   => "number", "disabled" => "disabled", "lupa" => false],
+            "Nome da Cidade"   => ["name" => "cidade.nome"  ,"type"   => "text"  , "disabled" => "", "lupa" => false],
+            "Código do Estado" => ["name" => "estado.codigo","type"   => "number", "disabled" => "", "lupa" => "Estado"],
+            "Código do País"   => ["name" => "pais.codigo"  ,"type"   => "number", "disabled" => "", "lupa" => "Pais"]            
         ];
     }
 
