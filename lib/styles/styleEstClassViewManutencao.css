@@ -4,7 +4,7 @@
 }
 
 table {
-  width: 80%;
+  width: 100%;
   border-collapse: collapse;
   margin: 25px 0;
   font-size: 18px;
@@ -103,6 +103,24 @@ button:active {
 
 
 .container-content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  position: fixed; 
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%); /* Move o elemento para o centro exato */
+  padding: 5px;
+  width: 600px;
+  
+  border: 1px solid black;
+  border-radius: 10px;
+
+  background-color: #f1f1f1;
+}
+
+.container-content-selecionar {
   display: flex;
   align-items: center;
   justify-content: center;
