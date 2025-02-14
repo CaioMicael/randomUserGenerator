@@ -1,12 +1,13 @@
 <?php
 namespace controller;
 
+use lib\estClassController;
 use model\ClassModelPais;
 
 require_once '../autoload.php';
 
 
-class ClassControllerPais {
+class ClassControllerPais extends estClassController {
     private object $modelPais;
 
 
