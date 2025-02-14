@@ -272,6 +272,30 @@ class estClassViewManutencao {
     }
 
 
+    /**
+     * Este método cria uma table HTML com as ações
+     * e os dados repassados.
+     * 
+     * @param array $aDados
+     * @param array $aAcoes
+     */
+    private function setTableConsultaView($aDados, $aAcoes) {
+      $this->setTabelaRegistros($this->createTable($aDados, $aAcoes));
+    }
+
+
+    /**
+     * Este método retorna a consulta completa, com as ações repassadas e os dados.
+     * 
+     * @param  array $aAcoes
+     * @return HTML
+     */
+    protected function getConsulta($aDados, $aAcoes) {
+      $this->setTableConsultaView($aDados, $aAcoes);
+      return $this->sTabelaRegistrosConsulta;
+    }
+
+
     /**************************************************************************************************************************************************************/
     /*************************************                           GETTERS E SETTERS DOS ATRIBUTOS                            ***********************************/
     /**************************************************************************************************************************************************************/ 

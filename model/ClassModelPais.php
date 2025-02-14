@@ -44,6 +44,17 @@ class ClassModelPais extends estClassQuery {
 
 
     /**
+     * Este método retorna os dados da consulta de país
+     * 
+     * @return array
+     */
+    public function getDadosConsultaPais() {
+        $this->setSql($this->getQueryConsultaPais());
+        return $this->openFetchAll();
+    }
+
+
+    /**
      * Esta função verifica se o país já está cadastrado no banco de dados.
      * 
      * @param string $nomePais
@@ -90,6 +101,21 @@ class ClassModelPais extends estClassQuery {
     /*************************************************************************************************************************************************************/
     /************************************                                        QUERYs                                        ***********************************/
     /*************************************************************************************************************************************************************/
+
+
+    /**
+     * Este método retorna o SQL de consulta de país
+     * 
+     * @return Query
+     */
+    private function getQueryConsultaPais() {
+        return "
+          SELECT paiscodigo,
+  		         paisnome
+            FROM webbased.tbpais
+        ORDER BY paiscodigo
+        ";
+    }
 
 
     /**
