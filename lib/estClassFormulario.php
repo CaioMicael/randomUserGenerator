@@ -43,9 +43,15 @@ class estClassFormulario {
 
         $sMetodo         = $this->getMetodoByAcao($sPrefixoMetodo, $iAcao, $sNameController);
         $sNameController = 'controller\ClassController'.$sNameController;
+
         if (class_exists($sNameController, true)) {
-            $reflectionMethod = new ReflectionMethod($sNameController, $sMetodo);
-            return $reflectionMethod->invokeArgs(new $sNameController(), array($aDados));
+            try {
+                $reflectionMethod = new ReflectionMethod($sNameController, $sMetodo);
+                return $reflectionMethod->invokeArgs(new $sNameController(), array($aDados));
+            }
+            catch (Exception $e) {
+                return $this->retornaExceptionFromController($sNameController, $e);
+            }
         } 
         else {
             throw new Exception('A Classe '.$sNameController. ' não foi encontrada!');
@@ -79,6 +85,20 @@ class estClassFormulario {
     public function trataQueryStringToArray($sQueryString) {
         parse_str($sQueryString, $aQueryString); 
         return $aQueryString;
+    }
+
+
+    /**
+     * Este método chama o retornaExceptionFrontEnd do controller
+     * em casos de erro dentro do controller.
+     * 
+     * @param string $sNameController
+     * @param string $sException
+     * @return JSON
+     */
+    private function retornaExceptionFromController($sNameController, $sException) {
+        $reflectionMethod = new ReflectionMethod($sNameController, 'retornaExceptionFrontEnd');
+        return json_encode($reflectionMethod->invokeArgs(new $sNameController(), array($sException)));
     }
 }
 
