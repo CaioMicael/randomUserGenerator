@@ -100,6 +100,17 @@ button:active {
 }
 
 
+.container-input {
+  display: flex; /* Mantém os inputs na mesma linha */
+  gap: 10px;
+}
+
+
+.input-lupa {
+  background-image: url('input-lupa-png.png');
+  background-position: 10px center;
+  background-repeat: no-repeat;
+}
 
 
 .container-content {

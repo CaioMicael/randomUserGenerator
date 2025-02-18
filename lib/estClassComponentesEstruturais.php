@@ -77,11 +77,13 @@ class estClassComponentesEstruturais {
      * @return HTML
      */
     public static function getCampoLabelInclusao($sNomeLabel, $sTipagem, $sNameInput, $sDisabled, $xLupa, $sRequired) {
-        $html = "<label for='$sNomeLabel'>$sNomeLabel</label>
+        $html = "<label for='$sNomeLabel'>$sNomeLabel</label>";
+        $html .= "<div class='container-input'>
                     <input type='$sTipagem' name='$sNameInput' $sDisabled $sRequired class= 'input-tela-inclusao'>";
         if ($xLupa) {
             $html .= self::getInputLupa($xLupa, $sNameInput);
         }
+        $html .= "</div>";
         return $html;
     }
 
