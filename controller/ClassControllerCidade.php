@@ -94,16 +94,16 @@ class ClassControllerCidade extends estClassController {
 
     /**
      * Este método retorna um array com as tipagens
-     * do nome da coluna e o type HTML
+     * do nome da coluna e o type HTML e atributos.
      * 
      * @return array
      */
     public function getTipagemCamposToHtml() {
         return [
-            "Código da Cidade" => ["name" => "cidade.codigo","type"   => "number", "disabled" => "disabled", "lupa" => false],
-            "Nome da Cidade"   => ["name" => "cidade.nome"  ,"type"   => "text"  , "disabled" => "", "lupa" => false],
-            "Código do Estado" => ["name" => "estado.codigo","type"   => "number", "disabled" => "", "lupa" => "Estado"],
-            "Código do País"   => ["name" => "pais.codigo"  ,"type"   => "number", "disabled" => "", "lupa" => "Pais"]            
+            "Código da Cidade" => ["name" => "cidade.codigo","type"   => "number", "required" => "required", "disabled" => "disabled", "lupa" => false],
+            "Nome da Cidade"   => ["name" => "cidade.nome"  ,"type"   => "text"  , "required" => "required", "disabled" => "", "lupa" => false],
+            "Código do Estado" => ["name" => "estado.codigo","type"   => "number", "required" => "required", "disabled" => "", "lupa" => "Estado"],
+            "Código do País"   => ["name" => "pais.codigo"  ,"type"   => "number", "required" => "required", "disabled" => "", "lupa" => "Pais"]            
         ];
     }
 

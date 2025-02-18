@@ -72,12 +72,13 @@ class estClassComponentesEstruturais {
      * @param string $sTipagem
      * @param string $sNameInput
      * @param string $sDisabled
+     * @param string $sRequired - Se estiver informado o campo fica required.
      * @param mixed  $lupa - Indica se o input deve ter uma lupa que abre outra view.
      * @return HTML
      */
-    public static function getCampoLabelInclusao($sNomeLabel, $sTipagem, $sNameInput, $sDisabled, $xLupa) {
+    public static function getCampoLabelInclusao($sNomeLabel, $sTipagem, $sNameInput, $sDisabled, $xLupa, $sRequired) {
         $html = "<label for='$sNomeLabel'>$sNomeLabel</label>
-                    <input type='$sTipagem' name='$sNameInput' $sDisabled class= 'input-tela-inclusao'>";
+                    <input type='$sTipagem' name='$sNameInput' $sDisabled $sRequired class= 'input-tela-inclusao'>";
         if ($xLupa) {
             $html .= self::getInputLupa($xLupa, $sNameInput);
         }

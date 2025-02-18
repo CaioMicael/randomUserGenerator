@@ -235,7 +235,8 @@ class estClassViewManutencao {
           $sNomeLabel,$aTipagem['type'], 
                       $aTipagem['name'],
                       $aTipagem['disabled'],
-                      $aTipagem["lupa"]);
+                      $aTipagem["lupa"],
+                      $aTipagem["required"]);
       }
       return $html;
     }
