@@ -135,9 +135,10 @@ class ClassModelEstado extends estClassQuery {
      * @return SQL
      */
     private function getQueryConsultaEstado($iLimit) {
-        return "SELECT estadocodigo,
-                       estadonome,
-                       paisnome
+        return "SELECT tbestado.estadocodigo,
+                       tbestado.estadonome,
+                       tbpais.paiscodigo,   
+                       tbpais.paisnome
                   FROM webbased.tbestado
              LEFT JOIN webbased.tbpais
                     ON tbpais.paiscodigo = tbestado.paiscodigo
