@@ -107,8 +107,10 @@ button:active {
 
 
 .input-lupa {
+  width: 24px;
   background-image: url('input-lupa-png.png');
-  background-position: 10px center;
+  background-size: 20px;
+  
   background-repeat: no-repeat;
 }
 
