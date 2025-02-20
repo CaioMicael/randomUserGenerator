@@ -7,7 +7,12 @@ use lib\enum\estClassEnumAcoes;
 
 require_once '../autoload.php';
 
-
+/**
+ * Classe da consulta de Estado.
+ * @package webbased
+ * @author Caio Micael Krieger
+ * @since 17/01/2025
+ */
 class ClassViewManutencaoEstado extends estClassViewManutencao {
     private object $controllerEstado;
 
@@ -20,24 +25,13 @@ class ClassViewManutencaoEstado extends estClassViewManutencao {
 
 
     /**
-     * Este método cria uma table HTML com as ações
-     * e os registros do controller.
-     * 
-     * @param array $aAcoes
-     */
-    private function setTableConsultaEstadoView($aAcoes) {
-        $this->setTabelaRegistros($this->createTable($this->controllerEstado->getDadosConsultaEstadoController(), $aAcoes));
-    }
-
-
-    /**
      * Este método retorna a consulta de Estado completa, com as ações repassadas.
      * 
      * @param  array $aAcoes
      * @return HTML
      */
     public function getConsultaEstadoView($aAcoes) {
-        $this->setTableConsultaEstadoView($aAcoes);
+        $this->getConsulta($this->controllerEstado->getDadosConsultaEstadoController(),$aAcoes);
         return $this->sTabelaRegistrosConsulta;
     }
 
