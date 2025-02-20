@@ -9,7 +9,11 @@ use lib\estClassMensagem;
 
 require_once '../autoload.php';
 
-
+/**
+ * @package webbased
+ * @author Caio Micael Krieger
+ * @since 17/01/2025
+ */
 class ClassViewManutencaoCidade extends estClassViewManutencao {
     private object $controllerCidade;
 
@@ -18,16 +22,6 @@ class ClassViewManutencaoCidade extends estClassViewManutencao {
         $this->controllerCidade = new ClassControllerCidade;
         $this->setTituloRotina('Consulta de Cidade');
         $this->setTituloTelaInclusao('Incluir Cidade');
-    }
-
-    /**
-     * Este método cria uma table HTML com as ações
-     * e os registros do controller.
-     * 
-     * @param array $aAcoes
-     */
-    public function setTableConsultaCidadeView($aAcoes) {
-        $this->setTabelaRegistros($this->createTable($this->controllerCidade->getDadosConsultaCidadeController(), $aAcoes));
     }
 
 
@@ -49,8 +43,7 @@ class ClassViewManutencaoCidade extends estClassViewManutencao {
      * @return HTML
      */
     public function getConsultaCidadeView($aAcoes) {
-        $this->setTableConsultaCidadeView($aAcoes);
-        return $this->sTabelaRegistrosConsulta;
+        return $this->getConsulta($this->controllerCidade->getDadosConsultaCidadeController(), $aAcoes);
     }
 
 }
