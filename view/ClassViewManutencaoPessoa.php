@@ -7,6 +7,11 @@ use lib\enum\estClassEnumAcoes;
 
 require_once '../autoload.php';
 
+/**
+ * @package webbased
+ * @author Caio Micael Krieger
+ * @since 17/01/2025
+ */
 class ClassViewManutencaoPessoa extends estClassViewManutencao {
     public object $controllerPessoa;
 
@@ -18,29 +23,14 @@ class ClassViewManutencaoPessoa extends estClassViewManutencao {
 
 
     /**
-     * Este método cria uma table HTML com as ações
-     * e os registros do controller.
-     * 
-     * @param array $aAcoes
-     */
-    public function setTableConsultaPessoaView($aAcoes) {
-        $this->setTabelaRegistros($this->createTable($this->controllerPessoa->getDadosConsultaPessoa(), $aAcoes));
-    }
-
-
-    /**
      * Este método retorna a consulta de Pessoa completa, com as ações repassadas.
      * 
      * @param  array $aAcoes
      * @return HTML
      */
     public function getConsultaPessoaView($aAcoes) {
-        $this->setTableConsultaPessoaView($aAcoes);
-        return $this->sTabelaRegistrosConsulta;
+        return $this->getConsulta($this->controllerPessoa->getDadosConsultaPessoa(), $aAcoes);
     }
 }
-
-$teste = new ClassViewManutencaoPessoa;
-echo $teste->getConsultaPessoaView([estClassEnumAcoes::INCLUIR, estClassEnumAcoes::ALTERAR, estClassEnumAcoes::EXCLUIR]);
 echo '<script type="module" src="viewComportamento/classViewComportamentoPessoa.js"></script>';
 ?>
