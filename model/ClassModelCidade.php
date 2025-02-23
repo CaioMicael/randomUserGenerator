@@ -3,6 +3,7 @@ namespace model;
 
 use Exception;
 use lib\enum\estClassEnumMensagensWebbased;
+use lib\estClassMensagem;
 use lib\estClassQuery;
 
 require_once '../autoload.php';
@@ -91,6 +92,37 @@ class ClassModelCidade extends estClassQuery {
 
 
     /**
+     * Esta função exclui a cidade do banco de dados conforme parâmetro.
+     * @param int $iCidadeCodigo
+     */
+    public function processaDadosExcluir($iCidadeCodigo) {
+        $this->setCidadeCodigo($iCidadeCodigo);
+        if ($this->isCidadeCadastradaChave($this->getCidadeCodigo())) {
+            $this->setSql($this->getQueryDeleteCidade());
+            try {
+                $this->openParams(array($this->getCidadeCodigo()));
+                return estClassMensagem::geraMensagemSucesso(estClassEnumMensagensWebbased::webbased013->value);
+            }
+            catch (Exception $e) {
+                throw new Exception(estClassEnumMensagensWebbased::webbased003->value);
+                return;
+            }
+
+        }
+    }
+
+
+    /**
+     * Este método verifica se a cidade está cadastrada pelo código repassado
+     * no parâmetro.
+     * @param int $iChave - Código da Cidade
+     */
+    private function isCidadeCadastradaChave($iChave) {
+        return $this->isRegistroCadastrado('webbased','tbcidade','cidadecodigo',$iChave);
+    }
+
+
+    /**
      * Esta função verifica se a cidade já está cadastrada no banco de dados.
      * 
      * @return boolean
@@ -166,6 +198,16 @@ class ClassModelCidade extends estClassQuery {
     private function getQueryInsereCidade() {
         return "INSERT INTO webbased.tbcidade
                 VALUES (nextval('webbased.tbcidade_cidadecodigo_seq'),$1,$2,$3) RETURNING cidadecodigo;";
+    }
+
+
+    /**
+     * Este método retorna o SQL de delete de cidade.
+     * 
+     * @return SQL
+     */
+    private function getQueryDeleteCidade() {
+        return "DELETE FROM webbased.tbcidade WHERE cidadecodigo = $1";
     }
 
 

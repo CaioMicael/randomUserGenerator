@@ -3,6 +3,8 @@
 namespace lib;
 
 use lib\estClassConexaoBD;
+use lib\enum\estClassEnumMensagensWebbased;
+use Throwable;
 use Exception;
 
 require_once '../autoload.php';
@@ -51,8 +53,8 @@ Class estClassQuery {
             if ($this->lastQuery) {
                 $this->setQuantidadeLinhas(pg_num_rows($this->lastQuery));
             }
-        } catch (Exception $e) {
-            echo $e;
+        } catch (Throwable $e) {
+            return estClassMensagem::geraMensagemException($e);
         }
     }
 

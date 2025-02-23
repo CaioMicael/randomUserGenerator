@@ -157,6 +157,15 @@ class ClassControllerCidade extends estClassController {
         }  
     }
 
+
+    /**
+     * Este método recebe o dado selecionado para exclusão e
+     * chama o Model para realizar a exclusão.
+     */
+    public function processaDadosExcluirCidade($aDados) {
+        return $this->modelCidade->processaDadosExcluir($aDados["dados"]);
+    }
+
 }
 
 
