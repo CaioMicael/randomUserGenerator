@@ -4,6 +4,7 @@ namespace lib;
 
 use lib\estClassConexaoBD;
 use lib\enum\estClassEnumMensagensWebbased;
+use lib\estClassErrorHandler;
 use Throwable;
 use Exception;
 
@@ -23,6 +24,7 @@ Class estClassQuery {
 
     public function __construct() {
         $this->conexaoBD = new estClassConexaoBD();
+        new estClassErrorHandler;
     }
 
     /**

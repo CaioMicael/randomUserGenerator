@@ -5,6 +5,7 @@ use Exception;
 use lib\enum\estClassEnumMensagensWebbased;
 use lib\estClassMensagem;
 use lib\estClassQuery;
+use Throwable;
 
 require_once '../autoload.php';
 
@@ -101,7 +102,7 @@ class ClassModelCidade extends estClassQuery {
             $this->setSql($this->getQueryDeleteCidade());
             try {
                 $this->openParams(array($this->getCidadeCodigo()));
-                return estClassMensagem::geraMensagemSucesso(estClassEnumMensagensWebbased::webbased013->value);
+                //return estClassMensagem::geraMensagemSucesso(estClassEnumMensagensWebbased::webbased013->value);
             }
             catch (Exception $e) {
                 throw new Exception(estClassEnumMensagensWebbased::webbased003->value);
