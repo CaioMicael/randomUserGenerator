@@ -102,13 +102,12 @@ class ClassModelCidade extends estClassQuery {
             $this->setSql($this->getQueryDeleteCidade());
             try {
                 $this->openParams(array($this->getCidadeCodigo()));
-                //return estClassMensagem::geraMensagemSucesso(estClassEnumMensagensWebbased::webbased013->value);
             }
             catch (Exception $e) {
                 throw new Exception(estClassEnumMensagensWebbased::webbased003->value);
                 return;
             }
-
+            return estClassMensagem::geraMensagemSucesso(estClassEnumMensagensWebbased::webbased013->value);
         }
     }
 
