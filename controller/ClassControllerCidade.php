@@ -163,7 +163,8 @@ class ClassControllerCidade extends estClassController {
      * chama o Model para realizar a exclusão.
      */
     public function processaDadosExcluirCidade($aDados) {
-        return $this->modelCidade->processaDadosExcluir($aDados["dados"]);
+        $this->modelCidade->processaDadosExcluir($aDados["dados"]);
+        return json_encode($this->retornaIncluidoSucessoFrontEnd(estClassEnumMensagensWebbased::webbased013->value));
     }
 
 }

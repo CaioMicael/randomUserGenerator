@@ -107,7 +107,6 @@ class ClassModelCidade extends estClassQuery {
                 throw new Exception(estClassEnumMensagensWebbased::webbased003->value);
                 return;
             }
-            return estClassMensagem::geraMensagemSucesso(estClassEnumMensagensWebbased::webbased013->value);
         }
     }
 
