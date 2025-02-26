@@ -53,10 +53,13 @@ class ClassViewManutencaoCidade extends estClassViewManutencao {
      * @return HTML
      */
     public function getConsultaCidadeView($aAcoes) {
-        return $this->getConsulta($this->controllerCidade->getDadosConsultaCidadeController(), $aAcoes);
+        return $this->getConsulta(
+            $this->controllerCidade->getDadosConsultaCidadeController(), 
+            $aAcoes);
     }
-
+    
 }
-echo '<script type="module" src="viewComportamento/classViewComportamentoCidade.js"></script>';
-
+if ($_SERVER["REQUEST_URI"] == '/randomusergenerator/view/ClassViewManutencaoCidade.php') {
+    echo '<script type="module" src="viewComportamento/classViewComportamentoCidade.js"></script>';
+}
 ?>

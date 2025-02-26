@@ -9,6 +9,7 @@ use controller\ClassControllerPais;
 use Exception;
 use lib\enum\estClassEnumMensagensWebbased;
 use lib\estClassMensagem;
+use Throwable;
 use view\ClassViewManutencaoCidade;
 
 require_once '../autoload.php';
@@ -116,7 +117,7 @@ class ClassControllerCidade extends estClassController {
     /**
      * Este método chama a tela de inclusão de cidade da view.
      * 
-     * @return HTML
+     * @return view
      */
     public function getTelaIncluirCidade() {
         $this->viewCidade = new ClassViewManutencaoCidade;
@@ -124,9 +125,19 @@ class ClassControllerCidade extends estClassController {
     }
 
 
+    /**
+     * Este método retorna a tela de alterar cidade da view.
+     * 
+     * @return view
+     */
     public function getTelaAlterarCidade() {
-        $this->viewCidade = new ClassViewManutencaoCidade;
-        return $this->viewCidade->getTelaAlterarCidade($this->getTipagemCamposToHtml());
+        try {
+            $this->viewCidade = new ClassViewManutencaoCidade;
+            return $this->viewCidade->getTelaAlterarCidade($this->getTipagemCamposToHtml());
+        }
+        catch (Throwable $e) {
+            return json_encode($this->retornaExceptionFrontEnd($e));
+        }
     }
 
 
