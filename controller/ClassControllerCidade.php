@@ -127,13 +127,13 @@ class ClassControllerCidade extends estClassController {
 
     /**
      * Este método retorna a tela de alterar cidade da view.
-     * 
+     * @param array $aDados
      * @return view
      */
-    public function getTelaAlterarCidade() {
+    public function getTelaAlterarCidade($aDados) {
         try {
             $this->viewCidade = new ClassViewManutencaoCidade;
-            return $this->viewCidade->getTelaAlterarCidade($this->getTipagemCamposToHtml());
+            return $this->viewCidade->getTelaAlterarCidade($this->getTipagemCamposToHtml(), $aDados['dados']);
         }
         catch (Throwable $e) {
             return json_encode($this->retornaExceptionFrontEnd($e));

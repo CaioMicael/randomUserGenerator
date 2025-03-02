@@ -42,9 +42,9 @@ class ClassViewManutencaoCidade extends estClassViewManutencao {
      * @param array $aDados - Dados dos campos tipados em HTML.
      * @return HTML
      */
-    public function getTelaAlterarCidade($aDados) {
+    public function getTelaAlterarCidade($aTipagem, $aDados) {
         try {
-            return $this->getTelaAlteracao($aDados);
+            return $this->getTelaAlteracao($aTipagem, $aDados);
         }
         catch (Exception $e) {
             return $e;
