@@ -2,6 +2,7 @@
 namespace view;
 
 use controller\ClassControllerCidade;
+use Exception;
 use lib\estClassViewManutencao;
 use lib\enum\estClassEnumAcoes;
 use lib\enum\estClassEnumMensagensWebbased;
@@ -42,7 +43,12 @@ class ClassViewManutencaoCidade extends estClassViewManutencao {
      * @return HTML
      */
     public function getTelaAlterarCidade($aDados) {
-        return $this->getTelaAlteracao($aDados);
+        try {
+            return $this->getTelaAlteracao($aDados);
+        }
+        catch (Exception $e) {
+            return $e;
+        }
     }
 
 
