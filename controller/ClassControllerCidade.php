@@ -101,10 +101,10 @@ class ClassControllerCidade extends estClassController {
      */
     public function getTipagemCamposToHtml() {
         return [
-            "Código da Cidade" => ["name" => "cidade.codigo","type"   => "number", "required" => "required", "disabled" => "disabled", "lupa" => false],
-            "Nome da Cidade"   => ["name" => "cidade.nome"  ,"type"   => "text"  , "required" => "required", "disabled" => "", "lupa" => false],
-            "Código do Estado" => ["name" => "estado.codigo","type"   => "number", "required" => "required", "disabled" => "", "lupa" => "Estado"],
-            "Código do País"   => ["name" => "pais.codigo"  ,"type"   => "number", "required" => "required", "disabled" => "", "lupa" => "Pais"]            
+            "Código da Cidade" => ["name" => "cidade.codigo","type"   => "number", "required" => "required", "value" => "", "disabled" => "disabled", "lupa" => false],
+            "Nome da Cidade"   => ["name" => "cidade.nome"  ,"type"   => "text"  , "required" => "required", "value" => "", "disabled" => "", "lupa" => false],
+            "Código do Estado" => ["name" => "estado.codigo","type"   => "number", "required" => "required", "value" => "", "disabled" => "", "lupa" => "Estado"],
+            "Código do País"   => ["name" => "pais.codigo"  ,"type"   => "number", "required" => "required", "value" => "", "disabled" => "", "lupa" => "Pais"]            
         ];
     }
 

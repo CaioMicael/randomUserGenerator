@@ -166,6 +166,23 @@ button:active {
 }
 
 
+.container-content-alteracao {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  position: fixed; 
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%); /* Move o elemento para o centro exato */
+  text-align: center;
+  
+  background-color: #f1f1f1;
+  border: 1px solid black;
+  border-radius: 10px;
+}
+
+
 
 .estButtonFecharX {
   background-color: red;

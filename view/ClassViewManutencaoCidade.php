@@ -23,6 +23,7 @@ class ClassViewManutencaoCidade extends estClassViewManutencao {
         $this->controllerCidade = new ClassControllerCidade;
         $this->setTituloRotina('Consulta de Cidade');
         $this->setTituloTelaInclusao('Incluir Cidade');
+        $this->setTituloTelaAlteracao('Alterar Cidade');
     }
 
 
@@ -44,7 +45,7 @@ class ClassViewManutencaoCidade extends estClassViewManutencao {
      */
     public function getTelaAlterarCidade($aTipagem, $aDados) {
         try {
-            return $this->getTelaAlteracao($aTipagem, $aDados);
+            return json_encode($this->getTelaAlteracao($aTipagem, $aDados));
         }
         catch (Exception $e) {
             return $e;

@@ -10,6 +10,7 @@ class estClassViewManutencao {
     protected array  $aAcoes;
     protected string $sTabelaRegistrosConsulta;
     protected string $sTituloTelaInclusao;
+    protected string $sTituloTelaAlteracao;
 
 
     /**
@@ -221,6 +222,45 @@ class estClassViewManutencao {
     }
 
 
+    protected function getTelaAlteracao($aTipagemLabel, $aDados) {
+      for ($i = 0; $i < count($aDados); $i++) {
+        foreach($aTipagemLabel as $sNomeLabel=>$aTipagem) {
+          $aTipagemLabel[$sNomeLabel]['value'] = $aDados[$i];
+        }
+      }
+      $html = "<div class='overlay'>
+              <div class='container-content-alteracao'>
+                <div class ='overlayConteudo'>
+                  <div class ='overlay-header'>";
+                    $html .= $this->getHeaderJanela($this->getTituloTelaAlteracao());
+                    $html .="<aside class ='overlay-header-aside'>".estClassComponentesEstruturais::getBotaoFecharX()."</aside>";
+                    $html .= "</div>";
+                    $html .= $this->addLabelAlteracao($aTipagemLabel);
+                    $html .= $this->getFooterBotoesJanelaInclusao();
+                $html .= "</div>
+            </div>
+            </div>
+            ";
+      return $html;
+    }
+
+
+    private function addLabelAlteracao($aTipagemLabel) {
+      $html = '';
+      foreach ($aTipagemLabel as $sNomeLabel=>$aTipagem) {
+        $html .= estClassComponentesEstruturais::getCampoLabelAlteracao(
+          $sNomeLabel,
+          $aTipagem['type'], 
+          $aTipagem['name'],
+          $aTipagem['disabled'],
+          $aTipagem["lupa"],
+          $aTipagem["required"],
+          $aTipagem["value"]);
+      }
+      return $html;
+    }
+
+
     /**
      * Este método adiciona campos labels conforme array repassado.
      * O array deve conter campos "type", "name" e "disabled".
@@ -232,11 +272,12 @@ class estClassViewManutencao {
       $html = '';
       foreach ($aTipagemLabel as $sNomeLabel=>$aTipagem) {
         $html .= estClassComponentesEstruturais::getCampoLabelInclusao(
-          $sNomeLabel,$aTipagem['type'], 
-                      $aTipagem['name'],
-                      $aTipagem['disabled'],
-                      $aTipagem["lupa"],
-                      $aTipagem["required"]);
+          $sNomeLabel,
+          $aTipagem['type'], 
+          $aTipagem['name'],
+          $aTipagem['disabled'],
+          $aTipagem["lupa"],
+          $aTipagem["required"]);
       }
       return $html;
     }
@@ -318,6 +359,10 @@ class estClassViewManutencao {
       return $this->sTituloTelaInclusao;
     }
 
+    protected function getTituloTelaAlteracao() {
+      return $this->sTituloTelaAlteracao;
+    }
+
     protected function setTituloRotina($titulo) {
       $this->sTituloRotina = $titulo;
     }
@@ -332,6 +377,10 @@ class estClassViewManutencao {
 
     protected function setTituloTelaInclusao($titulo) {
       $this->sTituloTelaInclusao = $titulo;
+    }
+
+    protected function setTituloTelaAlteracao($titulo) {
+      $this->sTituloTelaAlteracao = $titulo;
     }
 }
 

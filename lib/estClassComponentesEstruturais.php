@@ -89,6 +89,30 @@ class estClassComponentesEstruturais {
 
 
     /**
+     * Este método realiza a criação de uma label da tela de alteração.
+     * 
+     * @param string $sNomeLabel
+     * @param string $sTipagem
+     * @param string $sNameInput
+     * @param string $sDisabled
+     * @param mixed  $xLupa - Indica se o input deve ter uma lupa que abre outra view.
+     * @param string $sRequired - Se estiver informado o campo fica required.
+     * @param string $sValue - Valor do campo.
+     * @return HTML
+     */
+    public static function getCampoLabelAlteracao($sNomeLabel, $sTipagem, $sNameInput, $sDisabled, $xLupa, $sRequired, $sValue) {
+        $html = "<label for='$sNomeLabel'>$sNomeLabel</label>";
+        $html .= "<div class='container-input'>
+                    <input type='$sTipagem' name='$sNameInput' $sDisabled $sRequired value='$sValue' class= 'input-tela-inclusao'>";
+        if ($xLupa) {
+            $html .= self::getInputLupa($xLupa, $sNameInput);
+        }
+        $html .= "</div>";
+        return $html;
+    }
+
+
+    /**
      * Este método retorna um input lupa para abrir outra view, conforme destino.
      * 
      * @param string $sDestino
