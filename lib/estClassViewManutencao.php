@@ -166,7 +166,7 @@ class estClassViewManutencao {
     private function getTableHead($aDados, $aAcoes) {
       $html = "<thead style='font-weight: bold; font-size: 1.2em; margin-bottom: 10px;'>
                   <tr>
-                    <th colspan=".$this->getQuantidadeColunas($aDados)+1 ." style='text-align: center';>$this->sTituloRotina";
+                    <th colspan=".$this->getQuantidadeColunas($aDados)+1 ." style='text-align: center' id='headerTabela';>$this->sTituloRotina";
       if ($aAcoes[0]->value === 5) {
         $html .= estClassComponentesEstruturais::getBotaoFecharX();              
       }
