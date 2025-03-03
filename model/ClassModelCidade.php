@@ -112,6 +112,46 @@ class ClassModelCidade extends estClassQuery {
 
 
     /**
+     * Este método realiza as validações de alteração de dados.
+     * 
+     * @param int $iCidadeCodigo
+     * @param string $sCidadeNome
+     * @param int $iEstadoCodigo
+     * @param int $iPaisCodigo
+     */
+    public function processaDadosAlterar($iCidadeCodigo, $sCidadeNome, $iEstadoCodigo, $iPaisCodigo) {
+        if (!$this->isCidadeCadastradaChave($iCidadeCodigo)) {
+            throw new Exception(estClassEnumMensagensWebbased::webbased015->value);
+            return;
+        }
+        if (!$this->modelEstado->isEstadoCadastradoByCodigo($iEstadoCodigo)) {
+            throw new Exception(estClassEnumMensagensWebbased::webbased004->value);
+            return;
+        }
+        if (!$this->modelPais->isPaisCadastradoByCodigo($iPaisCodigo)) {
+            throw new Exception(estClassEnumMensagensWebbased::webbased005->value);
+            return;   
+        }
+
+        $this->setCidadeCodigo($iCidadeCodigo);
+        $this->setCidadeNome($sCidadeNome);
+        $this->modelEstado->setEstadoCodigo($iEstadoCodigo);
+        $this->modelPais->setCodigoPais($iPaisCodigo);
+
+        $aDados = $this->getAllDadosCidade($iCidadeCodigo);
+        $isRegistrosDiferentes = array_diff(
+                            [$this->getCidadeCodigo(),
+                             $this->getCidadeNome(),
+                             $this->modelEstado->getEstadoCodigo(),
+                             $this->modelPais->getCodigoPais()], 
+                            $aDados);
+        if (!isset($isRegistrosDiferentes)) {
+            return new Exception(estClassEnumMensagensWebbased::webbased016->value);
+        }
+    }
+
+
+    /**
      * Este método verifica se a cidade está cadastrada pelo código repassado
      * no parâmetro.
      * @param int $iChave - Código da Cidade
@@ -141,12 +181,34 @@ class ClassModelCidade extends estClassQuery {
         $this->setSql($this->getQueryDadosConsultaCidade($iLimit));
         return $this->openFetchAll();
     }
+
+
+    /**
+     * Este método retorna um array associativo dos dados de Cidade.
+     * 
+     * @param int $iCidadeCodigo
+     * @return array
+     */
+    private function getAllDadosCidade($iCidadeCodigo) {
+        $this->setCidadeCodigo($iCidadeCodigo);
+        $this->setSql($this->getQueryAllDadosCidade());
+        $this->openParams(array($this->getCidadeCodigo()));
+        return $this->getNextRow();
+    }
     
     
     /**************************************************************************************************************************************************************
      *************************************                                        QUERYs                                        ***********************************
      **************************************************************************************************************************************************************/
     
+
+     /**
+      * Este método retorna o SQL de consulta de dados da cidade conforme parametro repassado.
+      */
+    private function getQueryAllDadosCidade() {
+        return "SELECT * FROM webbased.tbcidade WHERE cidadecodigo = $1";
+    }
+
 
     /**
      * Esta função retorna o código da cidade, podendo filtrar qualquer parâmetro.

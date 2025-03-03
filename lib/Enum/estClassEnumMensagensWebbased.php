@@ -24,6 +24,9 @@ enum estClassEnumMensagensWebbased: string {
     case webbased011 = "Endereço de pessoa já cadastrado!";
     case webbased012 = "O Estado informado não pertence ao País informado!";
     case webbased013 = "Registro excluído com sucesso!";
+    case webbased014 = "Registro alterado com sucesso!";
+    case webbased015 = "A cidade informada não está cadastrada!";
+    case webbased016 = "Não foram encontradas alterações nos registros!";
 }
 
 ?>

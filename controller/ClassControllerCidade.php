@@ -184,6 +184,26 @@ class ClassControllerCidade extends estClassController {
         return json_encode($this->retornaIncluidoSucessoFrontEnd(estClassEnumMensagensWebbased::webbased013->value));
     }
 
+
+    /**
+     * Este método recebe o dado selecionado para alteração e
+     * chama o Model para realizar a alteração.
+     */
+    public function processaDadosAlterarCidade($aDados) {
+        try {
+            $this->modelCidade->processaDadosAlterar(
+                $aDados["dados"]["cidade.codigo"],
+                $aDados["dados"]["cidade.nome"],
+                $aDados["dados"]["estado.codigo"],
+                $aDados["dados"]["pais.codigo"]
+            );
+            return json_encode($this->retornaIncluidoSucessoFrontEnd(estClassEnumMensagensWebbased::webbased014->value));
+        }
+        catch (Exception $e) {
+            return json_encode($this->retornaExceptionFrontEnd($e));
+        }
+    }
+
 }
 
 

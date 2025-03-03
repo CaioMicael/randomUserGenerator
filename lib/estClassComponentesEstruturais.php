@@ -111,7 +111,7 @@ class estClassComponentesEstruturais {
     public static function getCampoLabelAlteracao($sNomeLabel, $sTipagem, $sNameInput, $sDisabled, $xLupa, $sRequired, $sValue) {
         $html = "<label for='$sNomeLabel'>$sNomeLabel</label>";
         $html .= "<div class='container-input'>
-                    <input type='$sTipagem' name='$sNameInput' $sDisabled $sRequired value='$sValue' class= 'input-tela-inclusao'>";
+                    <input type='$sTipagem' name='$sNameInput' $sDisabled $sRequired value='$sValue' class= 'input-tela-alteracao'>";
         if ($xLupa) {
             $html .= self::getInputLupa($xLupa, $sNameInput);
         }
