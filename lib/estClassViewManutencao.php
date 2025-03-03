@@ -201,7 +201,7 @@ class estClassViewManutencao {
     /**
      * Este método retorna uma tela de inclusão com os campos repassados
      * conforme mapeamento.
-     * @param array $aMapaCampos
+     * @param array $aTipagemLabel
      * @return HTML
      */
     protected function getTelaInclusao($aTipagemLabel) {
@@ -222,11 +222,19 @@ class estClassViewManutencao {
     }
 
 
+    /**
+     * Este método retorna a tela de alteração de registros.
+     * @param array $aTipagemLabel
+     * @param array $aDados
+     * @return HTML
+     */
     protected function getTelaAlteracao($aTipagemLabel, $aDados) {
-      for ($i = 0; $i < count($aDados); $i++) {
-        foreach($aTipagemLabel as $sNomeLabel=>$aTipagem) {
-          $aTipagemLabel[$sNomeLabel]['value'] = $aDados[$i];
+      $i = 0;
+      foreach($aTipagemLabel as $sNomeLabel=>$aTipagem) {
+        if (array_keys($aTipagemLabel)[$i] == $aDados[$i][0]) {
+          $aTipagemLabel[$sNomeLabel]['value'] = $aDados[$i][1];
         }
+        $i++;
       }
       $html = "<div class='overlay'>
               <div class='container-content-alteracao'>
@@ -236,7 +244,7 @@ class estClassViewManutencao {
                     $html .="<aside class ='overlay-header-aside'>".estClassComponentesEstruturais::getBotaoFecharX()."</aside>";
                     $html .= "</div>";
                     $html .= $this->addLabelAlteracao($aTipagemLabel);
-                    $html .= $this->getFooterBotoesJanelaInclusao();
+                    $html .= $this->getFooterBotoesJanelaAlteracao();
                 $html .= "</div>
             </div>
             </div>
@@ -244,7 +252,11 @@ class estClassViewManutencao {
       return $html;
     }
 
-
+    /**
+     * Este método adiciona campos labels conforme array repassado.
+     * @param array $aTipagemLabel
+     * @return HTML
+     */
     private function addLabelAlteracao($aTipagemLabel) {
       $html = '';
       foreach ($aTipagemLabel as $sNomeLabel=>$aTipagem) {
@@ -295,6 +307,23 @@ class estClassViewManutencao {
          $html .= estClassComponentesEstruturais::getBotaoIncluirRegistro();
          $html .= estClassComponentesEstruturais::getBotaoFechar();
         $html .="</footer>
+              </div>";
+      return $html;
+    }
+
+
+    /**
+     * Este método retorna o footer de uma janela de inclusão
+     * com botões de fechar e confirmar alteração.
+     * 
+     * @return HTML
+     */
+    private function getFooterBotoesJanelaAlteracao() {
+      $html = "<div class = 'overlay-footer'>
+                <footer class = 'overlay-buttons'>";
+      $html .= estClassComponentesEstruturais::getBotaoConfirmarAlteracao();
+      $html .= estClassComponentesEstruturais::getBotaoFechar();
+      $html .="</footer>
               </div>";
       return $html;
     }

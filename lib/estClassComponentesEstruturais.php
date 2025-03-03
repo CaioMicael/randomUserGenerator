@@ -65,6 +65,14 @@ class estClassComponentesEstruturais {
 
 
     /**
+     * Este método retorna o botão de confirmar alteração.
+     */
+    public static function getBotaoConfirmarAlteracao() {
+        return "<button class='estButtonConfirmarAlteracao'>Confirmar</button>";
+    }
+
+
+    /**
      * Este método realiza a criação de uma label
      * com um input, conforme parâmetros repassados.
      * 
