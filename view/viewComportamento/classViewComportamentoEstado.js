@@ -1,8 +1,17 @@
 import { estClassViewComportamento } from "../../lib/estClassViewComportamento.js";
 
-class classViewComportamentoEstado extends estClassViewComportamento {
+class ClassViewComportamentoEstado extends estClassViewComportamento {
     constructor() {
-        super();
+        super("../lib/estClassFormulario.php?destino=Estado&Acao=4&processaDados=0", "Estado");
+        this.doAjaxTelaConsulta(this.caminho,"",false);
+        this.initMensagemListener();
+    }
+
+    initMensagemListener() {
+        const overlay = document.querySelector('.overlay');
+        if (overlay) {
+            this.setFundoTelaDisabledAny(overlay);
+        }
     }
 }
-new classViewComportamentoEstado;
+new ClassViewComportamentoEstado;

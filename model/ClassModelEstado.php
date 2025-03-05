@@ -11,10 +11,12 @@ class ClassModelEstado extends estClassModel {
     private int    $estadoCodigo;
     private string $estadoNome;
     private int    $codigoPais;
+    private object $modelPais;
     
     
     public function __construct() {
         parent::__construct();
+        $this->modelPais = new ClassModelPais;
     }
 
 
@@ -48,6 +50,29 @@ class ClassModelEstado extends estClassModel {
             throw new Exception(estClassEnumMensagensWebbased::webbased009->value);
             return;
         }
+    }
+
+
+    /**
+     * Esta função insere Estado no banco de dados conforme parâmetros repassados e retorna para o front end.
+     * 
+     * @param string $sCidadeNome
+     * @param int    $iEstadoCodigo
+     * @param int    $iPaisCodigo
+     */
+    public function processaDadosIncluir($sEstadoNome, $iPaisCodigo, $sPaisNome) {
+        $this->setEstadoNome($sEstadoNome);
+        $this->setCodigoPais($iPaisCodigo);
+        if ($this->isEstadoCadastrado()) {
+            throw new Exception(estClassEnumMensagensWebbased::webbased009->value);
+            return;
+        }
+        if (!$this->modelPais->isPaisCadastradoByCodigo($iPaisCodigo)) {
+            throw new Exception(estClassEnumMensagensWebbased::webbased005->value);
+            return;   
+        }
+
+        $this->insereEstado();
     }
 
 
@@ -122,12 +147,8 @@ class ClassModelEstado extends estClassModel {
         return $this->isRegistroCadastrado('webbased','tbestado','estadocodigo',$iCodigo);
     }
 
-
-    /*************************************************************************************************************************************************************/
-    /************************************                                        QUERYs                                        ***********************************/
-    /*************************************************************************************************************************************************************/
-
-    
+/************************************************** QUERYS *******************************************************
+ *****************************************************************************************************************/    
     /**
      * Este método retorna o SQL de consulta de Estado.
      * 
