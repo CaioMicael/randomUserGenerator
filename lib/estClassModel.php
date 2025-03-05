@@ -65,7 +65,7 @@ class estClassModel extends estClassQuery {
      */
     protected function doAlteraRegistro($aDadosAlterar, $aDadosBD) {
         $aRegistrosAlterar = array_diff($aDadosAlterar, $aDadosBD);
-        if (empty($aRegistroAlterar)) {
+        if (empty($aRegistrosAlterar)) {
             return;
         }
         $this->setSql($this->getQueryAlteraRegistro($aRegistrosAlterar, $aDadosBD));
