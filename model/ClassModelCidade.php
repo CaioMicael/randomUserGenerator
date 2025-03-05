@@ -123,6 +123,11 @@ class ClassModelCidade extends estClassModel {
      * @param int $iPaisCodigo
      */
     public function processaDadosAlterar($iCidadeCodigo, $sCidadeNome, $iEstadoCodigo, $iPaisCodigo) {
+        $this->setCidadeCodigo($iCidadeCodigo);
+        $this->setCidadeNome($sCidadeNome);
+        $this->modelEstado->setEstadoCodigo($iEstadoCodigo);
+        $this->modelPais->setCodigoPais($iPaisCodigo);
+
         if (!$this->isCidadeCadastradaChave($iCidadeCodigo)) {
             throw new Exception(estClassEnumMensagensWebbased::webbased015->value);
             return;
@@ -135,17 +140,17 @@ class ClassModelCidade extends estClassModel {
             throw new Exception(estClassEnumMensagensWebbased::webbased005->value);
             return;   
         }
+        if (!$this->modelEstado->isEstadoPaisValido($this->modelEstado->getEstadoCodigo(), $this->modelPais->getCodigoPais())) {
+            throw new Exception(estClassEnumMensagensWebbased::webbased012->value);
+            return;
+        }
 
-        $this->setCidadeCodigo($iCidadeCodigo);
-        $this->setCidadeNome($sCidadeNome);
-        $this->modelEstado->setEstadoCodigo($iEstadoCodigo);
-        $this->modelPais->setCodigoPais($iPaisCodigo);
 
-        $aDadosAtuais = $this->getAllDadosCidade($iCidadeCodigo);
+        $aDadosPersistidos = $this->getAllDadosCidade($iCidadeCodigo);
         try {
             $this->doAlteraRegistro(
                 $this->getModeloColuna(),
-                $aDadosAtuais
+                $aDadosPersistidos
             );
         }
         catch (Exception $e) {
