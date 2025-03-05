@@ -1,13 +1,13 @@
 <?php
 namespace model;
 
-use lib\estClassQuery;
+use lib\estClassModel;
 use lib\enum\estClassEnumMensagensWebbased;
 use Exception;
 
 require_once '../autoload.php';
 
-class ClassModelEstado extends estClassQuery {
+class ClassModelEstado extends estClassModel {
     private int    $estadoCodigo;
     private string $estadoNome;
     private int    $codigoPais;
@@ -203,6 +203,20 @@ class ClassModelEstado extends estClassQuery {
 
     public function setCodigoPais($codigoPais) {
         $this->codigoPais = $codigoPais;
+    }
+
+    /**
+     * Este método retorna o atributo em forma de array associativo com o nome da coluna no BD.
+     */
+    public function getArrayEstadoCodigoColuna() {
+        return ['estadocodigo' => $this->getEstadoCodigo()];
+    }
+
+    /**
+     * Este método retorna o atributo em forma de array associativo com o nome da coluna no BD.
+     */
+    public function getArrayEstadoNomeColuna() {
+        return ['estadonome' => $this->getEstadoNome()];
     }
 
 

@@ -4,13 +4,13 @@ namespace model;
 use Exception;
 use lib\enum\estClassEnumMensagensWebbased;
 use lib\estClassMensagem;
-use lib\estClassQuery;
+use lib\estClassModel;
 use Throwable;
 
 require_once '../autoload.php';
 
 
-class ClassModelCidade extends estClassQuery {
+class ClassModelCidade extends estClassModel {
     private int    $cidadeCodigo;
     private string $cidadeNome;
     private object $modelEstado;
@@ -21,6 +21,8 @@ class ClassModelCidade extends estClassQuery {
         parent::__construct();
         $this->modelEstado = new ClassModelEstado;
         $this->modelPais   = new ClassModelPais;
+        $this->setSchema('webbased');
+        $this->setTable('tbcidade');
     }
 
 
@@ -112,7 +114,8 @@ class ClassModelCidade extends estClassQuery {
 
 
     /**
-     * Este método realiza as validações de alteração de dados.
+     * Este método realiza as validações de alteração de dados e chama o método
+     * responsável por alterar os registros.
      * 
      * @param int $iCidadeCodigo
      * @param string $sCidadeNome
@@ -138,15 +141,16 @@ class ClassModelCidade extends estClassQuery {
         $this->modelEstado->setEstadoCodigo($iEstadoCodigo);
         $this->modelPais->setCodigoPais($iPaisCodigo);
 
-        $aDados = $this->getAllDadosCidade($iCidadeCodigo);
-        $isRegistrosDiferentes = array_diff(
-                            [$this->getCidadeCodigo(),
-                             $this->getCidadeNome(),
-                             $this->modelEstado->getEstadoCodigo(),
-                             $this->modelPais->getCodigoPais()], 
-                            $aDados);
-        if (!isset($isRegistrosDiferentes)) {
-            return new Exception(estClassEnumMensagensWebbased::webbased016->value);
+        $aDadosAtuais = $this->getAllDadosCidade($iCidadeCodigo);
+        try {
+            $this->doAlteraRegistro(
+                $this->getModeloColuna(),
+                $aDadosAtuais
+            );
+        }
+        catch (Exception $e) {
+            throw new Exception(estClassEnumMensagensWebbased::webbased003->value);
+            return;
         }
     }
 
@@ -292,6 +296,31 @@ class ClassModelCidade extends estClassQuery {
         $this->cidadeNome = $cidadeNome;
     }
 
+    /**
+     * Este método retorna o atributo cidadeCodigo em forma de array associativo com o nome da coluna no BD.
+     */
+    public function getArrayCidadeCodigoColuna() {
+        return ['cidadecodigo' => $this->getCidadeCodigo()];
+    }
+    
+    /**
+     * Este método retorna o atributo cidadeNome em forma de array associativo com o nome da coluna no BD.
+     */
+    public function getArrayCidadeNomeColuna() {
+        return ['cidadenome' => $this->getCidadeNome()];
+    }
+
+    /**
+     * Este método retorna um array associativo com os atributos do Model no formato nome da coluna no BD => valor Atributo.
+     */
+    public function getModeloColuna() {
+        return [
+            'cidadecodigo' => $this->getCidadeCodigo(),
+            'cidadenome'   => $this->getCidadeNome(),
+            'estadocodigo' => $this->modelEstado->getEstadoCodigo(),
+            'paiscodigo'   => $this->modelPais->getCodigoPais()
+        ];
+    }
 }
 
 

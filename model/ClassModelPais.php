@@ -1,13 +1,13 @@
 <?php
 namespace model;
 
-use lib\estClassQuery;
+use lib\estClassModel;
 use lib\enum\estClassEnumMensagensWebbased;
 use Exception;
 
 require_once '../autoload.php';
 
-class ClassModelPais extends estClassQuery {
+class ClassModelPais extends estClassModel {
     private int    $codigoPais;
     private string $nomePais;
 
@@ -166,6 +166,13 @@ class ClassModelPais extends estClassQuery {
 
     public function setNomePais($nome) {
         $this->nomePais = $nome;
+    }
+
+    /**
+     * Este método retorna o atributo em forma de array associativo com o nome da coluna no BD.
+     */
+    public function getArrayCodigoPaisColuna() {
+        return ["paiscodigo" => $this->getCodigoPais()];
     }
 }
 
