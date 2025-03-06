@@ -248,13 +248,12 @@ class ClassModelEstado extends estClassModel {
      * @return SQL
      */
     private function getQueryDeleteEstado() {
-        return "DELETE FROM webbased.tbcidade WHERE estadocodigo = $1";
+        return "DELETE FROM webbased.tbestado WHERE estadocodigo = $1";
     }
 
     
 /************************************* GETTERS E SETTERS DOS ATRIBUTOS *******************************************
  *****************************************************************************************************************/  
-
     public function getEstadoCodigo() {
         return $this->estadoCodigo;
     }
