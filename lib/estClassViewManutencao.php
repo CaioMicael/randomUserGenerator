@@ -26,23 +26,25 @@ class estClassViewManutencao {
 
       $html .= "<table border='1' cellspacing='0' cellpadding='5' style='border-collapse: collapse;'>";
       
-      if (empty($aDados)) {
-        return estClassMensagem::geraMensagemAlertaTela(estClassEnumMensagensWebbased::webbased002);
-      }
-
+      
       $html .= $this->getTableHead($aDados, $aAcoes);
-
+      
       $html .= "<tr>";
-
+      
       $html .= $this->createColunaTable('');
-
-
-      foreach (array_keys($aDados[0]) as $chave) {     
-          $html .= "<th style='background-color: #f2f2f2; padding: 8px;'>" . htmlspecialchars($chave) . "</th>";
+      
+      if (empty($aDados)) {
+        $html .= $this->geraLinhaDadosTableSemRegistros();
+        return $html;
       }
-
+      
+      foreach (array_keys($aDados[0]) as $chave) {     
+        $html .= "<th style='background-color: #f2f2f2; padding: 8px;'>" . htmlspecialchars($chave) . "</th>";
+      }
+      
       $html .= "</tr>";
       
+
       if ($aAcoes[0]->value == 5) {
         $html .= $this->geraLinhaDadosTable($aDados, true);
       }
@@ -89,6 +91,14 @@ class estClassViewManutencao {
     }
 
 
+    private function geraLinhaDadosTableSemRegistros() {
+      $html = "<tr>";
+      $html .= "<td style='padding: 8px;'>Não há registros a serem apresentados!</td>";
+      $html .= "</tr>";
+      return $html;
+    }
+
+
     /**
      * Este método pega o Enum de ações repassadas e retorna as
      * mesmas para inserção em algum componente.
@@ -126,6 +136,9 @@ class estClassViewManutencao {
      * @return int
      */
     protected function getQuantidadeColunas($aDados) {
+      if (empty($aDados)) {
+        return 0;
+      }
       return count(array_keys($aDados[0]));
     }
 
@@ -167,6 +180,10 @@ class estClassViewManutencao {
       $html = "<thead style='font-weight: bold; font-size: 1.2em; margin-bottom: 10px;'>
                   <tr>
                     <th colspan=".$this->getQuantidadeColunas($aDados)+1 ." style='text-align: center' id='headerTabela';>$this->sTituloRotina";
+      if (empty($aAcoes)) {
+        $html .= "</th> </tr> </thead>";
+        return $html;
+      }                    
       if ($aAcoes[0]->value === 5) {
         $html .= estClassComponentesEstruturais::getBotaoFecharX();              
       }
