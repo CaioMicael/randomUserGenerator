@@ -17,6 +17,9 @@ class ClassModelEstado extends estClassModel {
     public function __construct() {
         parent::__construct();
         $this->modelPais = new ClassModelPais;
+        $this->setSchema('webbased');
+        $this->setTable('tbestado');
+        $this->setChave(['estadocodigo' => '']);
     }
 
 
@@ -77,6 +80,68 @@ class ClassModelEstado extends estClassModel {
 
 
     /**
+     * Esta função exclui o Estado do banco de dados conforme parâmetro.
+     * @param int $iCidadeCodigo
+     */
+    public function processaDadosExcluir($iEstadoCodigo) {
+        $this->setEstadoCodigo($iEstadoCodigo);
+        if ($this->isEstadoCadastradoByCodigo($this->getEstadoCodigo())) {
+            $this->setSql($this->getQueryDeleteEstado());
+            try {
+                $this->openParams(array($this->getEstadoCodigo()));
+            }
+            catch (Exception $e) {
+                throw new Exception(estClassEnumMensagensWebbased::webbased003->value);
+                return;
+            }
+        }
+    }
+
+
+    /**
+     * Este método realiza as validações de alteração de dados e chama o método
+     * responsável por alterar os registros.
+     * 
+     * @param int $iEstadoCodigo
+     * @param string $sEstadoNome
+     * @param int $iPaisCodigo
+     * @param int $sPaisNome
+     */
+    public function processaDadosAlterar($iEstadoCodigo, $sEstadoNome, $iPaisCodigo, $sPaisNome) {
+        $this->setEstadoCodigo($iEstadoCodigo);
+        $this->setEstadoNome($sEstadoNome);
+        $this->modelPais->setCodigoPais($iPaisCodigo);
+        $this->modelPais->setNomePais($sPaisNome);
+
+        if (!$this->isEstadoCadastradoByCodigo($this->getEstadoCodigo())) {
+            throw new Exception(estClassEnumMensagensWebbased::webbased015->value);
+            return;
+        }
+        if (!$this->modelPais->isPaisCadastradoByCodigo($this->modelPais->getCodigoPais())) {
+            throw new Exception(estClassEnumMensagensWebbased::webbased005->value);
+            return;   
+        }
+        if (!$this->isEstadoPaisValido($this->getEstadoCodigo(), $this->modelPais->getCodigoPais())) {
+            throw new Exception(estClassEnumMensagensWebbased::webbased012->value);
+            return;
+        }
+
+        $this->aChave = $this->getArrayEstadoCodigoColuna();
+        $aDadosPersistidos = $this->getAllDadosByChave();
+        try {
+            $this->doAlteraRegistro(
+                $this->getModeloColuna(),
+                $aDadosPersistidos
+            );
+        }
+        catch (Exception $e) {
+            throw new Exception(estClassEnumMensagensWebbased::webbased003->value);
+            return;
+        }
+    }
+
+
+    /**
      * Esta função verifica se o Estado já está cadastrado no banco de dados.
      * 
      * @return boolean
@@ -100,27 +165,6 @@ class ClassModelEstado extends estClassModel {
             'paiscodigo'   => $iCodigoPais
         ];
         return $this->isRegistroCadastradoSemPK('webbased','tbestado',$aDados);
-    }
-
-
-    /**
-     * @deprecated
-     * Esta função é utilizada para setar o código do Estado no modelo, procurando o mesmo pelo nome no banco de dados.
-     * Se o Estado ainda não estiver no banco, ele simplesmente não seta o código no modelo pois ainda não tem um código.
-     * 
-     * @param string $nomeEstado
-     */
-    public function setCodigoEstadoByNome($nomeEstado) {
-        if ($this->isEstadoCadastrado($nomeEstado)) {
-            $this->setSql(
-                "SELECT estadocodigo
-                   FROM webbased.tbestado
-                  WHERE estadonome = '$nomeEstado';"
-            );
-            $this->Open();
-            $result = $this->getNextRow();
-            $this->setEstadoCodigo($result['estadocodigo']);
-        }
     }
 
 
@@ -197,10 +241,19 @@ class ClassModelEstado extends estClassModel {
                 VALUES (nextval('webbased.tbestado_estadocodigo_seq'),$1,$2) RETURNING estadocodigo;";
     }
 
+
+    /**
+     * Este método retorna o SQL de delete de Estado.
+     * 
+     * @return SQL
+     */
+    private function getQueryDeleteEstado() {
+        return "DELETE FROM webbased.tbcidade WHERE estadocodigo = $1";
+    }
+
     
-    /**************************************************************************************************************************************************************/
-    /*************************************                           GETTERS E SETTERS DOS ATRIBUTOS                            ***********************************/
-    /**************************************************************************************************************************************************************/ 
+/************************************* GETTERS E SETTERS DOS ATRIBUTOS *******************************************
+ *****************************************************************************************************************/  
 
     public function getEstadoCodigo() {
         return $this->estadoCodigo;
@@ -238,6 +291,19 @@ class ClassModelEstado extends estClassModel {
      */
     public function getArrayEstadoNomeColuna() {
         return ['estadonome' => $this->getEstadoNome()];
+    }
+
+
+    /**
+     * Este método retorna um array associativo com os atributos do Model no formato nome da coluna no BD => valor Atributo.
+     * @return array
+     */
+    public function getModeloColuna() {
+        return [
+            'estadocodigo' => $this->getEstadoCodigo(),
+            'estadonome'   => $this->getEstadoNome(),
+            'paiscodigo'   => $this->modelPais->getCodigoPais()
+        ];
     }
 
 

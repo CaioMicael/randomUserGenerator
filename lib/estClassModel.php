@@ -16,6 +16,7 @@ require_once '../autoload.php';
 class estClassModel extends estClassQuery {
     protected string $schema;
     protected string $table;
+    protected array $aChave;
 
 
     /**
@@ -55,8 +56,8 @@ class estClassModel extends estClassQuery {
         $query = $query.");";
         return $query;
     }
-
-
+    
+    
     /**
      * Este método realiza a alteração de um registro no banco de dados.
      * @param array $aDadosAlterar - Dados a serem alterados
@@ -76,7 +77,20 @@ class estClassModel extends estClassQuery {
             return new Exception($e);
         }
     }
+    
 
+    /**
+     * Este método retorna todos os registros encontrados na tabela do modelo
+     * filtrando apenas pela chave do modelo.
+     * @param $aValorChave - Valor da chave a ser filtrada.
+     * @return array
+     */
+    protected function getAllDadosByChave() {
+        $this->setSql($this->getQueryAllDadosByChave());
+        $this->Open();
+        return $this->getNextRow();
+    }
+    
 
     /**
      * Este método retorna o SQL de update de registro.
@@ -107,6 +121,25 @@ class estClassModel extends estClassQuery {
     }
 
 
+    /**
+     * Este método retorna o SQL de select de todos os dados filtrando pela chave do modelo.
+     * @return SQL
+     */
+    private function getQueryAllDadosByChave() {
+        if (empty($this->getChave())) {
+            return;
+        }
+        $query = "SELECT * 
+                    FROM ".$this->getSchema().".".$this->getTable()." 
+                   WHERE ". array_keys($this->getChave())[0] ." = ". array_values($this->getChave())[0] .";";
+        return $query;
+    }
+
+
+
+/****************************************GETTERS E SETTERS DOS ATRIBUTOS *****************************************
+ *****************************************************************************************************************/    
+
     protected function getSchema() {
         return $this->schema;
     }
@@ -115,12 +148,20 @@ class estClassModel extends estClassQuery {
         return $this->table;
     }
 
+    protected function getChave() {
+        return $this->aChave;
+    }
+
     protected function setSchema($schema) {
         $this->schema = $schema;
     }
 
     protected function setTable($table) {
         $this->table = $table;
+    }
+
+    protected function setChave($aChave) {
+        $this->aChave = $aChave;
     }
 }
 
