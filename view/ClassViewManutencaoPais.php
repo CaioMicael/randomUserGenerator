@@ -4,6 +4,7 @@ namespace view;
 
 use controller\ClassControllerPais;
 use lib\estClassViewManutencao;
+use Exception;
 
 require_once '../autoload.php';
 
@@ -20,21 +21,51 @@ class ClassViewManutencaoPais extends estClassViewManutencao {
 
     public function __construct() {
         $this->controllerPais = new ClassControllerPais;
-        $this->setTituloRotina('Consulta de Estado');
-        $this->setTituloTelaInclusao('Incluir Estado');
+        $this->setTituloRotina('Consulta de País');
+        $this->setTituloTelaInclusao('Incluir País');
+        $this->setTituloTelaAlteracao('Alterar País');
     }
 
 
     /**
-     * Este método retorna uma consulta dos registros
-     * de país com as ações repassadas.
+     * Este método realiza a criação de uma tela
+     * para inclusão de um Estado.
+     * @param array $aDados - Dados dos campos tipados em HTML.
+     * @return HTML
+     */
+    public function getTelaIncluirPais($aDados) {
+        return $this->getTelaInclusao($aDados);
+    }
+
+
+    /**
+     * Este método realiza a criação de uma tela de alteração de registro.
+     * @param array $aDados - Dados dos campos tipados em HTML.
+     * @return HTML
+     */
+    public function getTelaAlterarPais($aTipagem, $aDados) {
+        try {
+            return json_encode($this->getTelaAlteracao($aTipagem, $aDados));
+        }
+        catch (Exception $e) {
+            return $e;
+        }
+    }
+
+
+    /**
+     * Este método retorna a consulta de Estado completa, com as ações repassadas.
      * 
-     * @param array $aAcoes
+     * @param  array $aAcoes
      * @return HTML
      */
     public function getConsultaPaisView($aAcoes) {
-        return $this->getConsulta($this->controllerPais->getDadosTratadoConsultaPaisController(), $aAcoes);
+        $this->getConsulta($this->controllerPais->getDadosConsultaPaisController(),$aAcoes);
+        return $this->sTabelaRegistrosConsulta;
     }
+}
+if ($_SERVER["REQUEST_URI"] == '/randomusergenerator/view/ClassViewManutencaoPais.php') {
+    echo '<script type="module" src="viewComportamento/ClassViewComportamentoPais.js"></script>';
 }
 
 ?>
