@@ -12,6 +12,14 @@ class ClassModelPais extends estClassModel {
     private string $nomePais;
 
 
+    public function __construct() {
+        parent::__construct();
+        $this->setSchema('webbased');
+        $this->setTable('tbpais');
+        $this->setChave(['paiscodigo' => '']);
+    }
+
+
     /**
      * Esta função seta os atributos do model.
      * 
@@ -44,6 +52,41 @@ class ClassModelPais extends estClassModel {
 
 
     /**
+     * Este método realiza as validações de alteração de dados e chama o método
+     * responsável por alterar os registros.
+     * 
+     * @param int $iPaisCodigo
+     * @param string $sPaisNome
+     */
+    public function processaDadosAlterar($iPaisCodigo, $sPaisNome) {
+        $this->setCodigoPais($iPaisCodigo);
+        $this->setNomePais($sPaisNome);
+
+        if (!$this->isPaisCadastradoByCodigo($this->getCodigoPais())) {
+            throw new Exception(estClassEnumMensagensWebbased::webbased005->value);
+            return;
+        }
+        if ($this->isPaisCadastrado($this->getNomePais())) {
+            throw new Exception(estClassEnumMensagensWebbased::webbased007->value);
+            return;   
+        }
+
+        $this->aChave = $this->getArrayCodigoPaisColuna();
+        $aDadosPersistidos = $this->getAllDadosByChave();
+        try {
+            $this->doAlteraRegistro(
+                $this->getModeloColuna(),
+                $aDadosPersistidos
+            );
+        }
+        catch (Exception $e) {
+            throw new Exception(estClassEnumMensagensWebbased::webbased003->value);
+            return;
+        }
+    }
+
+
+    /**
      * Este método retorna os dados da consulta de país
      * 
      * @return array
@@ -66,27 +109,6 @@ class ClassModelPais extends estClassModel {
 
 
     /**
-     * @deprecated
-     * Esta função é utilizada para setar o código do país, procurando o mesmo pelo nome no banco de dados.
-     * Se o país ainda não estiver no banco, ele simplesmente não seta o código no modelo pois ainda não tem um código.
-     * 
-     * @param string $nomePais
-     */
-    public function setCodigoPaisByNome($nomePais) {
-        if ($this->isPaisCadastrado($nomePais)) {
-            $this->setSql(
-                "SELECT paiscodigo
-                   FROM webbased.tbpais
-                  WHERE paisnome = '$nomePais';"
-            );
-            $this->Open();
-            $result = $this->getNextRow();
-            $this->setCodigoPais($result['paiscodigo']);
-        }
-    }
-
-
-    /**
      * Este método retorna booleano se o Pais existe no BD
      * de acordo com o código repassado.
      * 
@@ -98,11 +120,8 @@ class ClassModelPais extends estClassModel {
     }
 
 
-    /*************************************************************************************************************************************************************/
-    /************************************                                        QUERYs                                        ***********************************/
-    /*************************************************************************************************************************************************************/
-
-
+/************************************************** QUERYS *******************************************************
+ *****************************************************************************************************************/   
     /**
      * Este método retorna o SQL de consulta de país
      * 
@@ -148,10 +167,9 @@ class ClassModelPais extends estClassModel {
     }
 
 
-    /**************************************************************************************************************************************************************/
-    /*************************************                           GETTERS E SETTERS DOS ATRIBUTOS                            ***********************************/
-    /**************************************************************************************************************************************************************/ 
-    
+/************************************* GETTERS E SETTERS DOS ATRIBUTOS *******************************************
+ *****************************************************************************************************************/  
+
     public function getCodigoPais() {
         return $this->codigoPais;
     }
@@ -173,6 +191,24 @@ class ClassModelPais extends estClassModel {
      */
     public function getArrayCodigoPaisColuna() {
         return ["paiscodigo" => $this->getCodigoPais()];
+    }
+
+    /**
+     * Este método retorna o atributo em forma de array associativo com o nome da coluna no BD.
+     */
+    public function getArrayNomePaisColuna() {
+        return ["paisnome" => $this->getNomePais()];
+    }
+
+    /**
+     * Este método retorna um array associativo com os atributos do Model no formato nome da coluna no BD => valor Atributo.
+     * @return array
+     */
+    public function getModeloColuna() {
+        return [
+            'paiscodigo' => $this->getCodigoPais(),
+            'paisnome'   => $this->getNomePais()
+        ];
     }
 }
 
