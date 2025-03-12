@@ -2,6 +2,8 @@
 namespace lib;
 use lib\estClassQuery;
 use lib\estClassErrorHandler;
+use lib\estClassMensagem;
+use lib\enum\estClassEnumMensagensWebbased;
 use Exception;
 
 require_once '../autoload.php';
@@ -77,6 +79,25 @@ class estClassModel extends estClassQuery {
             return new Exception($e);
         }
     }
+
+
+    /**
+     * Esta função pode ser utilizada para excluir um registro do banco de dados.
+     * Necessário que a chave esteja setada para utilizar a função.
+     * @return void
+     */
+    protected function doExcluirRegistro() {
+        $this->setSql($this->getQueryExcluirRegistro());
+        if (empty(array_filter($this->getChave()))) {
+            return estClassMensagem::geraMensagemAlertaTela(estClassEnumMensagensWebbased::webbased003);
+        }
+        try {
+            $this->openFetchAll();
+        }
+        catch (Exception $e) {
+            return new Exception($e);
+        }
+    }
     
 
     /**
@@ -110,6 +131,25 @@ class estClassModel extends estClassQuery {
         }
         foreach ($aDadosAlterar as $coluna => $valor) {
             if (array_key_first($aDadosAlterar) == $coluna) {
+                $query .= " WHERE $coluna = '$valor'"; 
+            }
+            else {
+                $query .= " AND $coluna = '$valor'";  
+            }
+        }
+        $query .=";";
+        return $query;
+    }
+
+
+    /**
+     * Este método retorna a query que deleta registros conforme chave da tabela.
+     * @return SQL
+     */
+    private function getQueryExcluirRegistro() {
+        $query = "DELETE FROM ".$this->getSchema().".".$this->getTable();
+        foreach ($this->getChave() as $coluna => $valor) {
+            if (array_key_first($this->getChave()) == $coluna) {
                 $query .= " WHERE $coluna = '$valor'"; 
             }
             else {

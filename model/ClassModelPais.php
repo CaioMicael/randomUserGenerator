@@ -52,6 +52,25 @@ class ClassModelPais extends estClassModel {
 
 
     /**
+     * Esta função exclui o País do banco de dados conforme parâmetro.
+     * @param int $iPaisCodigo
+     */
+    public function processaDadosExcluir($iPaisCodigo) {
+        $this->setCodigoPais($iPaisCodigo);
+        $this->setChave($this->getArrayCodigoPaisColuna());
+        if ($this->isPaisCadastradoByCodigo($this->getCodigoPais())) {
+            try {
+                $this->doExcluirRegistro();
+            }
+            catch (Exception $e) {
+                throw new Exception(estClassEnumMensagensWebbased::webbased003->value);
+                return;
+            }
+        }
+    }
+
+
+    /**
      * Este método realiza as validações de alteração de dados e chama o método
      * responsável por alterar os registros.
      * 
@@ -188,6 +207,7 @@ class ClassModelPais extends estClassModel {
 
     /**
      * Este método retorna o atributo em forma de array associativo com o nome da coluna no BD.
+     * @return array
      */
     public function getArrayCodigoPaisColuna() {
         return ["paiscodigo" => $this->getCodigoPais()];
@@ -195,6 +215,7 @@ class ClassModelPais extends estClassModel {
 
     /**
      * Este método retorna o atributo em forma de array associativo com o nome da coluna no BD.
+     * @return array
      */
     public function getArrayNomePaisColuna() {
         return ["paisnome" => $this->getNomePais()];
