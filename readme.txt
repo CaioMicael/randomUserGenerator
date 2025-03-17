@@ -9,4 +9,4 @@ Para testar a APi, basta acessar o arquivo ClassModelAPIUserGenerator.php, ele i
 Com isso, basta acessar as views que os dados executados pela API estarão disponíveis para alterar nos CRUDs.
 
 [Observações sobre o projeto]:
-Atualmente somente as views Estado e Cidade funcionam 100%, as demais estão em implementação ainda.
+Atualmente somente as views Estado, Cidade e País funcionam 100%, as demais estão em implementação ainda.
