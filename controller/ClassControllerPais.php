@@ -137,7 +137,7 @@ class ClassControllerPais extends estClassController {
      */
     public function processaDadosExcluirPais($aDados) {
         $this->modelPais->processaDadosExcluir($aDados["dados"]);
-        //return json_encode($this->retornaIncluidoSucessoFrontEnd(estClassEnumMensagensWebbased::webbased013->value));
+        return json_encode($this->retornaIncluidoSucessoFrontEnd(estClassEnumMensagensWebbased::webbased013->value));
     }
 
 
