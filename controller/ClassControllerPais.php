@@ -65,7 +65,7 @@ class ClassControllerPais extends estClassController {
      */
     public function getTipagemCamposToHtml() {
         return [
-            "Código do País"   => ["name" => "pais.codigo"  ,"type"   => "number", "required" => "required", "value" => "", "disabled" =>         "", "lupa" => "Pais"],         
+            "Código do País"   => ["name" => "pais.codigo"  ,"type"   => "number", "required" => "required", "value" => "", "disabled" =>         "disabled", "lupa" => "Pais"],         
             "Nome do País"     => ["name" => "pais.nome"    ,"type"   => "text"  , "required" => "required", "value" => "", "disabled" =>         "", "lupa" => false]        
         ];
     }
@@ -119,11 +119,10 @@ class ClassControllerPais extends estClassController {
      * @param array $aDados
      */
     public function processaDadosIncluirPais($aDados) {
-        $iPaisCodigo = filter_var($aDados['dados']['pais.codigo'], FILTER_SANITIZE_NUMBER_INT);
-        $sPaisNome   = filter_var($aDados['dados']['pais.nome'], FILTER_SANITIZE_NUMBER_INT);
+        $sPaisNome   = filter_var($aDados['dados']['pais.nome'], FILTER_SANITIZE_SPECIAL_CHARS);
 
         try {
-            $this->modelPais->processaDadosIncluir($iPaisCodigo, $sPaisNome);
+            $this->modelPais->processaDadosIncluir($sPaisNome);
             return json_encode($this->retornaIncluidoSucessoFrontEnd(estClassEnumMensagensWebbased::webbased006->value));
         }
         catch(Exception $e) {

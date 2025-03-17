@@ -52,6 +52,27 @@ class ClassModelPais extends estClassModel {
 
 
     /**
+     * Esta função processa os dados de inclusão do País.
+     * @param string $sPaisNome
+     * @return void
+     */
+    public function processaDadosIncluir($sPaisNome) {
+        if (isset($sPaisNome) && empty($sPaisNome)) {
+            throw new Exception(estClassEnumMensagensWebbased::webbased003->value);
+            return;
+        }
+        $this->setNomePais($sPaisNome);
+        try {
+            $this->inserePais();
+        }
+        catch (Exception $e) {
+            throw new Exception(estClassEnumMensagensWebbased::webbased003->value);
+            return;
+        }
+    }
+
+
+    /**
      * Esta função exclui o País do banco de dados conforme parâmetro.
      * @param int $iPaisCodigo
      */
