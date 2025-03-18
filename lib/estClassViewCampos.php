@@ -139,10 +139,10 @@ class estClassViewCampos {
 
     /**
      * Define se o campo deve ser desabilitado
-     * @param string $sDisabled - passar 'disabled' para desabilitar.
+     * @param string $sDisabled
      * @return self
      */
-    protected function setDisabled(string $sDisabled): self {
+    protected function setDisabled(string $sDisabled = 'disabled'): self {
         $this->sDisabled = $sDisabled;
         return $this;
     }
@@ -157,10 +157,10 @@ class estClassViewCampos {
 
     /**
      * Define se o campo é obrigatório
-     * @param string $sRequired - passar 'required' para tornar o campo obrigatório.
+     * @param string $sRequired
      * @return self
      */
-    protected function setRequired(string $sRequired): self {
+    protected function setRequired(string $sRequired = 'required'): self {
         $this->sRequired = $sRequired;
         return $this;
     }

@@ -32,7 +32,7 @@ class ClassViewManutencaoEstado extends estClassViewManutencao {
      * @return HTML
      */
     public function getTelaIncluirEstado($aDados) {
-        return $this->getTelaInclusao($aDados);
+        return $this->getTelaInclusao($this->getCamposInclusao());
     }
 
 
@@ -60,6 +60,18 @@ class ClassViewManutencaoEstado extends estClassViewManutencao {
     public function getConsultaEstadoView($aAcoes) {
         $this->getConsulta($this->controllerEstado->getDadosConsultaEstadoController(),$aAcoes);
         return $this->sTabelaRegistrosConsulta;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    protected function getCamposInclusao() {
+        return [
+            $this->addCampo()->setNomeLabel('Código do Estado')->setTipagem('number')->setNameCampo('estado.codigo')->setRequired()->setDisabled(),
+            $this->addCampo()->setNomeLabel('Nome do Estado')->setTipagem('text')->setNameCampo('estado.nome')->setRequired(),
+            $this->addCampo()->setNomeLabel('Código do País')->setTipagem('number')->setNameCampo('pais.codigo')->setRequired()->setLupa('Pais'),
+            $this->addCampo()->setNomeLabel('Nome do País')->setTipagem('text')->setNameCampo('pais.nome')->setRequired()->setDisabled()
+        ];
     }
 
 }

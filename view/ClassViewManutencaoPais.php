@@ -69,8 +69,8 @@ class ClassViewManutencaoPais extends estClassViewManutencao {
      */
     protected function getCamposInclusao() {
         return [
-            $this->addCampo()->setNameCampo('pais.codigo')->setNomeLabel('Código do País')->setTipagem('number')->setRequired('required')->setDisabled('disabled'),
-            $this->addCampo()->setNameCampo('pais.nome')->setNomeLabel('Nome do País')->setTipagem('text')->setRequired('required')
+            $this->addCampo()->setNameCampo('pais.codigo')->setNomeLabel('Código do País')->setTipagem('number')->setRequired()->setDisabled(),
+            $this->addCampo()->setNameCampo('pais.nome')->setNomeLabel('Nome do País')->setTipagem('text')->setRequired()
         ];
     }
 
