@@ -2,10 +2,11 @@
 namespace lib;
 
 use lib\enum\estClassEnumMensagensWebbased;
+use lib\estClassViewCampos;
 
 require_once '../autoload.php';
 
-class estClassViewManutencao {
+class estClassViewManutencao extends estClassViewCampos {
     protected string $sTituloRotina;
     protected array  $aAcoes;
     protected string $sTabelaRegistrosConsulta;
