@@ -34,7 +34,7 @@ class ClassViewManutencaoCidade extends estClassViewManutencao {
      * @return HTML
      */
     public function getTelaIncluirCidade($aDados) {
-        return $this->getTelaInclusao($aDados);
+        return $this->getTelaInclusao($this->getCamposInclusao());
     }
 
 
@@ -64,6 +64,30 @@ class ClassViewManutencaoCidade extends estClassViewManutencao {
         return $this->getConsulta(
             $this->controllerCidade->getDadosConsultaCidadeController(), 
             $aAcoes);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    protected function getCamposAlteracao() {
+        return [
+            $this->addCampo()->setNomeLabel('Código da Cidade')->setTipagem('text')->setNameCampo('cidade.codigo')->setDisabled(),
+            $this->addCampo()->setNomeLabel('Nome da Cidade')->setTipagem('text')->setNameCampo('cidade.nome')->setRequired(),
+            $this->addCampo()->setNomeLabel('Código do Estado')->setTipagem('text')->setNameCampo('estado.codigo')->setRequired(),
+            $this->addCampo()->setNomeLabel('Código do País')->setTipagem('text')->setNameCampo('pais.codigo')->setRequired()
+        ];
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    protected function getCamposInclusao() {
+        return [
+            $this->addCampo()->setNomeLabel('Código da Cidade')->setTipagem('text')->setNameCampo('cidade.codigo')->setDisabled(),
+            $this->addCampo()->setNomeLabel('Nome da Cidade')->setTipagem('text')->setNameCampo('cidade.nome')->setRequired(),
+            $this->addCampo()->setNomeLabel('Código do Estado')->setTipagem('text')->setNameCampo('estado.codigo')->setRequired()->setLupa('Estado'),
+            $this->addCampo()->setNomeLabel('Código do País')->setTipagem('text')->setNameCampo('pais.codigo')->setRequired()->setLupa('Pais')
+        ];
     }
     
 }
