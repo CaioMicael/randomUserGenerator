@@ -114,7 +114,7 @@ class ClassControllerEstado extends estClassController {
      */
     public function getTelaIncluirEstado() {
         $this->viewEstado = new ClassViewManutencaoEstado;
-        return $this->viewEstado->getTelaIncluirEstado($this->getTipagemCamposToHtml());
+        return $this->viewEstado->getTelaIncluirEstado();
     }
 
 
