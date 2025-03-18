@@ -302,12 +302,12 @@ class estClassViewManutencao extends estClassViewCampos {
       $html = '';
       foreach ($aTipagemLabel as $sNomeLabel=>$aTipagem) {
         $html .= estClassComponentesEstruturais::getCampoLabelInclusao(
-          $sNomeLabel,
-          $aTipagem['type'], 
-          $aTipagem['name'],
-          $aTipagem['disabled'],
-          $aTipagem["lupa"],
-          $aTipagem["required"]);
+          $aTipagem->sNomeLabel,
+          $aTipagem->sTipagem, 
+          $aTipagem->sNameCampo,
+          $aTipagem->sDisabled,
+          $aTipagem->xLupa,
+          $aTipagem->sRequired);
       }
       return $html;
     }

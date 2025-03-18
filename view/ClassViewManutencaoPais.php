@@ -34,7 +34,7 @@ class ClassViewManutencaoPais extends estClassViewManutencao {
      * @return HTML
      */
     public function getTelaIncluirPais($aDados) {
-        return $this->getTelaInclusao($aDados);
+        return $this->getTelaInclusao($this->getCamposInclusao());
     }
 
 
@@ -63,6 +63,17 @@ class ClassViewManutencaoPais extends estClassViewManutencao {
         $this->getConsulta($this->controllerPais->getDadosConsultaPaisController(),$aAcoes);
         return $this->sTabelaRegistrosConsulta;
     }
+
+    /**
+     * {@inheritDoc}
+     */
+    protected function getCamposInclusao() {
+        return [
+            $this->addCampo()->setNameCampo('pais.codigo')->setNomeLabel('Código do País')->setTipagem('number')->setRequired('required')->setDisabled('disabled'),
+            $this->addCampo()->setNameCampo('pais.nome')->setNomeLabel('Nome do País')->setTipagem('text')->setRequired('required')
+        ];
+    }
+
 }
 if ($_SERVER["REQUEST_URI"] == '/randomusergenerator/view/ClassViewManutencaoPais.php') {
     echo '<script type="module" src="viewComportamento/ClassViewComportamentoPais.js"></script>';

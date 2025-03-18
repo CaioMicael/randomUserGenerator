@@ -46,6 +46,35 @@ class estClassViewCampos {
      */
     protected string $sNameInputLupa;
 
+    public function __construct() {
+        $this->setNomeLabel('');
+        $this->setTipagem('');
+        $this->setNameCampo('');
+        $this->setDisabled('');
+        $this->setRequired('');
+        $this->setLupa('');
+        $this->setNameInputLupa('');
+    }
+
+    /**
+     * Função que adiciona os campos na view.
+     */
+    protected function addCampo():estClassViewCampos {
+        return new estClassViewCampos();
+    }
+
+    /**
+     * Retorna os campos da tela de inclusão.
+     * @return array - array com os campos
+     */
+    protected function getCamposInclusao(){}
+
+    /**
+     * Retorna os campos da tela de alteração.
+     * @return array - array com os campos
+     */
+    protected function getCamposAlteracao(){}
+
     /**
      * Retorna o nome da label
      * @return string
