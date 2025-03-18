@@ -121,7 +121,7 @@ class ClassControllerCidade extends estClassController {
      */
     public function getTelaIncluirCidade() {
         $this->viewCidade = new ClassViewManutencaoCidade;
-        return $this->viewCidade->getTelaIncluirCidade($this->getTipagemCamposToHtml());
+        return $this->viewCidade->getTelaIncluirCidade();
     }
 
 

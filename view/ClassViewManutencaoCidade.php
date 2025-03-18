@@ -30,10 +30,9 @@ class ClassViewManutencaoCidade extends estClassViewManutencao {
     /**
      * Este método realiza a criação de uma tela
      * para inclusão de uma cidade.
-     * @param array $aDados - Dados dos campos tipados em HTML.
      * @return HTML
      */
-    public function getTelaIncluirCidade($aDados) {
+    public function getTelaIncluirCidade() {
         return $this->getTelaInclusao($this->getCamposInclusao());
     }
 
