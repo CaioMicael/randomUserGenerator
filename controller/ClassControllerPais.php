@@ -93,7 +93,7 @@ class ClassControllerPais extends estClassController {
      */
     public function getTelaIncluirPais() {
         $this->viewPais = new ClassViewManutencaoPais;
-        return $this->viewPais->getTelaIncluirPais($this->getTipagemCamposToHtml());
+        return $this->viewPais->getTelaIncluirPais();
     }
 
 

@@ -30,10 +30,9 @@ class ClassViewManutencaoPais extends estClassViewManutencao {
     /**
      * Este método realiza a criação de uma tela
      * para inclusão de um Estado.
-     * @param array $aDados - Dados dos campos tipados em HTML.
      * @return HTML
      */
-    public function getTelaIncluirPais($aDados) {
+    public function getTelaIncluirPais() {
         return $this->getTelaInclusao($this->getCamposInclusao());
     }
 
