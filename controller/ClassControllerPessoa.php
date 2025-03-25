@@ -6,6 +6,13 @@ use lib\estClassController;
 
 require_once '../autoload.php';
 
+/**
+ * Esta classe é responsável por controlar as ações da pessoa.
+ * @package webbased
+ * @subpackage controller
+ * @author Caio Micael Krieger
+ * @since 17/01/2025
+ */
 class ClassControllerPessoa extends estClassController {
     private object $modelPessoa;
 

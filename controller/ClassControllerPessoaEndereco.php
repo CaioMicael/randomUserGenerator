@@ -6,7 +6,12 @@ use model\ClassModelPessoaEndereco;
 
 require_once '../autoload.php';
 
-
+/**
+ * Controller de endereço de pessoa.
+ * @package webbasd
+ * @author Caio Micael Krieger
+ * @since 17/01/2025
+ */
 class ClassControllerPessoaEndereco extends estClassController {
     private object $modelEndereco;
     private object $controllerPais;
