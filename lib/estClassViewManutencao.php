@@ -246,11 +246,11 @@ class estClassViewManutencao extends estClassViewCampos {
      * @param array $aDados
      * @return HTML
      */
-    protected function getTelaAlteracao($aTipagemLabel, $aDados) {
+    protected function getTelaAlteracao($aCampos, $aDados) {
       $i = 0;
-      foreach($aTipagemLabel as $sNomeLabel=>$aTipagem) {
-        if (array_keys($aTipagemLabel)[$i] == $aDados[$i][0]) {
-          $aTipagemLabel[$sNomeLabel]['value'] = $aDados[$i][1];
+      foreach($aCampos as $oCampos=>$campo) {
+        if ($campo->getNomeLabel() == $aDados[$i][0]) {
+          $campo->setValor($aDados[$i][1]);
         }
         $i++;
       }
@@ -261,7 +261,7 @@ class estClassViewManutencao extends estClassViewCampos {
                     $html .= $this->getHeaderJanela($this->getTituloTelaAlteracao());
                     $html .="<aside class ='overlay-header-aside'>".estClassComponentesEstruturais::getBotaoFecharX()."</aside>";
                     $html .= "</div>";
-                    $html .= $this->addLabelAlteracao($aTipagemLabel);
+                    $html .= $this->addLabelAlteracao($aCampos);
                     $html .= $this->getFooterBotoesJanelaAlteracao();
                 $html .= "</div>
             </div>
@@ -271,21 +271,22 @@ class estClassViewManutencao extends estClassViewCampos {
     }
 
     /**
-     * Este método adiciona campos labels conforme array repassado.
-     * @param array $aTipagemLabel
+     * Este método adiciona campos labels conforme campos (array) repassado.
+     * @param array $aCampos - array de campos
      * @return HTML
      */
-    private function addLabelAlteracao($aTipagemLabel) {
+    private function addLabelAlteracao($aCampos) {
       $html = '';
-      foreach ($aTipagemLabel as $sNomeLabel=>$aTipagem) {
+      foreach ($aCampos as $oCampos=>$oCampo) {
         $html .= estClassComponentesEstruturais::getCampoLabelAlteracao(
-          $sNomeLabel,
-          $aTipagem['type'], 
-          $aTipagem['name'],
-          $aTipagem['disabled'],
-          $aTipagem["lupa"],
-          $aTipagem["required"],
-          $aTipagem["value"]);
+          $oCampo->getNomeLabel(),
+          $oCampo->getTipagem(), 
+          $oCampo->getNameCampo(),
+          $oCampo->getDisabled(),
+          $oCampo->getLupa(),
+          $oCampo->getRequired(),
+          $oCampo->getValor()
+        );
       }
       return $html;
     }

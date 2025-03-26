@@ -4,14 +4,11 @@ namespace view;
 use controller\ClassControllerCidade;
 use Exception;
 use lib\estClassViewManutencao;
-use lib\enum\estClassEnumAcoes;
-use lib\enum\estClassEnumMensagensWebbased;
-use lib\estClassMensagem;
 
 require_once '../autoload.php';
 
 /**
- * @package webbased
+ * @package View
  * @author Caio Micael Krieger
  * @since 17/01/2025
  */
@@ -45,7 +42,7 @@ class ClassViewManutencaoCidade extends estClassViewManutencao {
      */
     public function getTelaAlterarCidade($aTipagem, $aDados) {
         try {
-            return json_encode($this->getTelaAlteracao($aTipagem, $aDados));
+            return json_encode($this->getTelaAlteracao($this->getCamposAlteracao(), $aDados));
         }
         catch (Exception $e) {
             return $e;
@@ -72,8 +69,8 @@ class ClassViewManutencaoCidade extends estClassViewManutencao {
         return [
             $this->addCampo()->setNomeLabel('Código da Cidade')->setTipagem('text')->setNameCampo('cidade.codigo')->setDisabled(),
             $this->addCampo()->setNomeLabel('Nome da Cidade')->setTipagem('text')->setNameCampo('cidade.nome')->setRequired(),
-            $this->addCampo()->setNomeLabel('Código do Estado')->setTipagem('text')->setNameCampo('estado.codigo')->setRequired(),
-            $this->addCampo()->setNomeLabel('Código do País')->setTipagem('text')->setNameCampo('pais.codigo')->setRequired()
+            $this->addCampo()->setNomeLabel('Código do Estado')->setTipagem('text')->setNameCampo('estado.codigo')->setRequired()->setLupa('Estado'),
+            $this->addCampo()->setNomeLabel('Código do País')->setTipagem('text')->setNameCampo('pais.codigo')->setRequired()->setLupa('Pais')
         ];
     }
 

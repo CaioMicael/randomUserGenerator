@@ -46,6 +46,11 @@ class estClassViewCampos {
      */
     protected string $sNameInputLupa;
 
+    /**
+     * Valor do campo (tag value HTML).
+     */
+    protected string $sValue;
+
     public function __construct() {
         $this->setNomeLabel('');
         $this->setTipagem('');
@@ -54,6 +59,7 @@ class estClassViewCampos {
         $this->setRequired('');
         $this->setLupa('');
         $this->setNameInputLupa('');
+        $this->setValor('');
     }
 
     /**
@@ -199,5 +205,19 @@ class estClassViewCampos {
     protected function setNameInputLupa(string $sNameInputLupa): self {
         $this->sNameInputLupa = $sNameInputLupa;
         return $this;
+    }
+
+    /**
+     * Retorna o valor do campo.
+     */
+    protected function getValor(): string {
+        return $this->sValue;
+    }
+
+    /**
+     * @param string|int $valor
+     */
+    protected function setValor($valor): void {
+        $this->sValue = $valor;
     }
 }
