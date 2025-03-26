@@ -44,7 +44,7 @@ class ClassViewManutencaoPais extends estClassViewManutencao {
      */
     public function getTelaAlterarPais($aTipagem, $aDados) {
         try {
-            return json_encode($this->getTelaAlteracao($aTipagem, $aDados));
+            return json_encode($this->getTelaAlteracao($this->getCamposAlteracao(), $aDados));
         }
         catch (Exception $e) {
             return $e;
@@ -67,6 +67,16 @@ class ClassViewManutencaoPais extends estClassViewManutencao {
      * {@inheritDoc}
      */
     protected function getCamposInclusao() {
+        return [
+            $this->addCampo()->setNameCampo('pais.codigo')->setNomeLabel('Código do País')->setTipagem('number')->setRequired()->setDisabled(),
+            $this->addCampo()->setNameCampo('pais.nome')->setNomeLabel('Nome do País')->setTipagem('text')->setRequired()
+        ];
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    protected function getCamposAlteracao() {
         return [
             $this->addCampo()->setNameCampo('pais.codigo')->setNomeLabel('Código do País')->setTipagem('number')->setRequired()->setDisabled(),
             $this->addCampo()->setNameCampo('pais.nome')->setNomeLabel('Nome do País')->setTipagem('text')->setRequired()
