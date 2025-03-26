@@ -11,7 +11,12 @@ use Throwable;
 
 require_once '../autoload.php';
 
-
+/**
+ * @package controller
+ * @subpackage webbased
+ * @author Caio Micael Krieger
+ * @since 17/01/2025
+ */
 class ClassControllerPais extends estClassController {
     private object $modelPais;
     private object $viewPais;
