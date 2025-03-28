@@ -4,10 +4,8 @@ namespace controller;
 use lib\estClassController;
 use lib\enum\estClassEnumAcoes;
 use lib\enum\estClassEnumMensagensWebbased;
-use model\ClassModelCidade;
 use controller\ClassControllerEstado;
 use controller\ClassControllerPais;
-use view\ClassViewManutencaoCidade;
 use Exception;
 use Throwable;
 
@@ -15,17 +13,6 @@ require_once '../autoload.php';
 
 
 class ClassControllerCidade extends estClassController {
-    private object $viewCidade;
-    private object $modelCidade;
-    private object $controllerEstado;
-    private object $controllerPais;
-
-
-    public function __construct() {
-        $this->modelCidade      = new ClassModelCidade;
-        $this->controllerEstado = new ClassControllerEstado;
-        $this->controllerPais   = new ClassControllerPais;
-    }
 
 
     /**
@@ -34,7 +21,7 @@ class ClassControllerCidade extends estClassController {
      * @return array
      */
     private function getDadosConsultaCidadeFromModel() {
-        return $this->modelCidade->getDadosConsultaCidade(25);
+        return $this->getModel()->getDadosConsultaCidade(25);
     }
 
     /**
@@ -51,9 +38,11 @@ class ClassControllerCidade extends estClassController {
      * 
      */
     private function trataDadosConsultaCidade($aDados) {
+        $oControllerEstado = new ClassControllerEstado();
+        $oControllerPais = new ClassControllerPais();
         $aMapaChave = array_merge($this->getMapaChaveColunasCidade(), 
-                                  $this->controllerEstado->getMapaChaveColunasEstado(), 
-                                  $this->controllerPais->getMapaChaveColunasPais());
+                                  $oControllerEstado->getMapaChaveColunasEstado(), 
+                                  $oControllerPais->getMapaChaveColunasPais());
        return $this->trataDadosConsultaChave($aMapaChave, $aDados);
     }
 
@@ -83,8 +72,7 @@ class ClassControllerCidade extends estClassController {
      * @return view
      */
     public function getTelaIncluirCidade() {
-        $this->viewCidade = new ClassViewManutencaoCidade;
-        return $this->viewCidade->getTelaIncluirCidade();
+        return $this->getView()->getTelaIncluirCidade();
     }
 
 
@@ -95,8 +83,7 @@ class ClassControllerCidade extends estClassController {
      */
     public function getTelaAlterarCidade($aDados) {
         try {
-            $this->viewCidade = new ClassViewManutencaoCidade;
-            return $this->viewCidade->getTelaAlterarCidade($aDados['dados']);
+            return $this->getView()->getTelaAlterarCidade($aDados['dados']);
         }
         catch (Throwable $e) {
             return json_encode($this->retornaExceptionFrontEnd($e));
@@ -110,8 +97,7 @@ class ClassControllerCidade extends estClassController {
      * @return HTML
      */
     public function getTelaConsultarCidade() {
-        $this->viewCidade = new ClassViewManutencaoCidade;
-        return $this->viewCidade->getConsultaCidadeView(
+        return $this->getView()->getConsultaCidadeView(
             [estClassEnumAcoes::INCLUIR, 
             estClassEnumAcoes::ALTERAR, 
             estClassEnumAcoes::EXCLUIR]);
@@ -129,7 +115,7 @@ class ClassControllerCidade extends estClassController {
         $iPaisCodigo   = filter_var($aDados['dados']['pais.codigo'], FILTER_SANITIZE_NUMBER_INT);
 
         try {
-            $this->modelCidade->processaDadosIncluir($sCidadeNome, $iEstadoCodigo, $iPaisCodigo);
+            $this->getModel()->processaDadosIncluir($sCidadeNome, $iEstadoCodigo, $iPaisCodigo);
             return json_encode($this->retornaIncluidoSucessoFrontEnd(estClassEnumMensagensWebbased::webbased006->value));
         }
         catch(Exception $e) {
@@ -143,7 +129,7 @@ class ClassControllerCidade extends estClassController {
      * chama o Model para realizar a exclusão.
      */
     public function processaDadosExcluirCidade($aDados) {
-        $this->modelCidade->processaDadosExcluir($aDados["dados"]);
+        $this->getModel()->processaDadosExcluir($aDados["dados"]);
         return json_encode($this->retornaIncluidoSucessoFrontEnd(estClassEnumMensagensWebbased::webbased013->value));
     }
 
@@ -154,7 +140,7 @@ class ClassControllerCidade extends estClassController {
      */
     public function processaDadosAlterarCidade($aDados) {
         try {
-            $this->modelCidade->processaDadosAlterar(
+            $this->getModel()->processaDadosAlterar(
                 $aDados["dados"]["cidade.codigo"],
                 $aDados["dados"]["cidade.nome"],
                 $aDados["dados"]["estado.codigo"],
