@@ -40,7 +40,7 @@ class ClassViewManutencaoEstado extends estClassViewManutencao {
      * @param array $aDados - Dados dos campos tipados em HTML.
      * @return HTML
      */
-    public function getTelaAlterarEstado($aTipagem, $aDados) {
+    public function getTelaAlterarEstado($aDados) {
         try {
             return json_encode($this->getTelaAlteracao($this->getCamposAlteracao(), $aDados));
         }

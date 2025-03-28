@@ -9,11 +9,15 @@ require_once '../autoload.php';
 /**
  * Classe utilizada como base para os controllers, contém métodos que são utilizados em todos controllers.
  * 
+ * @package lib
  * @author Caio Micael Krieger
+ * @since 17/01/2025
  */
 class estClassController {
 
     protected array $aRespostaFetch;
+    protected object $model;
+    protected object $view;
 
     /**
      * Este método é um facilitador, ele trata o retorno do Model 
@@ -108,6 +112,76 @@ class estClassController {
 
     protected function getRespostaFetch() {
         return $this->aRespostaFetch;
+    }
+
+    /**
+     * Retorna uma nova instância do model do controller.
+     * @return Model
+     */
+    protected function getInstanceModel() {
+        $controllerClassName = get_class($this);
+        // Extrair somente o nome da classe sem o namespace
+        $parts = explode('\\', $controllerClassName);
+        $simpleClassName = end($parts);
+        
+        $modelClassName = str_replace('Controller', 'Model', $simpleClassName);
+        // Adicionar o namespace correto para models
+        $fullyQualifiedModelName = 'model\\' . $modelClassName;
+        
+        return new $fullyQualifiedModelName();
+    }
+
+    /**
+     * Retorna uma nova instância da view do controller.
+     * @return View
+     */
+    protected function getInstanceView() {
+        $controllerClassName = get_class($this);
+        // Extrair somente o nome da classe sem o namespace
+        $parts = explode('\\', $controllerClassName);
+        $simpleClassName = end($parts);
+        
+        $viewClassName = str_replace('Controller', 'ViewManutencao', $simpleClassName);
+        // Adicionar o namespace correto para views
+        $fullyQualifiedViewName = 'view\\' . $viewClassName;
+        
+        return new $fullyQualifiedViewName();
+    }
+
+    /**
+     * Retorna o Model do controller.
+     * @return Model
+     */
+    protected function getModel() {
+        if (!isset($this->model)) {
+            $this->setModel($this->getInstanceModel());
+        }
+        return $this->model;
+    }
+
+    /**
+     * Retorna a view do controller.
+     * @return View
+     */
+    protected function getView() {
+        if (!isset($this->view)) {
+            $this->setView($this->getInstanceView());
+        }
+        return $this->view;
+    }
+    
+    /**
+     * Seta o Model do controller, só deve ser usado internamente.
+     */
+    private function setModel($model) {
+        $this->model = $model;
+    }
+
+    /**
+     * Seta a View do controller, só deve ser usado internamente.
+     */
+    private function setView($view) {
+        $this->view = $view;
     }
 }
 
