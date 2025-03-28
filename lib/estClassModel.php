@@ -1,7 +1,7 @@
 <?php
 namespace lib;
+
 use lib\estClassQuery;
-use lib\estClassErrorHandler;
 use lib\estClassMensagem;
 use lib\enum\estClassEnumMensagensWebbased;
 use Exception;
@@ -19,6 +19,7 @@ class estClassModel extends estClassQuery {
     protected string $schema;
     protected string $table;
     protected array $aChave;
+    protected object $controller;
 
 
     /**
@@ -202,6 +203,42 @@ class estClassModel extends estClassQuery {
 
     protected function setChave($aChave) {
         $this->aChave = $aChave;
+    }
+
+    /**
+     * Retorna uma nova instância do controller.
+     * @return Controller
+     */
+    protected function getInstanceController() {
+        $modelClassName = get_class($this);
+        // Extrair somente o nome da classe sem o namespace
+        $parts = explode('\\', $modelClassName);
+        $simpleClassName = end($parts);
+        
+        $controllerClassName = str_replace('Controller', 'ViewManutencao', $simpleClassName);
+        // Adicionar o namespace correto para views
+        $fullyQualifiedControllerName = 'view\\' . $controllerClassName;
+        
+        return new $fullyQualifiedControllerName();
+    }
+
+    /**
+     * Retorna o Controller do model.
+     * @return Controller
+     */
+    protected function getController() {
+        if (!isset($this->controller)) {
+            $this->setController($this->getInstanceController());
+        }
+        return $this->controller;
+    }
+
+    /**
+     * Seta o Controller do model.
+     * @param Controller $controller
+     */
+    private function setController($controller) {
+        $this->controller = $controller;
     }
 }
 
