@@ -18,12 +18,6 @@ require_once '../autoload.php';
  * @since 17/01/2025
  */
 class ClassControllerEstado extends estClassController {
-    private object $controllerPais;
-
-
-    public function __construct() {
-        $this->controllerPais = new ClassControllerPais;
-    }
 
 
     /**
@@ -52,8 +46,9 @@ class ClassControllerEstado extends estClassController {
      * @return array
      */
     private function trataDadosConsultaEstado($aDados) {
+        $controllerPais = new ClassControllerPais();
         $aMapaChave = array_merge($this->getMapaChaveColunasEstado(),
-                                  $this->controllerPais->getMapaChaveColunasPais());
+                                  $controllerPais->getMapaChaveColunasPais());
         return $this->trataDadosConsultaChave($aMapaChave, $aDados);
     }
 
