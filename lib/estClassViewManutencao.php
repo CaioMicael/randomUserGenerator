@@ -12,6 +12,7 @@ class estClassViewManutencao extends estClassViewCampos {
     protected string $sTabelaRegistrosConsulta;
     protected string $sTituloTelaInclusao;
     protected string $sTituloTelaAlteracao;
+    protected object $controller;
 
 
     /**
@@ -429,6 +430,42 @@ class estClassViewManutencao extends estClassViewCampos {
 
     protected function setTituloTelaAlteracao($titulo) {
       $this->sTituloTelaAlteracao = $titulo;
+    }
+
+    /**
+     * Retorna uma nova instância do controller.
+     * @return Controller
+     */
+    protected function getInstanceController() {
+      $viewClassName = get_class($this);
+      // Extrair somente o nome da classe sem o namespace
+      $parts = explode('\\', $viewClassName);
+      $simpleClassName = end($parts);
+      
+      $controllerClassName = str_replace('Controller', 'ViewManutencao', $simpleClassName);
+      // Adicionar o namespace correto para views
+      $fullyQualifiedControllerName = 'view\\' . $controllerClassName;
+      
+      return new $fullyQualifiedControllerName();
+    }
+
+    /**
+     * Retorna o Controller da view.
+     * @return Controller
+     */
+    protected function getController() {
+        if (!isset($this->controller)) {
+            $this->setController($this->getInstanceController());
+        }
+        return $this->controller;
+    }
+
+    /**
+     * Seta o Controller da view.
+     * @param Controller $controller
+     */
+    private function setController($controller) {
+        $this->controller = $controller;
     }
 }
 
