@@ -3,14 +3,13 @@ namespace controller;
 
 use lib\estClassController;
 use lib\enum\estClassEnumAcoes;
+use lib\enum\estClassEnumMensagensWebbased;
 use model\ClassModelCidade;
 use controller\ClassControllerEstado;
 use controller\ClassControllerPais;
-use Exception;
-use lib\enum\estClassEnumMensagensWebbased;
-use lib\estClassMensagem;
-use Throwable;
 use view\ClassViewManutencaoCidade;
+use Exception;
+use Throwable;
 
 require_once '../autoload.php';
 
@@ -38,6 +37,14 @@ class ClassControllerCidade extends estClassController {
         return $this->modelCidade->getDadosConsultaCidade(25);
     }
 
+    /**
+     * Este método retorna os dados de consulta pessoa tratados.
+     * 
+     * @return array
+     */
+    public function getDadosConsultaCidadeController() {
+        return $this->trataDadosConsultaCidade($this->getDadosConsultaCidadeFromModel());
+    }
 
     /**
      * Este método é responsável por tratar os dados vindo do model.
@@ -49,17 +56,6 @@ class ClassControllerCidade extends estClassController {
                                   $this->controllerPais->getMapaChaveColunasPais());
        return $this->trataDadosConsultaChave($aMapaChave, $aDados);
     }
-
-
-    /**
-     * Este método retorna os dados de consulta pessoa tratados.
-     * 
-     * @return array
-     */
-    public function getDadosConsultaCidadeController() {
-        return $this->trataDadosConsultaCidade($this->getDadosConsultaCidadeFromModel());
-    }
-
 
     /**
      * Este método contém um array com o mapeamento entre a chave do banco
@@ -75,39 +71,6 @@ class ClassControllerCidade extends estClassController {
             "paiscodigo"   => "Código do País"
         ];
     }
-
-
-    /**
-     * Este método contém um array com o mapeamento das colunas
-     * que devem aparecer na view com suas devidas tipagens.
-     * 
-     * @return array
-     */
-    public function getTipagemColunasCidade() {
-        return [
-            "Código da Cidade" => "int",
-            "Nome da Cidade"   => "string",
-            "Código do Estado" => "int",
-            "Código do País"   => "int"
-        ];
-    }
-
-
-    /**
-     * Este método retorna um array com as tipagens
-     * do nome da coluna e o type HTML e atributos.
-     * 
-     * @return array
-     */
-    public function getTipagemCamposToHtml() {
-        return [
-            "Código da Cidade" => ["name" => "cidade.codigo","type"   => "number", "required" => "required", "value" => "", "disabled" => "disabled", "lupa" => false],
-            "Nome da Cidade"   => ["name" => "cidade.nome"  ,"type"   => "text"  , "required" => "required", "value" => "", "disabled" => "", "lupa" => false],
-            "Código do Estado" => ["name" => "estado.codigo","type"   => "number", "required" => "required", "value" => "", "disabled" => "", "lupa" => "Estado"],
-            "Código do País"   => ["name" => "pais.codigo"  ,"type"   => "number", "required" => "required", "value" => "", "disabled" => "", "lupa" => "Pais"]            
-        ];
-    }
-
 
 /***************************************************************************************************************************/
 /*************************************             MÉTODOS DE FORMULÁRIO                 ***********************************/
@@ -133,7 +96,7 @@ class ClassControllerCidade extends estClassController {
     public function getTelaAlterarCidade($aDados) {
         try {
             $this->viewCidade = new ClassViewManutencaoCidade;
-            return $this->viewCidade->getTelaAlterarCidade($this->getTipagemCamposToHtml(), $aDados['dados']);
+            return $this->viewCidade->getTelaAlterarCidade($aDados['dados']);
         }
         catch (Throwable $e) {
             return json_encode($this->retornaExceptionFrontEnd($e));

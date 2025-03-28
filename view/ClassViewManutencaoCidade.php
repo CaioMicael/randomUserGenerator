@@ -36,11 +36,10 @@ class ClassViewManutencaoCidade extends estClassViewManutencao {
 
     /**
      * Este método realiza a criação de uma tela de alteração de registro.
-     * @param array $aTipagem - Dados dos campos tipados em HTML.
-     * @param array $aDados   - Dados a serem apresentados na tela de alteração.
+     * @param array $aDados - Dados a serem apresentados na tela de alteração.
      * @return HTML
      */
-    public function getTelaAlterarCidade($aTipagem, $aDados) {
+    public function getTelaAlterarCidade($aDados) {
         try {
             return json_encode($this->getTelaAlteracao($this->getCamposAlteracao(), $aDados));
         }
