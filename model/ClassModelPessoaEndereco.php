@@ -7,14 +7,24 @@ use Exception;
 
 require_once '../autoload.php';
 
+/**
+ * Classe utilizada para tratar dados e consultar dados de endereços de pessoas.
+ * @package model
+ * @author Caio Micael Krieger
+ * @since 08/01/2025
+ */
 class ClassModelPessoaEndereco extends estClassQuery {
     private int    $pesEnderecoCodigo;
     private string $rua;
     private int    $numeroEndereco;
     private string $latitude;
     private string $longitude;
-    private object $modelCidade;
-    private object $modelPessoa;
+
+    /** @var ClassModelCidade */
+    private object $Cidade;
+
+    /** @var ClassModelPessoa */
+    private object $Pessoa;
 
 
     /**
@@ -32,8 +42,6 @@ class ClassModelPessoaEndereco extends estClassQuery {
         $this->setNumeroEndereco($numero);
         $this->setLatitude($latitude);
         $this->setLongitude($longitude);
-        $this->modelCidade = $modelCidade;
-        $this->modelPessoa = $modelPessoa;
     }
 
 
@@ -44,12 +52,12 @@ class ClassModelPessoaEndereco extends estClassQuery {
     public function inserePessoaEndereco() {
         if (!$this->isEnderecoCadastrado()) {
             $this->setSql($this->getQueryInsertPessoaEndereco());
-            $this->insertAll([$this->modelCidade->getCidadeCodigo(),
+            $this->insertAll([$this->getCidade()->getCidadeCodigo(),
                               $this->getRua(),
                               $this->getNumeroEndereco(),
                               $this->getLatitude(),
                               $this->getLongitude(),
-                              $this->modelPessoa->getPescodigo()]);
+                              $this->getPessoa()->getPescodigo()]);
             $result = $this->getNextRow();
             if (isset($result['pesenderecocodigo'])) {
                 $this->setPesEnderecoCodigo($result['pesenderecocodigo']);
@@ -159,6 +167,28 @@ class ClassModelPessoaEndereco extends estClassQuery {
         return $this->longitude;
     }
 
+    /**
+     * Este método retorna o modelo de cidade.
+     * @return ClassModelCidade
+     */
+    public function getCidade(): ClassModelCidade {
+        if (! isset($this->Cidade)) {
+            $this->setCidade(new ClassModelCidade());
+        }
+        return $this->Cidade;
+    }
+
+    /**
+     * Este método retorna o modelo de pessoa.
+     * @return ClassModelPessoa
+     */
+    public function getPessoa(): ClassModelPessoa {
+        if (! isset($this->Pessoa)) {
+            $this->setPessoa(new ClassModelPessoa());
+        }
+        return $this->Pessoa;
+    }
+
     public function setPesEnderecoCodigo($enderecoCodigo) {
         $this->pesEnderecoCodigo = $enderecoCodigo;
     }
@@ -177,6 +207,22 @@ class ClassModelPessoaEndereco extends estClassQuery {
 
     public function setLongitude($longitude) {
         $this->longitude = $longitude;
+    }
+
+    /**
+     * Este método define o modelo de cidade.
+     * @param ClassModelCidade $modelCidade
+     */
+    private function setCidade(ClassModelCidade $modelCidade) {
+        $this->Cidade = $modelCidade;
+    }
+
+    /**
+     * Este método define o modelo de pessoa.
+     * @param ClassModelPessoa $modelPessoa
+     */
+    private function setPessoa(ClassModelPessoa $modelPessoa) {
+        $this->Pessoa = $modelPessoa;
     }
     
 
