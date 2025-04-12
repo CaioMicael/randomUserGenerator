@@ -19,7 +19,7 @@ abstract class estClassModel extends estClassQuery {
     protected string $schema;
     protected string $table;
     protected array $aChave;
-    protected object $controller;
+    private object $controller;
 
 
     public function __construct() {
@@ -201,11 +201,11 @@ abstract class estClassModel extends estClassQuery {
 /****************************************GETTERS E SETTERS DOS ATRIBUTOS *****************************************
  *****************************************************************************************************************/    
 
-    protected function getSchema() {
+    private function getSchema() {
         return $this->schema;
     }
 
-    protected function getTable() {
+    private function getTable() {
         return $this->table;
     }
 
@@ -213,11 +213,11 @@ abstract class estClassModel extends estClassQuery {
         return $this->aChave;
     }
 
-    protected function setSchema($schema) {
+    private function setSchema($schema) {
         $this->schema = $schema;
     }
 
-    protected function setTable($table) {
+    private function setTable($table) {
         $this->table = $table;
     }
 
