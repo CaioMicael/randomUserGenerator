@@ -17,9 +17,25 @@ class ClassModelEstado extends estClassModel {
     public function __construct() {
         parent::__construct();
         $this->modelPais = new ClassModelPais;
-        $this->setSchema('webbased');
-        $this->setTable('tbestado');
         $this->setChave(['estadocodigo' => '']);
+    }
+
+
+    /**
+     * {@InheritDoc}
+     * @see estClassModel::schemaModelo()
+     */
+    protected function schemaModelo(): string {
+        return 'webbased';
+    }
+    
+
+    /**
+     * {@InheritDoc}
+     * @see estClassModel::tableModelo()
+     */
+    protected function tableModelo(): string {
+        return 'tbestado';
     }
 
 
