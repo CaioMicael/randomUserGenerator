@@ -2,10 +2,9 @@
 namespace model;
 
 use Exception;
-use lib\enum\estClassEnumMensagensWebbased;
-use lib\estClassMensagem;
-use lib\estClassModel;
 use Throwable;
+use lib\enum\estClassEnumMensagensWebbased;
+use lib\estClassModel;
 
 require_once '../autoload.php';
 
@@ -13,14 +12,12 @@ require_once '../autoload.php';
 class ClassModelCidade extends estClassModel {
     private int    $cidadeCodigo;
     private string $cidadeNome;
-    private object $modelEstado;
-    private object $modelPais;
+    private object $Estado;
+    private object $Pais;
 
 
     public function __construct() {
         parent::__construct();
-        $this->modelEstado = new ClassModelEstado;
-        $this->modelPais   = new ClassModelPais;
         $this->setSchema('webbased');
         $this->setTable('tbcidade');
     }
@@ -36,8 +33,8 @@ class ClassModelCidade extends estClassModel {
      */
     public function setAttributeModelCidade($cidadeNome, $modelPais, $modelEstado) {
         $this->setCidadeNome($cidadeNome);
-        $this->modelPais   = $modelPais;
-        $this->modelEstado = $modelEstado;
+        $this->setPais($modelPais);
+        $this->setEstado($modelEstado);
     }
 
 
@@ -47,7 +44,7 @@ class ClassModelCidade extends estClassModel {
      */
     public function insereCidade($sCidadeNome, $iEstadoCodigo, $iPaisCodigo) {
         if (!$this->isCidadeCadastrada()) {
-            if ($this->modelEstado->isEstadoPaisValido($iEstadoCodigo, $iPaisCodigo)) {
+            if ($this->getEstado()->isEstadoPaisValido($iEstadoCodigo, $iPaisCodigo)) {
                 $this->setSql($this->getQueryInsereCidade());
                 $this->insertAll([$sCidadeNome,
                                   $iEstadoCodigo,
@@ -80,11 +77,11 @@ class ClassModelCidade extends estClassModel {
      * @param int    $iPaisCodigo
      */
     public function processaDadosIncluir($sCidadeNome, $iEstadoCodigo, $iPaisCodigo) {
-        if (!$this->modelEstado->isEstadoCadastradoByCodigo($iEstadoCodigo)) {
+        if (!$this->getEstado()->isEstadoCadastradoByCodigo($iEstadoCodigo)) {
             throw new Exception(estClassEnumMensagensWebbased::webbased004->value);
             return;
         }
-        if (!$this->modelPais->isPaisCadastradoByCodigo($iPaisCodigo)) {
+        if (!$this->getPais()->isPaisCadastradoByCodigo($iPaisCodigo)) {
             throw new Exception(estClassEnumMensagensWebbased::webbased005->value);
             return;   
         }
@@ -125,22 +122,22 @@ class ClassModelCidade extends estClassModel {
     public function processaDadosAlterar($iCidadeCodigo, $sCidadeNome, $iEstadoCodigo, $iPaisCodigo) {
         $this->setCidadeCodigo($iCidadeCodigo);
         $this->setCidadeNome($sCidadeNome);
-        $this->modelEstado->setEstadoCodigo($iEstadoCodigo);
-        $this->modelPais->setCodigoPais($iPaisCodigo);
+        $this->getEstado()->setEstadoCodigo($iEstadoCodigo);
+        $this->getPais()->setCodigoPais($iPaisCodigo);
 
         if (!$this->isCidadeCadastradaChave($iCidadeCodigo)) {
             throw new Exception(estClassEnumMensagensWebbased::webbased015->value);
             return;
         }
-        if (!$this->modelEstado->isEstadoCadastradoByCodigo($iEstadoCodigo)) {
+        if (!$this->getEstado()->isEstadoCadastradoByCodigo($iEstadoCodigo)) {
             throw new Exception(estClassEnumMensagensWebbased::webbased004->value);
             return;
         }
-        if (!$this->modelPais->isPaisCadastradoByCodigo($iPaisCodigo)) {
+        if (!$this->getPais()->isPaisCadastradoByCodigo($iPaisCodigo)) {
             throw new Exception(estClassEnumMensagensWebbased::webbased005->value);
             return;   
         }
-        if (!$this->modelEstado->isEstadoPaisValido($this->modelEstado->getEstadoCodigo(), $this->modelPais->getCodigoPais())) {
+        if (!$this->getEstado()->isEstadoPaisValido($this->getEstado()->getEstadoCodigo(), $this->getPais()->getCodigoPais())) {
             throw new Exception(estClassEnumMensagensWebbased::webbased012->value);
             return;
         }
@@ -302,6 +299,44 @@ class ClassModelCidade extends estClassModel {
     }
 
     /**
+     * Retorna o ModelEstado
+     * @return ClassModelEstado
+     */
+    public function getEstado() {
+        if (! isset($this->Estado)) {
+            $this->setEstado(new ClassModelEstado());
+        }
+        return $this->Estado;
+    }
+
+    /**
+     * Seta o ModelEstado
+     * @param ClassModelEstado $Estado
+     */
+    public function setEstado(ClassModelEstado $Estado) {
+        $this->Estado = $Estado;
+    }
+
+    /**
+     * Retorna o ModelPais
+     * @return ClassModelPais
+     */
+    public function getPais() {
+        if (! isset($this->Pais)) {
+            $this->setPais(new ClassModelPais());
+        }
+        return $this->Pais;
+    }
+
+    /**
+     * Seta o ModelPais
+     * @param ClassModelPais $Pais
+     */
+    public function setPais(ClassModelPais $Pais) {
+        $this->Pais = $Pais;
+    }
+
+    /**
      * Este método retorna o atributo cidadeCodigo em forma de array associativo com o nome da coluna no BD.
      */
     public function getArrayCidadeCodigoColuna() {
@@ -322,8 +357,8 @@ class ClassModelCidade extends estClassModel {
         return [
             'cidadecodigo' => $this->getCidadeCodigo(),
             'cidadenome'   => $this->getCidadeNome(),
-            'estadocodigo' => $this->modelEstado->getEstadoCodigo(),
-            'paiscodigo'   => $this->modelPais->getCodigoPais()
+            'estadocodigo' => $this->getEstado()->getEstadoCodigo(),
+            'paiscodigo'   => $this->getPais()->getCodigoPais()
         ];
     }
 }
