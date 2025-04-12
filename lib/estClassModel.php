@@ -15,12 +15,17 @@ require_once '../autoload.php';
  * @author Caio Micael Krieger
  * @since 06/02/2025
  */
-class estClassModel extends estClassQuery {
+abstract class estClassModel extends estClassQuery {
     protected string $schema;
     protected string $table;
     protected array $aChave;
     protected object $controller;
 
+
+    public function __construct() {
+        $this->setSchema($this->schemaModelo());
+        $this->setTable($this->tableModelo());
+    }
 
     /**
      * Este método realiza a persistência de um objeto de acordo com os dados no banco de dados.
@@ -176,6 +181,21 @@ class estClassModel extends estClassQuery {
         return $query;
     }
 
+
+/**************************************** Métodos Abstratos *****************************************
+ ****************************************************************************************************/ 
+
+    /**
+     * Deve retornar o nome do schema do modelo.
+     * @return string $schema
+     */
+    abstract protected function schemaModelo(): string;
+
+    /**
+     * Deve retornar o nome da tabela do modelo.
+     * @return string $table
+     */
+    abstract protected function tableModelo(): string;
 
 
 /****************************************GETTERS E SETTERS DOS ATRIBUTOS *****************************************
