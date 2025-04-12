@@ -37,7 +37,7 @@ class ClassModelPessoaEndereco extends estClassQuery {
      * @param object $modelCidade
      * @param object $modelPessoa
      */
-    public function setAttributeModel($rua, $numero, $latitude, $longitude, $modelCidade, $modelPessoa) {
+    public function setAttributeModel($rua, $numero, $latitude, $longitude) {
         $this->setRua($rua);
         $this->setNumeroEndereco($numero);
         $this->setLatitude($latitude);
