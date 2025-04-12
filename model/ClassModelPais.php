@@ -14,9 +14,25 @@ class ClassModelPais extends estClassModel {
 
     public function __construct() {
         parent::__construct();
-        $this->setSchema('webbased');
-        $this->setTable('tbpais');
         $this->setChave(['paiscodigo' => '']);
+    }
+
+
+    /**
+     * {@InheritDoc}
+     * @see estClassModel::schemaModelo()
+     */
+    protected function schemaModelo(): string {
+        return 'webbased';
+    }
+    
+
+    /**
+     * {@InheritDoc}
+     * @see estClassModel::tableModelo()
+     */
+    protected function tableModelo(): string {
+        return 'tbpais';
     }
 
 
