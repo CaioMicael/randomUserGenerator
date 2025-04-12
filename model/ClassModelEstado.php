@@ -11,12 +11,11 @@ class ClassModelEstado extends estClassModel {
     private int    $estadoCodigo;
     private string $estadoNome;
     private int    $codigoPais;
-    private object $modelPais;
+    private object $Pais;
     
     
     public function __construct() {
         parent::__construct();
-        $this->modelPais = new ClassModelPais;
         $this->setChave(['estadocodigo' => '']);
     }
 
@@ -86,7 +85,7 @@ class ClassModelEstado extends estClassModel {
             throw new Exception(estClassEnumMensagensWebbased::webbased009->value);
             return;
         }
-        if (!$this->modelPais->isPaisCadastradoByCodigo($iPaisCodigo)) {
+        if (!$this->getPais()->isPaisCadastradoByCodigo($iPaisCodigo)) {
             throw new Exception(estClassEnumMensagensWebbased::webbased005->value);
             return;   
         }
@@ -126,18 +125,18 @@ class ClassModelEstado extends estClassModel {
     public function processaDadosAlterar($iEstadoCodigo, $sEstadoNome, $iPaisCodigo, $sPaisNome) {
         $this->setEstadoCodigo($iEstadoCodigo);
         $this->setEstadoNome($sEstadoNome);
-        $this->modelPais->setCodigoPais($iPaisCodigo);
-        $this->modelPais->setNomePais($sPaisNome);
+        $this->getPais()->setCodigoPais($iPaisCodigo);
+        $this->getPais()->setNomePais($sPaisNome);
 
         if (!$this->isEstadoCadastradoByCodigo($this->getEstadoCodigo())) {
             throw new Exception(estClassEnumMensagensWebbased::webbased015->value);
             return;
         }
-        if (!$this->modelPais->isPaisCadastradoByCodigo($this->modelPais->getCodigoPais())) {
+        if (!$this->getPais()->isPaisCadastradoByCodigo($this->getPais()->getCodigoPais())) {
             throw new Exception(estClassEnumMensagensWebbased::webbased005->value);
             return;   
         }
-        if (!$this->isEstadoPaisValido($this->getEstadoCodigo(), $this->modelPais->getCodigoPais())) {
+        if (!$this->isEstadoPaisValido($this->getEstadoCodigo(), $this->getPais()->getCodigoPais())) {
             throw new Exception(estClassEnumMensagensWebbased::webbased012->value);
             return;
         }
@@ -282,6 +281,17 @@ class ClassModelEstado extends estClassModel {
         return $this->codigoPais;
     }
 
+    /**
+     * Este método retorna o objeto Pais.
+     * @return ClassModelPais
+     */
+    public function getPais(): ClassModelPais {
+        if (! isset($this->Pais)) {
+            $this->setPais(new ClassModelPais());
+        }
+        return $this->Pais;
+    }
+
     public function setEstadoCodigo($estadoCodigo) {
         $this->estadoCodigo = $estadoCodigo;
     }
@@ -293,6 +303,14 @@ class ClassModelEstado extends estClassModel {
     public function setCodigoPais($codigoPais) {
         $this->codigoPais = $codigoPais;
     }
+
+    /**
+     * Este método seta o objeto Pais.
+     * @param ClassModelPais $Pais
+     */
+    public function setPais(ClassModelPais $Pais) {
+        $this->Pais = $Pais;
+    }   
 
     /**
      * Este método retorna o atributo em forma de array associativo com o nome da coluna no BD.
@@ -317,7 +335,7 @@ class ClassModelEstado extends estClassModel {
         return [
             'estadocodigo' => $this->getEstadoCodigo(),
             'estadonome'   => $this->getEstadoNome(),
-            'paiscodigo'   => $this->modelPais->getCodigoPais()
+            'paiscodigo'   => $this->getPais()->getCodigoPais()
         ];
     }
 
