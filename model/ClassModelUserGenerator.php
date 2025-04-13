@@ -12,21 +12,11 @@ require_once '../autoload.php';
 
 Class ClassModelUserGenerator extends estClassQuery {
     private object $oDadosRequisicao;
-    private object $modelPessoa;
-    private object $modelPessoaEndereco;
-    private object $modelPais;
-    private object $modelEstado;
-    private object $modelCidade;
-
-
-    public function __construct() {
-        $this->modelPessoa         = new ClassModelPessoa;
-        $this->modelPessoaEndereco = new ClassModelPessoaEndereco;
-        $this->modelPais           = new ClassModelPais;
-        $this->modelEstado         = new ClassModelEstado;
-        $this->modelCidade         = new ClassModelCidade;
-    }
-
+    private object $Pessoa;
+    private object $PessoaEndereco;
+    private object $Pais;
+    private object $Estado;
+    private object $Cidade;
 
     /**
      * Esta função recebe a response da API e chama os métodos responsáveis por tratar o dado e enviar aos respectivos models.
@@ -53,8 +43,8 @@ Class ClassModelUserGenerator extends estClassQuery {
      * 
      */
     private function enviaDadosToModelPais() {
-        $this->modelPais->setAttributeModel($this->oDadosRequisicao->results[0]->location->country);
-        $this->modelPais->inserePais();
+        $this->getPais()->setAttributeModel($this->oDadosRequisicao->results[0]->location->country);
+        $this->getPais()->inserePais();
     }
 
 
@@ -63,8 +53,8 @@ Class ClassModelUserGenerator extends estClassQuery {
      * 
      */
     private function enviaDadosToModelEstado() {
-        $this->modelEstado->setAttributeModel($this->oDadosRequisicao->results[0]->location->state, $this->modelPais->getCodigoPais());
-        $this->modelEstado->insereEstado();
+        $this->getEstado()->setAttributeModel($this->oDadosRequisicao->results[0]->location->state, $this->getPais()->getCodigoPais());
+        $this->getEstado()->insereEstado();
     }
 
 
@@ -73,11 +63,11 @@ Class ClassModelUserGenerator extends estClassQuery {
      * 
      */
     private function enviaDadosToModelCidade() {
-        $this->modelCidade->setAttributeModelCidade($this->oDadosRequisicao->results[0]->location->city, $this->modelPais, $this->modelEstado);
-        $this->modelCidade->insereCidade(
-            $this->modelCidade->getCidadeNome(),
-            $this->modelEstado->getEstadoCodigo(),
-            $this->modelPais->getCodigoPais()
+        $this->getCidade()->setAttributeModelCidade($this->oDadosRequisicao->results[0]->location->city, $this->getPais(), $this->getEstado());
+        $this->getCidade()->insereCidade(
+            $this->getCidade()->getCidadeNome(),
+            $this->getEstado()->getEstadoCodigo(),
+            $this->getPais()->getCodigoPais()
         );
     }
 
@@ -87,13 +77,13 @@ Class ClassModelUserGenerator extends estClassQuery {
      * 
      */
     private function enviaDadosToModelPessoa() {
-        $this->modelPessoa->setAttributeModel($this->oDadosRequisicao->info->seed, 
+        $this->getPessoa()->setAttributeModel($this->oDadosRequisicao->info->seed, 
                                               $this->oDadosRequisicao->results[0]->gender, 
                                               $this->oDadosRequisicao->results[0]->name->first . ' ' . $this->oDadosRequisicao->results[0]->name->last, 
                                               $this->oDadosRequisicao->results[0]->email, 
                                               $this->oDadosRequisicao->results[0]->phone, 
                                               $this->oDadosRequisicao->results[0]->cell);
-        $this->modelPessoa->inserePessoa();
+        $this->getPessoa()->inserePessoa();
     }
 
 
@@ -101,16 +91,109 @@ Class ClassModelUserGenerator extends estClassQuery {
      * Esta função envia os dados para o ModelPessoaEndereco inserir no banco.
      */
     public function enviaDadosToModelPessoaEndereco() {
-        $this->modelPessoaEndereco->setAttributeModel($this->oDadosRequisicao->results[0]->location->street->name,
+        $this->getPessoaEndereco()->setAttributeModel($this->oDadosRequisicao->results[0]->location->street->name,
                                                       $this->oDadosRequisicao->results[0]->location->street->number,
                                                       $this->oDadosRequisicao->results[0]->location->coordinates->latitude,
                                                       $this->oDadosRequisicao->results[0]->location->coordinates->longitude,
-                                                      $this->modelCidade,
-                                                      $this->modelPessoa);
-        $this->modelPessoaEndereco->inserePessoaEndereco();
+                                                      $this->getCidade(),
+                                                      $this->getPessoa());
+        $this->getPessoaEndereco()->inserePessoaEndereco();
     }
 
+    /**
+     * Retorna o ModelPessoa
+     * @return ClassModelPessoa
+     */
+    public function getPessoa() {
+        if (! isset($this->Pessoa)) {
+            $this->setPessoa(new ClassModelPessoa());
+        }
+        return $this->Pessoa;
+    }
 
+    /**
+     * Seta o ModelPessoa
+     * @param ClassModelPessoa $Pessoa
+     */
+    public function setPessoa(ClassModelPessoa $Pessoa) {
+        $this->Pessoa = $Pessoa;
+    }
+
+    /**
+     * Retorna o ModelPessoaEndereco
+     * @return ClassModelPessoaEndereco
+     */
+    public function getPessoaEndereco() {
+        if (! isset($this->PessoaEndereco)) {
+            $this->setPessoaEndereco(new ClassModelPessoaEndereco());
+        }
+        return $this->PessoaEndereco;
+    }
+
+    /**
+     * Seta o ModelPessoaEndereco
+     * @param ClassModelPessoaEndereco $PessoaEndereco
+     */
+    public function setPessoaEndereco(ClassModelPessoaEndereco $PessoaEndereco) {
+        $this->PessoaEndereco = $PessoaEndereco;
+    }
+
+    /**
+     * Retorna o Modelo de Cidade
+     * @return ClassModelCidade
+     */
+    public function getCidade() {
+        if (! isset($this->Cidade)) {
+            $this->setCidade(new ClassModelCidade());
+        }
+        return $this->Cidade;
+    }
+
+    /**
+     * Seta o ModelCidade
+     * @param ClassModelCidade $Cidade
+     */
+    public function setCidade(ClassModelCidade $Cidade) {
+        $this->Cidade = $Cidade;
+    }
+
+    /**
+     * Retorna o ModelEstado
+     * @return ClassModelEstado
+     */
+    public function getEstado() {
+        if (! isset($this->Estado)) {
+            $this->setEstado(new ClassModelEstado());
+        }
+        return $this->Estado;
+    }
+
+    /**
+     * Seta o ModelEstado
+     * @param ClassModelEstado $Estado
+     */
+    public function setEstado(ClassModelEstado $Estado) {
+        $this->Estado = $Estado;
+    }
+
+    /**
+     * Retorna o ModelPais
+     * @return ClassModelPais
+     */
+    public function getPais() {
+        if (! isset($this->Pais)) {
+            $this->setPais(new ClassModelPais());
+        }
+        return $this->Pais;
+    }
+
+    /**
+     * Seta o ModelPais
+     * @param ClassModelPais $Pais
+     */
+    public function setPais(ClassModelPais $Pais) {
+        $this->Pais = $Pais;
+    }
 }
 
 ?>
