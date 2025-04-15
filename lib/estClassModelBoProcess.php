@@ -22,7 +22,7 @@ class estClassModelBoProcess {
     protected function beforeProcessaDadosIncluir() {}
 
     /**
-     * Método executado para processar a inclusão de dados.
+     * Método executado para processar a inclusão de dados do modelo.
      */
     protected function processaDadosIncluir() {
 
@@ -47,7 +47,7 @@ class estClassModelBoProcess {
     }
     
     /**
-     * Método executado após processar a alteração de dados.
+     * Método executado após processar a alteração de dados do modelo.
      */
     protected function afterProcessaDadosAlterar(){}
     
