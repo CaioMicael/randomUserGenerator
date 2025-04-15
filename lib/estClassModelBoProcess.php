@@ -1,6 +1,7 @@
 <?php
 namespace lib\estClassModelBoProcess;
 
+require_once '../autoload.php';
 
 /**
  * Classe base para os processos de negócio do Model.
