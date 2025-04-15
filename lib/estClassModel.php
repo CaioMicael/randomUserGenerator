@@ -39,7 +39,38 @@ abstract class estClassModel extends estClassQuery {
         return $this->openFetchAll();
     }
 
+    /**
+     * Este método retorna todos os registros encontrados na tabela do modelo
+     * filtrando apenas pela chave do modelo.
+     * @param $aValorChave - Valor da chave a ser filtrada.
+     * @return array
+     */
+    protected function getAllDadosByChave() {
+        $this->setSql($this->getQueryAllDadosByChave());
+        $this->Open();
+        return $this->getNextRow();
+    }
 
+    /**
+     * Esta função pode ser utilizada para excluir um registro do banco de dados.
+     * Necessário que a chave esteja setada para utilizar a função.
+     * @return void
+     */
+    protected function doExcluirRegistro() {
+        $this->setSql($this->getQueryExcluirRegistro());
+        if (empty(array_filter($this->getChave()))) {
+            return estClassMensagem::geraMensagemAlertaTela(estClassEnumMensagensWebbased::webbased003);
+        }
+        try {
+            $this->openFetchAll();
+        }
+        catch (Exception $e) {
+            return new Exception($e);
+        }
+    }
+
+/********************************************* Querys ***********************************************
+ ****************************************************************************************************/ 
     /**
      * Esta função retorna o SQL para a função persisteObjeto.
      * 
@@ -85,39 +116,6 @@ abstract class estClassModel extends estClassQuery {
             return new Exception($e);
         }
     }
-
-
-    /**
-     * Esta função pode ser utilizada para excluir um registro do banco de dados.
-     * Necessário que a chave esteja setada para utilizar a função.
-     * @return void
-     */
-    protected function doExcluirRegistro() {
-        $this->setSql($this->getQueryExcluirRegistro());
-        if (empty(array_filter($this->getChave()))) {
-            return estClassMensagem::geraMensagemAlertaTela(estClassEnumMensagensWebbased::webbased003);
-        }
-        try {
-            $this->openFetchAll();
-        }
-        catch (Exception $e) {
-            return new Exception($e);
-        }
-    }
-    
-
-    /**
-     * Este método retorna todos os registros encontrados na tabela do modelo
-     * filtrando apenas pela chave do modelo.
-     * @param $aValorChave - Valor da chave a ser filtrada.
-     * @return array
-     */
-    protected function getAllDadosByChave() {
-        $this->setSql($this->getQueryAllDadosByChave());
-        $this->Open();
-        return $this->getNextRow();
-    }
-    
 
     /**
      * Este método retorna o SQL de update de registro.
@@ -181,7 +179,6 @@ abstract class estClassModel extends estClassQuery {
         return $query;
     }
 
-
 /**************************************** Métodos Abstratos *****************************************
  ****************************************************************************************************/ 
 
@@ -198,7 +195,7 @@ abstract class estClassModel extends estClassQuery {
     abstract protected function tableModelo(): string;
 
 
-/****************************************GETTERS E SETTERS DOS ATRIBUTOS *****************************************
+/*************************************** GETTERS E SETTERS DOS ATRIBUTOS *****************************************
  *****************************************************************************************************************/    
 
     private function getSchema() {
