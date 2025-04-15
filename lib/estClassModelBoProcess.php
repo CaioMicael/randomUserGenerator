@@ -1,6 +1,9 @@
 <?php
 namespace lib\estClassModelBoProcess;
 
+use lib\enum\estClassEnumMensagensLib;
+use lib\estClassMensagem;
+
 require_once '../autoload.php';
 
 /**
@@ -55,10 +58,18 @@ class estClassModelBoProcess {
     protected function beforeProcessaDadosExcluir(){}
 
     /**
-     * Método executado para processar a exclusão de dados.
+     * Método executado para processar a exclusão de dados do modelo.
      */
     protected function processaDadosExcluir() {
+        $this->beforeProcessaDadosExcluir();
 
+        if (isset($this->getModel()->getChave())) {
+            $this->getModel()->doExcluirRegistro();
+            $this->afterProcessaDadosExcluir();
+            return;
+        }
+        
+        return estClassMensagem::geraMensagemAlertaTela(estClassEnumMensagensLib::lib001);
     }
     
     /**
