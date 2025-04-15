@@ -5,7 +5,6 @@ require_once '../autoload.php';
 
 /**
  * Enum dos códigos das mensagens do package lib.
- * 
  * @package lib
  * @author Caio Micael Krieger
  * @since 15/04/2025
